@@ -92,8 +92,9 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'g-recaptcha-response' => [
+            'required' => 'Please verify that you are not a robot.',
+            'captcha' => 'Captcha error! try again later or contact site admin.',
         ],
     ],
 
@@ -108,6 +109,12 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'name' => 'নাম',
+        'email' => 'ইমেইল',
+        'phone' => 'ফোন নম্বর',
+        'phoneoremail' => 'ফোন নম্বর অথবা ইমেইল ঠিকানা',
+        'password' => 'পাসওয়ার্ড'
+    ],
 
 ];

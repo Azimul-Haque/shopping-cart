@@ -23,7 +23,7 @@
    
 @if (Session::has('success'))
   <script type="text/javascript">
-    toastr.success('{{Session::get('success')}}', 'SUCCESS').css('width','400px');
+    toastr.success('{{Session::get('success')}}', 'সফল (SUCCESS)').css('width','400px');
   </script>
 @endif
 
@@ -31,20 +31,26 @@
 @if (count($errors) > 0)
   @foreach ($errors->all() as $error)
       <script type="text/javascript">
-      toastr.error('{{ $error }}', 'ERROR').css('width','400px');
+      toastr.error('{{ $error }}', 'ভুল হচ্ছে (ERROR)').css('width','400px');
     </script>
   @endforeach 
 @endif
 
+@if(session('error'))
+    <script type="text/javascript">
+    toastr.error('{{ session('error') }}', 'ভুল হচ্ছে (ERROR)').css('width','400px');
+  </script>
+@endif
+
 @if(session('info'))
     <script type="text/javascript">
-    toastr.info('{{ session('info') }}', 'INFO').css('width','400px');
+    toastr.info('{{ session('info') }}', 'তথ্য (INFO)').css('width','400px');
   </script>
 @endif
 
 @if(session('warning'))
     <script type="text/javascript">
-    toastr.warning('{{ session('warning') }}', 'WARNING').css('width','400px');
+    toastr.warning('{{ session('warning') }}', 'সতর্কীকরণ (WARNING)').css('width','400px');
   </script>
 @endif
 

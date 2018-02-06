@@ -1,29 +1,35 @@
 @extends('layouts.master')
 
 @section('content')
-<dir class="row">
-  <div class="col-md-4 col-md-offset-4">
-    <h1>Register</h1>
-    <form action="{{ route('user.register') }}" method="POST">
-      {{ csrf_field() }}
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input class="form-control" type="text" id="name" name="name">
-      </div>
-      <div class="form-group">
-        <label for="phone">Phone</label>
-        <input class="form-control" type="text" id="phone" name="phone">
-      </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input class="form-control" type="text" id="email" name="email">
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input class="form-control" type="password" id="password" name="password">
-      </div>
-      <button type="submit" class="btn btn-primary">Register</button>
-    </form>
+<div class="col-md-4 col-md-offset-4">
+  <div class="panel panel-success">
+    <div class="panel-heading"><span>রেজিস্টার</span></div>
+    <div class="panel-body">
+      {!! Form::open(['route' => 'user.register', 'method' => 'POST']) !!}
+        {!! Form::label('name', 'নাম') !!}
+        {!! Form::text('name', null, array('class' => 'form-control', 'required' => '')) !!}
+
+        {!! Form::label('phone', 'মোবাইল নম্বর') !!}
+        {!! Form::text('phone', null, array('class' => 'form-control', 'required' => '')) !!}
+
+        {!! Form::label('email', 'ইমেইল ঠিকানা') !!}
+        {!! Form::text('email', null, array('class' => 'form-control', 'required' => '')) !!}
+
+        {!! Form::label('address', 'পণ্য প্রেরণের ঠিকানা') !!}
+        {!! Form::textarea('address', null, array('class' => 'form-control address', 'required' => '')) !!}
+
+        {!! Form::label('password', 'পাসওয়ার্ড') !!}
+        {!! Form::password('password', array('class' => 'form-control', 'required' => '')) !!}
+
+        {!! Form::label('password_confirmation', 'পাসওয়ার্ড নিশ্চিত করুণ') !!}
+        {!! Form::password('password_confirmation' , array('class' => 'form-control', 'required' => '')) !!}
+
+        {!! Form::label('captcha', 'ক্যাপচা') !!}
+        {!! app('captcha')->display() !!}
+
+        {!! Form::submit('রেজিস্টার', array('class' => 'btn btn-success btn-block', 'style' => 'margin-top:20px;')) !!}
+      {!! Form::close() !!}
+    </div>
   </div>
-</dir>
+</div>
 @endsection

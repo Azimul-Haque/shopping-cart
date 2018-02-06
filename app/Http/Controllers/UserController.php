@@ -6,11 +6,16 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\User;
+use App\Order;
 use Auth;
 use Session;
 
 class UserController extends Controller
 {
+    public function __construct(){
+        parent::__construct();
+    }
+    
     public function getRegister() {
       return view('user.register');
     }
@@ -20,13 +25,15 @@ class UserController extends Controller
         'name' => 'required',
         'email' => 'email|required|unique:users',
         'phone' => 'required|unique:users',
-        'password' => 'required|min:6'
+        'address' => 'required',
+        'password' => 'required|confirmed|min:6'
       ]);
 
       $user = new User([
         'name' => $request->input('name'),
         'email' => $request->input('email'),
         'phone' => $request->input('phone'),
+        'address' => $request->input('address'),
         'role' => 'customer',
         'password' => bcrypt($request->input('password'))
       ]);
@@ -34,6 +41,12 @@ class UserController extends Controller
       $user->save();
 
       Auth::login($user);
+      if(Session::has('oldUrl')) {
+        $oldUrl = Session::get('oldUrl');
+        Session::forget('oldUrl');
+        return redirect()->to($oldUrl);
+      }
+      
       Session::flash('success', 'The account is created successfully!'); 
       return redirect()->route('product.index');
     }
@@ -43,22 +56,49 @@ class UserController extends Controller
     }
 
     public function postLogin(Request $request) {
+      $loginfield = 'phone';
+      if (is_numeric($request->input('phoneoremail'))) {
+          $loginfield = 'phone';
+          $this->validate($request, [
+            'phoneoremail' => 'numeric|required',
+            'password' => 'required|min:6'
+          ]);
+      } elseif (filter_var($request->input('phoneoremail'), FILTER_VALIDATE_EMAIL)) {
+          $loginfield = 'email';
+          $this->validate($request, [
+            'phoneoremail' => 'email|required',
+            'password' => 'required|min:6'
+          ]);
+      }
       $this->validate($request, [
-        'email' => 'email|required',
+        'phoneoremail' => 'required',
         'password' => 'required|min:6'
       ]);
 
-      if(Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
+      if(Auth::attempt([$loginfield => $request->input('phoneoremail'), 'password' => $request->input('password')])) {
         Session::flash('success', 'Logged in successfully!');
-        return redirect()->route('user.profile');
+        if(Auth::check() && Auth::user()->role == 'admin') {
+          return redirect()->route('warehouse.dashboard');
+        } else {
+          if(Session::has('oldUrl')) {
+            $oldUrl = Session::get('oldUrl');
+            Session::forget('oldUrl');
+            return redirect()->to($oldUrl);
+          }
+          return redirect()->route('user.profile');
+        }
       }
-
-      Session::flash('warning', 'Wrong Credentials!'); 
+      Session::flash('warning', 'তথ্য সঠিক নয়! আবার চেষ্টা করুন।'); 
       return redirect()->back();
     }
 
     public function getProfile() {
-      return view('user.profile');
+      $orders = Order::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->get();
+      $orders->transform(function($order, $key) {
+        $order->cart = unserialize($order->cart);
+        return $order;
+      });
+      return view('user.profile', ['orders' => $orders]);
     }
 
     public function getLogout() {
