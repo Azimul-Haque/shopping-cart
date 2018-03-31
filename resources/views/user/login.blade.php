@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+@section('title', 'সাউদিয়া সুপার শপ | লগইন')
+
 @section('content')
   <div class="col-md-4 col-md-offset-4">
     <div class="panel panel-success">

@@ -59,6 +59,7 @@
                     }
                     totalInBag = totalInBag + 1;
                     $("#totalInBag").text(totalInBag);
+                    
                     var totalInBagMobile = parseInt($("#totalInBagMobile").text());
                     if(isNaN(totalInBagMobile)) {
                       totalInBagMobile = 0;
