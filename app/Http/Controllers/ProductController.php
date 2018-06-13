@@ -105,7 +105,7 @@ class ProductController extends Controller
         $order->address = $request->address;
         $order->paymentstatus = 'not-paid';
         $nowdatetime = Carbon::now();
-        $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@$&_';
+        $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $random_string = substr(str_shuffle(str_repeat($pool, 8)), 0, 8);
         $order->payment_id = $nowdatetime->format('YmdHis').$random_string;
 
