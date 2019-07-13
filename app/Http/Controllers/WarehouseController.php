@@ -73,7 +73,7 @@ class WarehouseController extends Controller
       if($request->hasFile('image')) {
           $image      = $request->file('image');
           $nowdatetime = Carbon::now();
-          $filename   = str_replace(' ','',$product->title).$nowdatetime->format('YmdHis') .'.' . $image->getClientOriginalExtension();
+          $filename   = random_string(6) . time() .'.' . $image->getClientOriginalExtension();
           $location   = public_path('images/product-images/'. $filename);
 
           Image::make($image)->resize(200, 200)->save($location);
