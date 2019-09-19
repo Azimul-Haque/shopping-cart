@@ -1,5 +1,5 @@
-<link href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet"/>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<link href="{{ asset('src/css/toastr.min.css') }}" rel="stylesheet"/>
+<script src="{{ asset('src/js/toastr.min.js') }}"></script>
 
 <script type="text/javascript">
   toastr.options = {
