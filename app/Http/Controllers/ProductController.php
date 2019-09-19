@@ -142,7 +142,7 @@ class ProductController extends Controller
       }
 
       Session::forget('cart');
-      Session::flash('success', 'আপনার অর্ডারটি নিশ্চিত করা হয়েছে। শীঘ্রই আমাদের একজন প্রতিনিধি আম্নার সাথে যোগাযোগ করবেন। ধন্যবাদ।');
+      Session::flash('success', 'আপনার অর্ডারটি নিশ্চিত করা হয়েছে। শীঘ্রই আমাদের একজন প্রতিনিধি আপনার সাথে যোগাযোগ করবেন। ধন্যবাদ।');
       return redirect()->route('user.profile');
     }
 
