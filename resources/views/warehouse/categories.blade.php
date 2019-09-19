@@ -1,6 +1,6 @@
 @extends('partials.warehousepartials')
 
-@section('title', 'পণ্যের শ্রেণিবিভাগ | Saudia Super Shop')
+@section('title', 'পণ্যের শ্রেণিবিভাগ | ইকমার্স')
 
 @section('warehousecontent')
   <div class="row">

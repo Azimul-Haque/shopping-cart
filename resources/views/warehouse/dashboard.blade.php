@@ -1,6 +1,6 @@
 @extends('partials.warehousepartials')
 
-@section('title', 'Dashboard | Saudia Super Shop')
+@section('title', 'ড্যাশবোর্ড | ইকমার্স')
 
 @section('styles')
 	<link rel="stylesheet" type="text/css" href="{{ asset('src/css/dashboard.css') }}">
