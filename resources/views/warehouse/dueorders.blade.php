@@ -5,7 +5,7 @@
 @section('warehousecontent')
   <div class="row">
     <div class="col-md-8">
-      <h2><i class="fa fa-list-ol" aria-hidden="true"></i> পেন্ডিং অর্ডারগুলো {{ date('F d, Y, h:i A') }}</h2>
+      <h2><i class="fa fa-list-ol" aria-hidden="true"></i> পেন্ডিং অর্ডারগুলো</h2>
       <div class="table-responsive">
         <table class="table table-condensed">
           <thead>
