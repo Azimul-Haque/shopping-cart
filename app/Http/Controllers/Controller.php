@@ -20,12 +20,15 @@ class Controller extends BaseController
           $due_orders = '';
           if(Auth::check() && Auth::user()->role == 'admin') {
             $due_orders = Order::where('paymentstatus', '=', 'not-paid')->count();
+            $completed_orders = Order::where('paymentstatus', '=', 'paid')->count();
           } 
           else {
             $due_orders = collect(new Order);
+            $completed_orders = collect(new Order);
           }
 
           // share with all view
           View::share('due_orders', $due_orders);
+          View::share('completed_orders', $completed_orders);
         }
 }

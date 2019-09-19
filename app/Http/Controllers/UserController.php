@@ -28,13 +28,14 @@ class UserController extends Controller
         'address' => 'required',
         'password' => 'required|confirmed|min:6'
       ]);
-
+      
       $user = new User([
         'name' => $request->input('name'),
         'email' => $request->input('email'),
         'phone' => $request->input('phone'),
         'address' => $request->input('address'),
         'role' => 'customer',
+        'code' => random_string(6),
         'password' => bcrypt($request->input('password'))
       ]);
 

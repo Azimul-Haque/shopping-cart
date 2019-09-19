@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\User;
 use App\Category;
 use App\Product;
 use App\Order;
@@ -18,11 +19,24 @@ use View;
 class WarehouseController extends Controller
 {
     public function __construct(){
-        parent::__construct();
+      parent::__construct();
     }
     
     public function getDashboard() {
-      return view('warehouse.dashboard');
+      $orders = Order::all();
+      $totalorders = $orders->count();
+      $totalincome = 0;
+      foreach ($orders as $order) {
+        $order->cart = unserialize($order->cart); // IMPORTANT
+        $totalincome = $totalincome + $order->cart->totalPrice;
+      }
+      $totalcustomers = User::where('role', 'customer')->count();
+      $totalproducts = Product::count();
+      return view('warehouse.dashboard')
+                    ->withTotalorders($totalorders)
+                    ->withTotalincome($totalincome)
+                    ->withTotalcustomers($totalcustomers)
+                    ->withTotalproducts($totalproducts);
     }
 
     public function getCategories() {
@@ -176,7 +190,7 @@ class WarehouseController extends Controller
     public function getDueOrders() {
       $dueorders = Order::where('paymentstatus', '=', 'not-paid')
                           ->orderBy('id', 'desc')
-                          ->get();
+                          ->paginate(10);
       $dueorders->transform(function($order, $key) {
         $order->cart = unserialize($order->cart);
         return $order;
@@ -193,6 +207,18 @@ class WarehouseController extends Controller
               ->withOrderstoday($orderstoday);
     }
 
+    public function getDeliveredOrders() {
+      $completedorders = Order::where('paymentstatus', '=', 'paid')
+                          ->orderBy('id', 'desc')
+                          ->paginate(10);
+      $completedorders->transform(function($order, $key) {
+        $order->cart = unserialize($order->cart);
+        return $order;
+      });
+      return view('warehouse.completedorders')
+              ->withCompletedorders($completedorders);
+    }
+
     public function putConfirmOrder(Request $request, $id) {
       $order = Order::find($id);
       $order->paymentstatus = 'paid';
@@ -201,5 +227,12 @@ class WarehouseController extends Controller
       Session::flash('success', 'অর্ডারটি কনফার্ম করা হয়েছে!');
       
       return redirect()->route('warehouse.dueorders');
+    }
+
+    public function getCustomers() {
+      $customers = User::where('role', 'customer')->paginate(10);
+
+      return view('warehouse.customers')
+              ->withCustomers($customers);
     }
 }

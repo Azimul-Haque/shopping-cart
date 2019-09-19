@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'সাউদিয়া সুপার শপ')
+@section('title', 'ইকমার্স')
 
 @section('content')
   <div class="row">
@@ -26,7 +26,7 @@
           <img src="{{ asset('images/product-images/'.$product->imagepath) }}" alt="{{ $product->title }}" class="img-responsive product-thumbnail">
           <div class="caption">
             <h4>{{ $product->title }}</h4>
-            <p class="description">{{ $product->description }}</p>
+            <p class="text-muted">{{ $product->description }}</p> {{-- class="description" --}}
             <div class="clearfix">
               <div class="price">
                 ৳ {{ $product->price }}

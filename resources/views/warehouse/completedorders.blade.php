@@ -1,11 +1,11 @@
 @extends('partials.warehousepartials')
 
-@section('title', 'অর্ডারগুলো | ইকমার্স')
+@section('title', 'ডেলিভার্ড অর্ডারগুলো | ইকমার্স')
 
 @section('warehousecontent')
   <div class="row">
-    <div class="col-md-8">
-      <h2><i class="fa fa-list-ol" aria-hidden="true"></i> পেন্ডিং অর্ডারগুলো</h2>
+    <div class="col-md-10">
+      <h2><i class="fa fa-list-ol" aria-hidden="true"></i> ডেলিভার্ড অর্ডারগুলো</h2>
       <div class="table-responsive">
         <table class="table table-condensed">
           <thead>
@@ -17,7 +17,7 @@
             </tr>
           </thead>
           <tbody>
-            @foreach($dueorders as $dueorder)
+            @foreach($completedorders as $dueorder)
             <tr>
               <td>{{ $dueorder->payment_id }}</td>
               <td>{{ $dueorder->created_at->format('M d, Y, h:i A') }}</td>
@@ -89,11 +89,8 @@
                         </p>
                       </div>
                       <div class="modal-footer noPrint">
-                        {!! Form::model($dueorder, ['route' => ['warehouse.confirmorder', $dueorder->id], 'method' => 'PUT']) !!}
-                          <button type="submit" class="btn btn-success">অর্ডারটি কনফার্ম করুন</button>
-                          <button type="button" class="btn btn-sm btn-primary" id="printModal{{ $dueorder->id }}"><i class="fa fa-print" aria-hidden="true"></i> প্রিন্ট করুন</button>
-                          <button type="button" class="btn btn-default" data-dismiss="modal">বন্ধ করুন</button>
-                        {!! Form::close() !!}
+                        <button type="button" class="btn btn-sm btn-primary" id="printModal{{ $dueorder->id }}"><i class="fa fa-print" aria-hidden="true"></i> প্রিন্ট করুন</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">বন্ধ করুন</button>
                       </div>
                     </div>
                   </div>
@@ -120,34 +117,11 @@
           </tbody>
         </table>
       </div>
-      {{ $dueorders->links() }}
+      {{ $completedorders->links() }}
     </div>
-    <div class="col-md-4">
-      <h2><i class="fa fa-calendar-check-o" aria-hidden="true"></i> আজকের অর্ডারগুলো</h2>
-      <table class="table table-condensed">
-        <thead>
-          <tr>
-            <th>অর্ডার আইডি</th>
-            <th>অর্ডারের সময়</th>
-            <th>অর্ডার স্ট্যাটাস</th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach($orderstoday as $order)
-          <tr>
-            <td>{{ $order->payment_id }}</td>
-            <td>{{ $order->created_at->format('h:i A') }}</td>
-            <td>
-              @if($order->paymentstatus == 'paid')
-                <span class="label label-success"><i class="fa fa-check" aria-hidden="true"></i></span>
-              @elseif($order->paymentstatus == 'not-paid')
-                <span class="label label-info"><i class="fa fa-hourglass-start" aria-hidden="true"></i></span>
-              @endif
-            </td>
-          </tr>
-          @endforeach
-        </tbody>
-      </table>
+    <div class="col-md-2">
+      {{-- <h2><i class="fa fa-calendar-check-o" aria-hidden="true"></i> </h2> --}}
+      
     </div>
   </div>
 @endsection

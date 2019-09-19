@@ -1,15 +1,15 @@
 @extends('layouts.master')
 
-@section('title', 'বাজারের ব্যাগ | সাউদিয়া সুপার শপ')
+@section('title', 'বাজারের ব্যাগ | ইকমার্স')
 
 @section('content')
   <div class="row">
-    <div class="col-md-2">
+    {{-- <div class="col-md-2">
       @include('partials/shop-sidebar')
-    </div>
-    <div class="col-md-10">
+    </div> --}}
+    <div class="col-md-8 col-md-offset-2">
       @if(Session::has('cart'))
-        <div class="col-md-10 col-md-offset-1">
+        <div class="">
           <h2>আপনার অর্ডারগুলো</h2>
           <ul class="list-group">
             @foreach($products as $product)
@@ -109,7 +109,7 @@
             @endforeach
           </ul>
         </div>
-        <div class="col-md-10 col-md-offset-1">
+        <div class="">
           <div class="row">
             <div class="col-md-8"></div>
             <div class="col-md-2">
@@ -120,12 +120,16 @@
           </div>
           <hr/>
         </div>
-        <div class="col-md-10 col-md-offset-1">
+        <div class="">
           <a href="{{ route('product.checkout') }}" class="btn btn-success"><i class="fa fa-check-square-o" aria-hidden="true"></i> অর্ডারটি নিশ্চিত করুন</a>
         </div>
       @else
         <div class="col-md-10 col-md-offset-1">
-          <h3>আপনার বাজারের ব্যাগে কোন পণ্য নেই! আমাদের পণ্যগুলো ব্যাগে যোগ করে এই পেইজে আসুন। ধন্যবাদ।</h3>
+          <h3>
+            আপনার বাজারের ব্যাগে কোন পণ্য নেই! আমাদের পণ্যগুলো ব্যাগে যোগ করে এই পেইজে আসুন। ধন্যবাদ।<br/><br/>
+            <center><a href="{{ route('product.index') }}"><i class="fa fa-cart-plus"></i> পণ্য দেখুন</a></center>
+          </h3>
+
         </div>
       @endif
     </div>

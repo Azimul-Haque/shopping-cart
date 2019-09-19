@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\User;
 use App\Cart;
 use App\Category;
 use App\Product;
@@ -21,8 +22,21 @@ class ProductController extends Controller
     }
 
     public function getIndex() {
+      $categories = Category::all();
       $products = Product::where('isAvailable', '!=', '0')->get();
-      return view('shop.index')->withProducts($products);
+      return view('shop.index')
+                  ->withCategories($categories)
+                  ->withProducts($products);
+    }
+
+    public function getCategoryWise($id, $random_string) {
+      $categories = Category::all();
+      $products = Product::where('isAvailable', '!=', '0')
+                         ->where('category_id', $id)
+                         ->get();
+      return view('shop.index')
+                  ->withCategories($categories)
+                  ->withProducts($products);
     }
 
     public function getAddToCart(Request $request, $id) {
@@ -96,6 +110,12 @@ class ProductController extends Controller
       if(!Session::has('cart')) {
         return view('shop.shoppingcart');
       }
+
+      $this->validate($request, [
+        'address' => 'required',
+        'fcode'   => 'sometimes'
+      ]);
+
       $oldCart = Session::get('cart');
       $cart = new Cart($oldCart);
 
@@ -105,11 +125,17 @@ class ProductController extends Controller
         $order->address = $request->address;
         $order->paymentstatus = 'not-paid';
         $nowdatetime = Carbon::now();
-        $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $random_string = substr(str_shuffle(str_repeat($pool, 8)), 0, 8);
-        $order->payment_id = $nowdatetime->format('YmdHis').$random_string;
+
+        $order->payment_id = $nowdatetime->format('YmdHis') . random_string(5);
 
         Auth::user()->orders()->save($order);
+        if($request->fcode && $request->fcode != Auth::user()->code) {
+          $friend = User::where('code', $request->fcode)->first();
+          if($friend) {
+            $friend->points = $friend->points + 10; // ei 10 change hoye settings theke asbe.
+            $friend->save();
+          }
+        }
       } catch(\Exception $e) {
         Session::flash('error', 'আপনার নিশ্চিতকরণে কোন সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।');
         return redirect()->route('product.index');

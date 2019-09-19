@@ -12,9 +12,9 @@
          var oldOrders = $("#dueOrders").text();
          console.log(orders);
          console.log(oldOrders);
-         var notify = new Audio('http://localhost/shopping-cart/public/sounds/notification.mp3');
+         var notify = new Audio('/sounds/notification.mp3');
          if(orders != oldOrders) {
-           notify.play();
+           // notify.play();
            toastr.info('নতুন অর্ডার এসেছে!', 'তথ্য (INFO)').css('width','400px');
          }
          if(orders < 0) {
@@ -34,7 +34,7 @@
    });
   }
   setTimeout(currentBalanceInquery(), 1000*1);
-  setInterval(currentBalanceInquery, 1000*30);
+  setInterval(currentBalanceInquery, 1000*100);
 </script>
 @endif
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -47,7 +47,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="{{ route('product.index') }}">সাউদিয়া সুপার শপ</a>
+      <a class="navbar-brand" href="{{ route('product.index') }}">ইকমার্স</a>
       <div class="nav navbar-brand pull-right bagIconInMobile visible-xs">
         <a href="{{ route('product.shoppingcart') }}" class="">
           <i class="fa fa-shopping-bag" aria-hidden="true"></i>
@@ -73,10 +73,10 @@
           <li class="{{ Request::is('user/*') ? 'dropdown active': 'dropdown' }}">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i> {{ Auth::user()->name }} <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="{{ route('user.profile') }}">প্রোফাইল</a></li>
-              <li><a href="#"><i class="fa fa-shopping-bag" aria-hidden="true"></i> সকল অর্ডার</a></li>
+              <li><a href="{{ route('user.profile') }}"><i class="fa fa-user" aria-hidden="true"></i> প্রোফাইল</a></li>
+              <li><a href="#"><i class="fa fa-ticket" aria-hidden="true"></i> ইউজার আইডিঃ <b>{{ Auth::user()->code }}</b></a></li>
               <li role="separator" class="divider"></li>
-              <li><a href="{{ route('user.logout') }}">লগ আউট</a></li>
+              <li><a href="{{ route('user.logout') }}"><i class="fa fa-sign-out" aria-hidden="true"></i> লগ আউট</a></li>
             </ul>
           </li>
         @else

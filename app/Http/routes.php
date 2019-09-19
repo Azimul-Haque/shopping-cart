@@ -4,6 +4,10 @@ Route::get('/', [
     'uses' => 'ProductController@getIndex',
     'as' => 'product.index'
 ]);
+Route::get('/category/{id}/{random_string}', [
+    'uses' => 'ProductController@getCategoryWise',
+    'as' => 'product.categorywise'
+]);
 
 Route::get('/search', [
     'uses' => 'ProductController@search',
@@ -112,9 +116,21 @@ Route::get('/warehouse/dueorders', [
     'middleware' => 'admin'
 ]);
 
+Route::get('/warehouse/deliveredorders', [
+    'uses' => 'WarehouseController@getDeliveredOrders',
+    'as' => 'warehouse.deliveredorders',
+    'middleware' => 'admin'
+]);
+
 Route::put('/warehouse/confirmorder/{id}', [
     'uses' => 'WarehouseController@putConfirmOrder',
     'as' => 'warehouse.confirmorder',
+    'middleware' => 'admin'
+]);
+
+Route::get('/warehouse/customers', [
+    'uses' => 'WarehouseController@getCustomers',
+    'as' => 'warehouse.customers',
     'middleware' => 'admin'
 ]);
 /*warehouse routes*/
