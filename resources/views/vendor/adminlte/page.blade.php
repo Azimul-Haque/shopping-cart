@@ -66,7 +66,7 @@
                         <li class="dropdown notifications-menu">
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                             <i class="fa fa-bell-o"></i>
-                            <span class="label label-warning">5</span>
+                            <span class="label label-warning">{{ $due_orders }}</span> {{-- eta change hobe, aro notification add hobe --}}
                             {{-- @if($notifcount > 0)
                             <span class="label label-warning">{{ $notifcount }}</span>
                             @endif --}}
@@ -82,15 +82,11 @@
                               <!-- inner menu: contains the actual data -->
                               <ul class="menu">
                                 <li>
-                                  <a href="#!">
-                                    <i class="fa fa-users text-aqua"></i> Test Notification
+                                  <a href="{{ route('warehouse.dueorders') }}">
+                                    <i class="fa fa-file-text-o text-aqua"></i> {{ $due_orders }} টি পেন্ডিং অর্ডার
                                   </a>
                                 </li>
-                                <li>
-                                  <a href="#!">
-                                    <i class="fa fa-users text-aqua"></i> Test Notification
-                                  </a>
-                                </li>
+                                
                                 {{-- @if($notifpendingapplications > 0)
                                   <li>
                                     <a href="{{ route('dashboard.applications') }}">
@@ -210,6 +206,12 @@
                           <a href="{{ route('warehouse.dashboard') }}">
                               <i class="fa fa-fw fa-tachometer"></i>
                               <span>ড্যাশবোর্ড</span>
+                          </a>
+                      </li>
+                      <li class="">
+                          <a href="#!">
+                              <i class="fa fa-fw fa-wrench"></i>
+                              <span>সেটিংস</span>
                           </a>
                       </li>
                       <li class="{{ Request::is('warehouse/dueorders') ? 'active' : '' }}">

@@ -29,6 +29,105 @@
                         <li>
                             <a href="{{ route('product.index') }}" class="inner-link">Home</a>
                         </li>
+                        <li class="dropdown panel">
+                            <a href="#collapse5" class="dropdown-toggle collapsed" data-toggle="collapse" data-parent="#accordion" data-hover="dropdown">Category ▽<i class="fa fa-angle-down"></i></a>
+                            <!-- sub menu -->
+                            <ul id="collapse5" class="dropdown-menu mega-menu panel-collapse collapse mega-menu-full">
+                                <li class="mega-menu-column col-sm-3">
+                                    <!-- sub menu item  -->
+                                    <ul>
+                                        <li class="dropdown-header">Category 1</li>
+                                        <li><a href="#!">Sub Category 1.1</a></li>
+                                        <li><a href="#!">Sub Category 1.2</a></li>
+                                        <li><a href="#!">Sub Category 1.3</a></li>
+                                        <li><a href="#!">Sub Category 1.4</a></li>
+                                    </ul>
+                                    <!-- end sub menu item  -->
+                                    <!-- sub menu item  -->
+                                    <ul>
+                                        <li class="dropdown-header">Category 2</li>
+                                        <li><a href="#!">Sub Category 2.1</a></li>
+                                        <li><a href="#!">Sub Category 2.2</a></li>
+                                        <li><a href="#!">Sub Category 2.3</a></li>
+                                        <li><a href="#!">Sub Category 2.4</a></li>
+                                    </ul>
+                                    <!-- end sub menu item  -->
+                                    <!-- sub menu item  -->
+                                    <ul>
+                                        <li class="dropdown-header">Category 3</li>
+                                        <li><a href="#!">Sub Category 3.1</a></li>
+                                        <li><a href="#!">Sub Category 3.2</a></li>
+                                        <li><a href="#!">Sub Category 3.3</a></li>
+                                        <li><a href="#!">Sub Category 3.4</a></li>
+                                    </ul>
+                                    <!-- end sub menu item  -->
+                                </li>
+                                <li class="mega-menu-column col-sm-3">
+                                    <!-- sub menu item  -->
+                                    <ul>
+                                        <li class="dropdown-header">Category 4</li>
+                                        <li><a href="#!">Sub Category 4.1</a></li>
+                                        <li><a href="#!">Sub Category 4.2</a></li>
+                                        <li><a href="#!">Sub Category 4.3</a></li>
+                                        <li><a href="#!">Sub Category 4.4</a></li>
+                                    </ul>
+                                    <!-- end sub menu item  -->
+                                    <!-- sub menu item  -->
+                                    <ul>
+                                        <li class="dropdown-header">Category 21</li>
+                                        <li><a href="#!">Sub Category 82.1</a></li>
+                                        <li><a href="#!">Sub Category 81.2</a></li>
+                                        <li><a href="#!">Sub Category 82.3</a></li>
+                                        <li><a href="#!">Sub Category 83.4</a></li>
+                                        <li><a href="#!">Sub Category 84.5</a></li>
+                                    </ul>
+                                    <!-- end sub menu item  -->
+                                </li>
+                                <li class="mega-menu-column col-sm-3">
+                                    <!-- sub menu item  -->
+                                    <ul>
+                                        <li class="dropdown-header">Category 5</li>
+                                        <li><a href="#!">Sub Category 5.1</a></li>
+                                        <li><a href="#!">Sub Category 5.2</a></li>
+                                        <li><a href="#!">Sub Category 5.3</a></li>
+                                        <li><a href="#!">Sub Category 5.4</a></li>
+                                    </ul>
+                                    <!-- end sub menu item  -->
+                                    <!-- sub menu item  -->
+                                    <ul>
+                                        <li class="dropdown-header">Category 6</li>
+                                        <li><a href="#!">Sub Category 6.1</a></li>
+                                        <li><a href="#!">Sub Category 6.2</a></li>
+                                        <li><a href="#!">Sub Category 6.3</a></li>
+                                        <li><a href="#!">Sub Category 6.4</a></li>
+                                    </ul>
+                                    <!-- end sub menu item  -->
+                                </li>
+                                <li class="mega-menu-column col-sm-3">
+                                    <!-- sub menu item  -->
+                                    <ul>
+                                        <li class="dropdown-header">Category 7</li>
+                                        <li><a href="#!">Sub Category 7.1</a></li>
+                                        <li><a href="#!">Sub Category 7.2</a></li>
+                                        <li><a href="#!">Sub Category 7.3</a></li>
+                                        <li><a href="#!">Sub Category 7.4</a></li>
+                                        <li><a href="#!">Sub Category 7.5</a></li>
+                                    </ul>
+                                    <!-- end sub menu item  -->
+                                    <!-- sub menu item  -->
+                                    <ul>
+                                        <li class="dropdown-header">Category 8</li>
+                                        <li><a href="#!">Sub Category 8.1</a></li>
+                                        <li><a href="#!">Sub Category 8.2</a></li>
+                                        <li><a href="#!">Sub Category 8.3</a></li>
+                                        <li><a href="#!">Sub Category 8.4</a></li>
+                                        <li><a href="#!">Sub Category 8.5</a></li>
+                                    </ul>
+                                    <!-- end sub menu item  -->
+                                </li>
+                            </ul>
+                            <!-- end sub menu -->
+                        </li>
                         
                         <li>
                             <a href="{{ route('index.about') }}" class="inner-link">About Us</a>
