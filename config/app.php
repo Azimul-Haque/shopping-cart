@@ -161,7 +161,8 @@ return [
          */
         Collective\Html\HtmlServiceProvider::class,
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
-        Intervention\Image\ImageServiceProvider::class
+        Intervention\Image\ImageServiceProvider::class,
+        JeroenNoten\LaravelAdminLte\ServiceProvider::class
 
     ],
 

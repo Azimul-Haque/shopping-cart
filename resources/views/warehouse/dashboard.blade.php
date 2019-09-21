@@ -1,12 +1,16 @@
-@extends('partials.warehousepartials')
+@extends('adminlte::page')
 
 @section('title', 'ড্যাশবোর্ড | ইকমার্স')
 
-@section('styles')
-	<link rel="stylesheet" type="text/css" href="{{ asset('src/css/dashboard.css') }}">
+@section('css')
+
 @endsection
 
-@section('warehousecontent')
+@section('content_header')
+    <h1>ড্যাশবোর্ড</h1>
+@stop
+
+@section('content')
   <div class="row">
   	<div class="col-md-3 col-xs-6">
   		<div class="small-box bg-aqua">
@@ -62,3 +66,7 @@
   	</div>
   </div>
 @endsection
+
+@section('js')
+    
+@stop

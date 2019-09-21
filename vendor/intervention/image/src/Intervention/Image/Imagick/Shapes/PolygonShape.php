@@ -2,10 +2,11 @@
 
 namespace Intervention\Image\Imagick\Shapes;
 
+use Intervention\Image\AbstractShape;
 use Intervention\Image\Image;
 use Intervention\Image\Imagick\Color;
 
-class PolygonShape extends \Intervention\Image\AbstractShape
+class PolygonShape extends AbstractShape
 {
     /**
      * Array of points of polygon
@@ -28,8 +29,8 @@ class PolygonShape extends \Intervention\Image\AbstractShape
      * Draw polygon on given image
      *
      * @param  Image   $image
-     * @param  integer $x
-     * @param  integer $y
+     * @param  int     $x
+     * @param  int     $y
      * @return boolean
      */
     public function applyToImage(Image $image, $x = 0, $y = 0)

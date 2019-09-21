@@ -36,6 +36,7 @@ class UserController extends Controller
         'address' => $request->input('address'),
         'role' => 'customer',
         'code' => random_string(6),
+        'unique_key' => generate_token(100),
         'password' => bcrypt($request->input('password'))
       ]);
 
@@ -86,14 +87,14 @@ class UserController extends Controller
             Session::forget('oldUrl');
             return redirect()->to($oldUrl);
           }
-          return redirect()->route('user.profile');
+          return redirect()->route('user.profile', Auth::user()->unique_key);
         }
       }
       Session::flash('warning', 'তথ্য সঠিক নয়! আবার চেষ্টা করুন।'); 
       return redirect()->back();
     }
 
-    public function getProfile() {
+    public function getProfile($unique_key) {
       $orders = Order::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->get();
       $orders->transform(function($order, $key) {
         $order->cart = unserialize($order->cart);

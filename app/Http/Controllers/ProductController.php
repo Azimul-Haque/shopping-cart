@@ -23,7 +23,10 @@ class ProductController extends Controller
 
     public function getIndex() {
       $categories = Category::all();
-      $products = Product::where('isAvailable', '!=', '0')->get();
+      $products = Product::where('isAvailable', '!=', '0')
+                         ->orderBy('id', 'desc')
+                         ->paginate(10);
+
       return view('shop.index')
                   ->withCategories($categories)
                   ->withProducts($products);
@@ -33,8 +36,8 @@ class ProductController extends Controller
       $categories = Category::all();
       $products = Product::where('isAvailable', '!=', '0')
                          ->where('category_id', $id)
-                         ->get();
-      return view('shop.index')
+                         ->paginate(2);
+      return view('shop.categorywise')
                   ->withCategories($categories)
                   ->withProducts($products);
     }
@@ -143,7 +146,7 @@ class ProductController extends Controller
 
       Session::forget('cart');
       Session::flash('success', 'আপনার অর্ডারটি নিশ্চিত করা হয়েছে। শীঘ্রই আমাদের একজন প্রতিনিধি আপনার সাথে যোগাযোগ করবেন। ধন্যবাদ।');
-      return redirect()->route('user.profile');
+      return redirect()->route('user.profile', Auth::user()->unique_key);
     }
 
 

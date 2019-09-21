@@ -3,6 +3,8 @@
 namespace Intervention\Image;
 
 use Closure;
+use Intervention\Image\Exception\MissingDependencyException;
+use Intervention\Image\Exception\NotSupportedException;
 
 class ImageManager
 {
@@ -30,6 +32,8 @@ class ImageManager
      * Overrides configuration settings
      *
      * @param array $config
+     *
+     * @return self
      */
     public function configure(array $config = [])
     {
@@ -53,8 +57,8 @@ class ImageManager
     /**
      * Creates an empty image canvas
      *
-     * @param  integer $width
-     * @param  integer $height
+     * @param  int   $width
+     * @param  int   $height
      * @param  mixed $background
      *
      * @return \Intervention\Image\Image
@@ -69,7 +73,7 @@ class ImageManager
      * (requires additional package intervention/imagecache)
      *
      * @param Closure $callback
-     * @param integer $lifetime
+     * @param int     $lifetime
      * @param boolean $returnObj
      *
      * @return Image
@@ -88,7 +92,7 @@ class ImageManager
             return $imagecache->get($lifetime, $returnObj);
         }
 
-        throw new \Intervention\Image\Exception\MissingDependencyException(
+        throw new MissingDependencyException(
             "Please install package intervention/imagecache before running this function."
         );
     }
@@ -108,7 +112,7 @@ class ImageManager
                 return new $driverclass;
             }
 
-            throw new \Intervention\Image\Exception\NotSupportedException(
+            throw new NotSupportedException(
                 "Driver ({$drivername}) could not be instantiated."
             );
         }
@@ -117,7 +121,7 @@ class ImageManager
             return $this->config['driver'];
         }
 
-        throw new \Intervention\Image\Exception\NotSupportedException(
+        throw new NotSupportedException(
             "Unknown driver type."
         );
     }
@@ -130,7 +134,7 @@ class ImageManager
     private function checkRequirements()
     {
         if ( ! function_exists('finfo_buffer')) {
-            throw new \Intervention\Image\Exception\MissingDependencyException(
+            throw new MissingDependencyException(
                 "PHP Fileinfo extension must be installed/enabled to use Intervention Image."
             );
         }

@@ -1,29 +1,43 @@
-@extends('partials.warehousepartials')
+@extends('adminlte::page')
 
 @section('title', 'পণ্যের শ্রেণিবিভাগ | ইকমার্স')
 
-@section('warehousecontent')
+@section('css')
+
+@endsection
+
+@section('content_header')
+    <h1>পণ্যের শ্রেণিবিভাগ</h1>
+@stop
+
+@section('content')
   <div class="row">
     <div class="col-md-8">
-      <h3><i class="fa fa-folder-open-o" aria-hidden="true"></i> পণ্যের শ্রেণিবিভাগ <span class="badge">{{ $categories->count() }}</span></h3>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>নাম</th>
-            <th>মুছে দিন</th>
-          </tr>
-        </thead>
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          পণ্যের শ্রেণিবিভাগ <span class="badge">{{ $categories->count() }}
+        </div>
+        <div class="panel-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>নাম</th>
+                <th>মুছে দিন</th>
+              </tr>
+            </thead>
 
-        <tbody>
-        @foreach ($categories as $category)
-          <tr>
-            <td>{{ $category->name }}</td>
-            <td></td>
-          </tr>
-        @endforeach
-        </tbody>
+            <tbody>
+            @foreach ($categories as $category)
+              <tr>
+                <td>{{ $category->name }}</td>
+                <td></td>
+              </tr>
+            @endforeach
+            </tbody>
 
-      </table>
+          </table>
+        </div>
+      </div>
     </div>
     <div class="col-md-4">
       <div class="panel panel-primary">
@@ -41,3 +55,7 @@
     </div>
   </div>
 @endsection
+
+@section('js')
+
+@stop

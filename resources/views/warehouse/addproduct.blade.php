@@ -1,8 +1,16 @@
-@extends('partials.warehousepartials')
+@extends('adminlte::page')
 
 @section('title', 'পণ্য যোগ | ইকমার্স')
 
-@section('warehousecontent')
+@section('css')
+
+@endsection
+
+@section('content_header')
+    <h1>পণ্য যোগ</h1>
+@stop
+
+@section('content')
   <div class="row">
     <div class="col-md-6">
       <div class="panel panel-primary">
@@ -124,3 +132,7 @@
     </div>
   </div>
 @endsection
+
+@section('js')
+
+@stop

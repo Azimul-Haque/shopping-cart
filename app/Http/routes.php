@@ -4,6 +4,17 @@ Route::get('/', [
     'uses' => 'ProductController@getIndex',
     'as' => 'product.index'
 ]);
+
+Route::get('/about', [
+    'uses' => 'ProductController@getIndex',
+    'as' => 'index.about'
+]);
+
+Route::get('/contact', [
+    'uses' => 'ProductController@getIndex',
+    'as' => 'index.contact'
+]);
+
 Route::get('/category/{id}/{random_string}', [
     'uses' => 'ProductController@getCategoryWise',
     'as' => 'product.categorywise'
@@ -48,7 +59,7 @@ Route::get('/logout', [
     'middleware' => 'auth'
 ]);
 
-Route::get('user/profile', [
+Route::get('user/profile/{unique_key}', [
     'uses' => 'UserController@getProfile',
     'as' => 'user.profile',
     'middleware' => 'auth'
