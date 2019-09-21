@@ -125,7 +125,7 @@
                           <div class="modal-footer noPrint">
                             {!! Form::model($dueorder, ['route' => ['warehouse.confirmorder', $dueorder->id], 'method' => 'PUT']) !!}
                               <button type="submit" class="btn btn-success">অর্ডারটি কনফার্ম করুন</button>
-                              <button type="button" class="btn btn-sm btn-primary" id="printModal{{ $dueorder->id }}"><i class="fa fa-print" aria-hidden="true"></i> প্রিন্ট করুন</button>
+                              <button type="button" class="btn btn-primary" id="printModal{{ $dueorder->id }}"><i class="fa fa-print" aria-hidden="true"></i> প্রিন্ট করুন</button>
                               <button type="button" class="btn btn-default" data-dismiss="modal">বন্ধ করুন</button>
                             {!! Form::close() !!}
                           </div>

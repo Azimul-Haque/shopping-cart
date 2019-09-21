@@ -123,7 +123,7 @@
                             </p>
                           </div>
                           <div class="modal-footer noPrint">
-                            <button type="button" class="btn btn-sm btn-primary" id="printModal{{ $dueorder->id }}"><i class="fa fa-print" aria-hidden="true"></i> প্রিন্ট করুন</button>
+                            <button type="button" class="btn btn-primary" id="printModal{{ $dueorder->id }}"><i class="fa fa-print" aria-hidden="true"></i> প্রিন্ট করুন</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">বন্ধ করুন</button>
                           </div>
                         </div>
