@@ -4,6 +4,28 @@
 
 @section('css')
   <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.min.js') }}"></script>
+  <style type="text/css">
+    /* print css */
+    @media print {
+        header, .footer, footer {
+            display: none;
+        }
+
+        /* hide main content when dialog open */
+        body.modal-open div.container.body-content div#mainContent {
+            display: none;
+        }
+
+        .noPrint {
+            display: none;
+        }
+
+        .onlyPrint {
+            display: block;
+        }
+    }
+    /* print css */
+  </style>
 @endsection
 
 @section('content_header')
