@@ -40,7 +40,7 @@
       <div id="status">&nbsp;</div>
   </div>
   @include('partials._slider')
-  
+
   <!-- about section -->
   <section class="wow fadeIn">
       <div class="container">
@@ -131,7 +131,7 @@
                       <!-- shop item -->
                       <div class="col-md-6 col-sm-6">
                           <div class="home-product text-center position-relative overflow-hidden margin-ten no-margin-top">
-                              <a href="shop-single-product.html"><img src="{{ asset('images/product-images/'.$product->imagepath) }}" alt="{{ $product->title }}"></a>
+                              <a href="#!"><img src="{{ asset('images/product-images/'.$product->imagepath) }}" alt="{{ $product->title }}"></a>
                               <span class="product-name text-uppercase"><a href="shop-single-product.html" class="bg-white">{{ $product->title }}</a></span>
                               <span class="price black-text"><del>৳ {{ $product->oldprice }}</del>৳ {{ $product->price }}</span>
                               {{-- <span class="onsale onsale-style-2">Sale</span> --}}
