@@ -201,19 +201,33 @@
                 <ul class="sidebar-menu" data-widget="tree">
                     {{-- @each('adminlte::partials.menu-item', $adminlte->menu(), 'item') --}}
                     @if(Auth::user()->role == 'admin')
-                      {{-- <li class="header">ড্যাশবোর্ড</li> --}}
+                      <li class="header">DASHBOARD</li>
                       <li class="{{ Request::is('warehouse/dashboard') ? 'active' : '' }}">
                           <a href="{{ route('warehouse.dashboard') }}">
                               <i class="fa fa-fw fa-tachometer"></i>
                               <span>ড্যাশবোর্ড</span>
                           </a>
                       </li>
+                      <li class="header">ADMIN ACTIVITY</li>
+                      <li class="">
+                          <a href="#!">
+                              <i class="fa fa-fw fa-cogs"></i>
+                              <span>Admins</span>
+                          </a>
+                      </li>
                       <li class="">
                           <a href="#!">
                               <i class="fa fa-fw fa-wrench"></i>
-                              <span>সেটিংস</span>
+                              <span>Settings</span>
                           </a>
                       </li>
+                      <li class="">
+                          <a href="#!">
+                              <i class="fa fa-fw fa-files-o"></i>
+                              <span>Pages</span>
+                          </a>
+                      </li>
+                      <li class="header">WAREHOUSE</li>
                       <li class="{{ Request::is('warehouse/dueorders') ? 'active' : '' }}">
                           <a href="{{ route('warehouse.dueorders') }}">
                               <i class="fa fa-fw fa-list-ol"></i>
@@ -228,7 +242,7 @@
                       </li>
                       <li class="{{ Request::is('warehouse/addproduct') ? 'active' : '' }}">
                           <a href="{{ route('warehouse.addproduct') }}">
-                              <i class="fa fa-fw fa-plus"></i>
+                              <i class="fa fa-fw fa-truck"></i>
                               <span>পণ্য যোগ করুণ</span>
                           </a>
                       </li>
@@ -251,14 +265,6 @@
                           </a>
                       </li>
                     @endif
-                    <li class="header">CUSTOMER</li>
-                    
-                    <li class="{{ Request::is('user/profile/*') ? 'active' : '' }}">
-                        <a href="{{ route('user.profile', Auth::user()->unique_key) }}">
-                            <i class="fa fa-fw fa-user"></i>
-                            <span>ব্যক্তিগত প্রোফাইল</span>
-                        </a>
-                    </li>
                     
                     {{-- <li class="{{ Request::is('dashboard/member/user/manual') ? 'active' : '' }}">
                         <a href="{{ route('dashboard.memberusermanual') }}">
