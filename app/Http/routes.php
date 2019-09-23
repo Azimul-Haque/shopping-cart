@@ -20,6 +20,11 @@ Route::get('/category/{id}/{random_string}', [
     'as' => 'product.categorywise'
 ]);
 
+Route::get('/subcategory/{id}/{random_string}', [
+    'uses' => 'ProductController@getSubcategoryWise',
+    'as' => 'product.subcategorywise'
+]);
+
 Route::get('/search', [
     'uses' => 'ProductController@search',
     'as' => 'product.search'
@@ -85,6 +90,12 @@ Route::post('/warehouse/categories', [
     'middleware' => 'admin'
 ]);
 
+Route::post('/warehouse/subcategories', [
+    'uses' => 'WarehouseController@postSubcategories',
+    'as' => 'warehouse.subcategories',
+    'middleware' => 'admin'
+]);
+
 Route::get('/warehouse/addproduct', [
     'uses' => 'WarehouseController@getAddProduct',
     'as' => 'warehouse.addproduct',
@@ -97,13 +108,13 @@ Route::post('/warehouse/addproduct', [
     'middleware' => 'admin'
 ]);
 
-Route::get('/warehouse/editproduct/{id}', [
+Route::get('/warehouse/edit/product/{id}/{random_string}', [
     'uses' => 'WarehouseController@getEditProduct',
-    'as' => 'warehouse.editproduct',
+    'as' => 'warehouse.geteditproduct',
     'middleware' => 'admin'
 ]);
 
-Route::put('/warehouse/editproduct/{id}', [
+Route::put('/warehouse/edit/product/{id}', [
     'uses' => 'WarehouseController@putEditProduct',
     'as' => 'warehouse.editproduct',
     'middleware' => 'admin'

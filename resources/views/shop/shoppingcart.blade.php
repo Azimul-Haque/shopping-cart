@@ -47,7 +47,7 @@
                         <div class="col-md-6 col-sm-6 col-xs-6">
                           <strong>{{ $product['item']['title'] }}</strong> / 
                           <span class="label label-success">৳ {{ $product['item']['price'] }}</span>
-                          <img src="{{ asset('images/product-images/'.$product['item']['imagepath']) }}" style="max-height: 40px; border:1px solid #777">
+                          <img src="{{ asset('images/product-images/'.$product['item']['productimages']->first()->image) }}" style="max-height: 40px; border:1px solid #777">
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
                           <div class="row">
@@ -162,10 +162,12 @@
               </div>
             @else
               <div class="col-md-10 col-md-offset-1">
-                <h3>
-                  আপনার বাজারের ব্যাগে কোন পণ্য নেই! আমাদের পণ্যগুলো ব্যাগে যোগ করে এই পেইজে আসুন। ধন্যবাদ।<br/><br/>
-                  <center><a href="{{ route('product.index') }}"><i class="fa fa-cart-plus"></i> পণ্য দেখুন</a></center>
-                </h3>
+                <h2>
+                  <center>
+                    আপনার বাজারের ব্যাগে কোন পণ্য নেই! আমাদের পণ্যগুলো ব্যাগে যোগ করে এই পেইজে আসুন। ধন্যবাদ।<br/><br/>
+                    <a href="{{ route('product.index') }}" class="highlight-button btn btn-medium"><i class="fa fa-cart-plus"></i> পণ্য দেখুন</a>
+                  </center>
+                </h2>
 
               </div>
             @endif

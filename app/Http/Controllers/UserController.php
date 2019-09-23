@@ -35,7 +35,7 @@ class UserController extends Controller
         'phone' => $request->input('phone'),
         'address' => $request->input('address'),
         'role' => 'customer',
-        'code' => random_string(6),
+        'code' => date('Y').date('m').random_string(5),
         'unique_key' => generate_token(100),
         'password' => bcrypt($request->input('password'))
       ]);

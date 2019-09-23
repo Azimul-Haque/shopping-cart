@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\Category;
 use Auth;
 use View;
 
@@ -17,6 +18,8 @@ class Controller extends BaseController
     use AuthorizesRequests, AuthorizesResources, DispatchesJobs, ValidatesRequests;
 
         public function __construct() {
+          $categories = Category::all();
+
           $due_orders = '';
           if(Auth::check() && Auth::user()->role == 'admin') {
             $due_orders = Order::where('paymentstatus', '=', 'not-paid')->count();
@@ -28,6 +31,7 @@ class Controller extends BaseController
           }
 
           // share with all view
+          View::share('categories', $categories);
           View::share('due_orders', $due_orders);
           View::share('completed_orders', $completed_orders);
         }

@@ -29,11 +29,13 @@
 		<!-- SIDEBAR MENU -->
 		<div class="profile-usermenu">
 			<ul class="nav">
-				<li title="User ID"><a href="#"><i class="fa fa-id-card-o"></i> <b>{{ Auth::user()->code }}</b></a></li>
-				<li title="Earned Balance"><a href="#"><i class="fa fa-money"></i> ৳ {{ Auth::user()->points }}</a></li>
-				<li title="Contact No"><a href="#"><i class="fa fa-phone"></i> {{ Auth::user()->phone }}</a></li>
-				<li title="Email Address"><a href="#"><i class="fa fa-envelope-o"></i> {{ Auth::user()->email }}</a></li>
-				<li title="Delivery Address"><a href="#"><i class="fa fa-home"></i> {{ Auth::user()->address }}</a></li>
+				<li title="এটি আপনার ইউজার আইডি। আইডিটি আপনার বন্ধু কেনার সময় ব্যবহার করলে আপনি বোনাস এমাইন্ট পাবেন!">
+					<i class="fa fa-id-card-o"></i> <b>{{ Auth::user()->code }}</b>
+				</li>
+				<li title="Earned Balance"><i class="fa fa-money"></i> ৳ {{ Auth::user()->points }}</li>
+				<li title="Contact No"><i class="fa fa-phone"></i> {{ Auth::user()->phone }}</li>
+				<li title="Email Address"><i class="fa fa-envelope-o"></i> {{ Auth::user()->email }}</li>
+				<li title="Delivery Address"><i class="fa fa-home"></i> {{ Auth::user()->address }}</li>
 			</ul>
 		</div>
 		<!-- END MENU -->

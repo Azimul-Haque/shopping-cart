@@ -6,7 +6,10 @@
                 <div class="slider-typography text-left">
                     <div class="slider-text-middle-main">
                         <div class="slider-text-middle padding-left-right-px animated fadeInUp">
-                            <span class="owl-title white-text" style="background: rgba(0,0,0,0.3); padding: 10px;">We believe in design, strategy and web technology</span>
+                            <span class="owl-title white-text" style="background: rgba(0,0,0,0.5); padding: 10px;">
+                                Refer a friend and earn money!<br/>
+                                <button class="highlight-button-white-border btn btn-medium">Earn Money!</button>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -18,7 +21,7 @@
                     <div class="slider-text-middle-main">
                         <div class="slider-text-middle padding-left-right-px">
                             {{-- <span class="owl-subtitle white-text margin-three no-margin-top xs-margin-bottom-six" style="background: rgba(0,0,0,0.3);">We believe hard work</span> --}}
-                            <span class="owl-title white-text" style="background: rgba(0,0,0,0.3); padding: 10px;">We believe in design, strategy and web technology</span>
+                            <span class="owl-title white-text" style="background: rgba(0,0,0,0.5); padding: 10px;">We believe in design, strategy and web technology</span>
                         </div>
                     </div>
                 </div>
@@ -32,7 +35,7 @@
                             {{-- <span class="owl-subtitle white-text margin-three no-margin-top xs-margin-bottom-six">We believe challenges</span>
                             <span class="owl-title white-text">We create meaningful experiences through innovation</span>
                             <a class="highlight-button-white-border btn btn-small" href="about-us.html">Read More</a> --}}
-                            <span class="owl-title white-text" style="background: rgba(0,0,0,0.3); padding: 10px;">We believe in design, strategy and web technology</span>
+                            <span class="owl-title white-text" style="background: rgba(0,0,0,0.5); padding: 10px;">We believe in design, strategy and web technology</span>
                         </div>
                     </div>
                 </div>

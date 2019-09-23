@@ -14,14 +14,28 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('code');
+            $table->string('imagetrackcode');
             $table->string('title');
+            $table->string('shorttext');
             $table->string('description');
-            $table->string('imagepath');
-            $table->float('oldprice');
+            $table->float('oldprice')->default(0);
             $table->float('price');
-            $table->integer('category_id')->unsigned();
-            $table->string('isDeleted');
+            $table->integer('stock')->default(0);
             $table->string('isAvailable');
+
+
+            $table->float('buying_price');
+            $table->float('carrying_cost')->default(0);
+            $table->float('vat')->default(0);
+            $table->float('salary')->default(0);
+            $table->float('wages')->default(0);
+            $table->float('utility')->default(0);
+            $table->float('others')->default(0);
+
+            $table->integer('category_id')->unsigned();
+            $table->integer('subcategory_id')->unsigned();
+
             $table->timestamps();
         });
     }

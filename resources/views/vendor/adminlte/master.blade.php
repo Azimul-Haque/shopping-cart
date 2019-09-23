@@ -24,6 +24,7 @@
 
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/AdminLTE.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('src/css/dashboard.css') }}">
 
     @yield('adminlte_css')
 
@@ -52,6 +53,7 @@
      $('[title]').tooltip();
     });
 </script>
+@include('partials._messages')
 @yield('adminlte_js')
 
 </body>

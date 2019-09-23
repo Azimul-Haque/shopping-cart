@@ -22,24 +22,28 @@ class ProductController extends Controller
     }
 
     public function getIndex() {
-      $categories = Category::all();
+      
       $products = Product::where('isAvailable', '!=', '0')
                          ->orderBy('id', 'desc')
                          ->paginate(10);
 
-      return view('shop.index')
-                  ->withCategories($categories)
-                  ->withProducts($products);
+      return view('shop.index')->withProducts($products);
     }
 
     public function getCategoryWise($id, $random_string) {
-      $categories = Category::all();
       $products = Product::where('isAvailable', '!=', '0')
                          ->where('category_id', $id)
-                         ->paginate(2);
+                         ->paginate(10);
+      return view('shop.categorywise')->withProducts($products);
+    }
+
+    public function getSubcategoryWise($id, $random_string) {
+      $products = Product::where('isAvailable', '!=', '0')
+                         ->where('subcategory_id', $id)
+                         ->paginate(10);
       return view('shop.categorywise')
-                  ->withCategories($categories)
-                  ->withProducts($products);
+                  ->withProducts($products)
+                  ->withSubcategoryid($id);
     }
 
     public function getAddToCart(Request $request, $id) {

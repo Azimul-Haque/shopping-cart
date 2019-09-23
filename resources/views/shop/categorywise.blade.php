@@ -28,39 +28,7 @@
   <section class="padding-three">
       <div class="container">
           <div class="row">
-              <!-- sidebar  -->
-              <div class="col-md-2 col-sm-4 sidebar">
-                  
-                  <!-- category and subcategory widget  -->
-                  @include('partials/shop-sidebar')
-                  <!-- category and subcategory widget  -->
-
-                  <!-- new arrival widget  -->
-                  <div class="widget">
-                      <h5 class="widget-title font-alt">New Arrivals</h5>
-                      <div class="thin-separator-line bg-dark-gray no-margin-lr margin-ten"></div>
-                      <div class="widget-body">
-                          {{-- <ul class="colors clearfix">
-                              <li class="active"><a href="#" style="background:#f16b4e"></a></li>
-                              <li><a href="#" style="background:#f69679"></a></li>
-                              <li><a href="#" style="background:#fca95e"></a></li>
-                              <li><a href="#" style="background:#7bbc72"></a></li>
-                              <li><a href="#" style="background:#4fb2ac"></a></li>
-                              <li><a href="#" style="background:#5280c5"></a></li>
-                              <li><a href="#" style="background:#eb432d"></a></li>
-                              <li><a href="#" style="background:#f98a37"></a></li>
-                              <li><a href="#" style="background:#51a84c"></a></li>
-                              <li><a href="#" style="background:#008273"></a></li>
-                              <li><a href="#" style="background:#009fec"></a></li>
-                              <li><a href="#" style="background:#f3690f"></a></li>
-
-                          </ul> --}}
-                      </div>
-                  </div>                  
-                  <!-- end widget  -->
-              </div>
-              <!-- end sidebar  -->
-              <div class="col-md-9 col-sm-8 col-md-offset-1">
+              <div class="col-sm-9 col-sm-push-3">
                   {{-- <div class="shorting clearfix xs-margin-top-three">
                       <div class="col-md-8 col-sm-7 grid-nav">
                           <a href="shop-with-sidebar-list.html"><i class="fa fa-bars"></i></a>
@@ -84,9 +52,14 @@
                       <!-- shop item -->
                       <div class="col-md-6 col-sm-6">
                           <div class="home-product text-center position-relative overflow-hidden margin-ten no-margin-top">
-                              <a href="#!"><img src="{{ asset('images/product-images/'.$product->imagepath) }}" alt="{{ $product->title }}"></a>
+                              <a href="#!"><img src="{{ asset('images/product-images/'.$product->productimages->first()->image) }}" alt="{{ $product->title }}"></a>
                               <span class="product-name text-uppercase"><a href="shop-single-product.html" class="bg-white">{{ $product->title }}</a></span>
-                              <span class="price black-text"><del>৳ {{ $product->oldprice }}</del>৳ {{ $product->price }}</span>
+                              <span class="price black-text">
+                                @if($product->oldprice > 0)
+                                  <del>৳ {{ $product->oldprice }}</del>
+                                @endif
+                                ৳ {{ $product->price }}
+                              </span>
                               {{-- <span class="onsale onsale-style-2">Sale</span> --}}
                               <div class="quick-buy">
                                   <div class="product-share">
@@ -141,9 +114,45 @@
                       @endforeach
                   </div>
                   <!-- pagination -->
-                  @include('pagination.default', ['paginator' => $products])
+                  <div class="margin-three">
+                    @include('pagination.default', ['paginator' => $products])
+                  </div>
+                  <hr/>
                   <!-- end pagination -->
               </div>
+
+              <!-- sidebar  -->
+              <div class="col-sm-3 col-sm-pull-9 sidebar">
+                  
+                  <!-- category and subcategory widget  -->
+                  @include('partials/shop-sidebar')
+                  <!-- category and subcategory widget  -->
+
+                  <!-- new arrival widget  -->
+                  <div class="widget">
+                      <h5 class="widget-title font-alt">New Arrivals</h5>
+                      <div class="thin-separator-line bg-dark-gray no-margin-lr margin-ten"></div>
+                      <div class="widget-body">
+                          {{-- <ul class="colors clearfix">
+                              <li class="active"><a href="#" style="background:#f16b4e"></a></li>
+                              <li><a href="#" style="background:#f69679"></a></li>
+                              <li><a href="#" style="background:#fca95e"></a></li>
+                              <li><a href="#" style="background:#7bbc72"></a></li>
+                              <li><a href="#" style="background:#4fb2ac"></a></li>
+                              <li><a href="#" style="background:#5280c5"></a></li>
+                              <li><a href="#" style="background:#eb432d"></a></li>
+                              <li><a href="#" style="background:#f98a37"></a></li>
+                              <li><a href="#" style="background:#51a84c"></a></li>
+                              <li><a href="#" style="background:#008273"></a></li>
+                              <li><a href="#" style="background:#009fec"></a></li>
+                              <li><a href="#" style="background:#f3690f"></a></li>
+
+                          </ul> --}}
+                      </div>
+                  </div>                  
+                  <!-- end widget  -->
+              </div>
+              <!-- end sidebar  -->
           </div>
       </div>
   </section>

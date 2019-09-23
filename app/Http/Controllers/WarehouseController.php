@@ -7,11 +7,13 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\User;
 use App\Category;
+use App\Subcategory;
 use App\Product;
+use App\Productimage;
 use App\Order;
 use Carbon\Carbon;
 use Image;
-use Validator, Input, Redirect;
+use Validator, Input, Redirect, File;
 use Session;
 use Auth;
 use View;
@@ -41,7 +43,10 @@ class WarehouseController extends Controller
 
     public function getCategories() {
       $categories = Category::all();
-      return view('warehouse.categories')->withCategories($categories);
+      $subcategories = Subcategory::all();
+      return view('warehouse.categories')
+                        ->withCategories($categories)
+                        ->withSubcategories($subcategories);
     }
 
     public function postCategories(Request $request) {
@@ -57,8 +62,23 @@ class WarehouseController extends Controller
       return redirect()->route('warehouse.categories');
     }
 
+    public function postSubcategories(Request $request) {
+      $this->validate($request, [
+        'name'         => 'required|max:255|unique:categories,name',
+        'category_id'  => 'required'
+      ]);
+
+      $subcategory = new Subcategory;
+      $subcategory->name = $request->name;
+      $subcategory->category_id = $request->category_id;
+      $subcategory->save();
+
+      Session::flash('success', 'Subcategory is added successfully!');
+      return redirect()->route('warehouse.categories');
+    }
+
     public function getAddProduct() {
-      $products = Product::all();
+      $products = Product::orderBy('id', 'desc')->paginate(10);
       $categories = Category::all();
       return view('warehouse.addproduct')
                   ->withProducts($products)
@@ -67,90 +87,178 @@ class WarehouseController extends Controller
 
     public function postAddProduct(Request $request) {
       $this->validate($request, [
-          'title' => 'required|max:255',
-          'description' => 'sometimes|max:255',
-          'oldprice' => 'sometimes|numeric',
-          'price' => 'required|numeric',
-          'category_id' => 'required',
-          'image' => 'sometimes|image|max:200'
+          'code'             => 'sometimes|max:255',
+          'title'            => 'required|max:255',
+          'shorttext'        => 'required|max:255',
+          'description'      => 'required|max:255',
+          'oldprice'         => 'sometimes|numeric',
+          'price'            => 'required|numeric',
+          'stock'            => 'sometimes|numeric',
+          'subcategory_id'   => 'required',
+
+          'buying_price'     => 'required',
+          'carrying_cost'    => 'required',
+          'vat'              => 'required',
+          'salary'           => 'required',
+          'wages'            => 'required',
+          'utility'          => 'required',
+          'others'           => 'required',
+
+          'image1'           => 'required|image|max:400',
+          'image2'           => 'sometimes|image|max:400',
+          'image3'           => 'sometimes|image|max:400',
+          'image4'           => 'sometimes|image|max:400',
+          'image5'           => 'sometimes|image|max:400'
       ]);
 
-      $product = new Product;
-      $product->title = $request->title;
-      $product->description = $request->description;
-      $product->oldprice = $request->oldprice;
-      $product->price = $request->price;
-      $product->category_id = $request->category_id;
-      $product->isAvailable = 1;
       
-      // image upload
-      if($request->hasFile('image')) {
-          $image      = $request->file('image');
-          $nowdatetime = Carbon::now();
-          $filename   = random_string(6) . time() .'.' . $image->getClientOriginalExtension();
-          $location   = public_path('images/product-images/'. $filename);
-
-          Image::make($image)->resize(200, 200)->save($location);
-          /*Image::make($image)->resize(300, 300, function ($constraint) {
-          $constraint->aspectRatio();
-          })->save($location);*/
-
-          $product->imagepath = $filename;
+      $product = new Product;
+      if($request->code) {
+        $product->code = $request->code;
       }
+      $product->imagetrackcode = random_string(6);
+      $product->title = $request->title;
+      $product->shorttext = $request->shorttext;
+      $product->description = $request->description;
+      if($request->oldprice) {
+        $product->oldprice = $request->oldprice;
+      }
+      $product->price = $request->price;
+      if($request->stock) {
+        $product->stock = $request->stock;
+      }
+      $product->isAvailable = 1;
 
+      $product->subcategory_id = $request->subcategory_id;
+      $findsubcat = Subcategory::findOrFail($request->subcategory_id);
+      if($findsubcat) {
+        $product->category_id = $findsubcat->category->id;
+      }
+      $product->buying_price = $request->buying_price;
+      $product->carrying_cost = $request->carrying_cost;
+      $product->vat = $request->vat;
+      $product->salary = $request->salary;
+      $product->wages = $request->wages;
+      $product->utility = $request->utility;
+      $product->others = $request->others;
+      
       $product->save();
+
+      // upload image(s) 
+      // upload image(s) 
+      for($itrt=1; $itrt<=5;$itrt++) {
+          if($request->hasFile('image'.$itrt)) {
+              $image      = $request->file('image'.$itrt);
+              $nowdatetime = Carbon::now();
+              $filename   = $product->imagetrackcode. 'image'. $itrt .'.' . $image->getClientOriginalExtension();
+              $location   = public_path('images/product-images/'. $filename);
+              Image::make($image)->resize(600, 500)->save($location);
+              $productimage = new Productimage;
+              $productimage->image = $filename;
+              $productimage->product_id = $product->id;
+              $productimage->save();
+          }
+      }
+      // upload image(s) 
+      // upload image(s) 
 
       Session::flash('success', 'Product is added successfully!');
       return redirect()->route('warehouse.addproduct');
     }
 
-    public function getEditProduct($id) {
-      $product = Product::find($id);
-      $products = Product::all();
+    public function getEditProduct($id, $random_string) {
+      $product = Product::findOrFail($id);
+      $products = Product::orderBy('id', 'desc')->paginate(10);
       $categories = Category::all();
-      return view('warehouse.addproduct')
+      return view('warehouse.editproduct')
                   ->withProduct($product)
                   ->withProducts($products)
                   ->withCategories($categories);
     }
 
     public function putEditProduct(Request $request, $id) {
-      $this->validate($request, [
-          'title' => 'required|max:255',
-          'description' => 'sometimes|max:255',
-          'oldprice' => 'sometimes|numeric',
-          'price' => 'required|numeric',
-          'category_id' => 'required',
-          'image' => 'sometimes|image|max:200'
+       $this->validate($request, [
+          'code'             => 'sometimes|max:255',
+          'title'            => 'required|max:255',
+          'shorttext'        => 'required|max:255',
+          'description'      => 'required|max:255',
+          'oldprice'         => 'sometimes|numeric',
+          'price'            => 'required|numeric',
+          'stock'            => 'sometimes|numeric',
+          'subcategory_id'   => 'required',
+
+          'buying_price'     => 'required',
+          'carrying_cost'    => 'required',
+          'vat'              => 'required',
+          'salary'           => 'required',
+          'wages'            => 'required',
+          'utility'          => 'required',
+          'others'           => 'required',
+
+          'image1'           => 'sometimes|image|max:400',
+          'image2'           => 'sometimes|image|max:400',
+          'image3'           => 'sometimes|image|max:400',
+          'image4'           => 'sometimes|image|max:400',
+          'image5'           => 'sometimes|image|max:400'
       ]);
 
-      $product = Product::find($id);;
-      $product->title = $request->title;
-      $product->description = $request->description;
-      $product->oldprice = $request->oldprice;
-      $product->price = $request->price;
-      $product->category_id = $request->category_id;
-      
-      // image upload
-      if($request->hasFile('image')) {
-          // delete previous image
-          \File::delete([
-            public_path('images/product-images/'. $product->imagepath)
-          ]);
-          $image      = $request->file('image');
-          $nowdatetime = Carbon::now();
-          $filename   = str_replace(' ','',$product->title).$nowdatetime->format('YmdHis') .'.' . $image->getClientOriginalExtension();
-          $location   = public_path('images/product-images/'. $filename);
-
-          Image::make($image)->resize(200, 200)->save($location);
-          /*Image::make($image)->resize(300, 300, function ($constraint) {
-          $constraint->aspectRatio();
-          })->save($location);*/
-
-          $product->imagepath = $filename;
+      $product = Product::find($id);
+      if($request->code) {
+        $product->code = $request->code;
       }
+      $product->title = $request->title;
+      $product->shorttext = $request->shorttext;
+      $product->description = $request->description;
+      if($request->oldprice) {
+        $product->oldprice = $request->oldprice;
+      }
+      $product->price = $request->price;
+      if($request->stock) {
+        $product->stock = $request->stock;
+      }
+      $product->isAvailable = 1;
 
+      $product->subcategory_id = $request->subcategory_id;
+      $findsubcat = Subcategory::findOrFail($request->subcategory_id);
+      if($findsubcat) {
+        $product->category_id = $findsubcat->category->id;
+      }
+      $product->buying_price = $request->buying_price;
+      $product->carrying_cost = $request->carrying_cost;
+      $product->vat = $request->vat;
+      $product->salary = $request->salary;
+      $product->wages = $request->wages;
+      $product->utility = $request->utility;
+      $product->others = $request->others;
+      
       $product->save();
+
+      // update image(s) 
+      // update image(s) 
+      for($itrt=1; $itrt<=5;$itrt++) {
+          if($request->hasFile('image'.$itrt)) {
+              foreach ($product->productimages as $image) {
+                // delete the previous ones
+                $image_path = public_path('images/product-images/'. $image->image);
+                if(File::exists($image_path)) {
+                    File::delete($image_path);
+                    $productimage = Productimage::where('image', $image->image)->first();
+                    $productimage->delete();
+                }
+              }
+              $image      = $request->file('image'.$itrt);
+              $nowdatetime = Carbon::now();
+              $filename   = $product->imagetrackcode. 'image'. $itrt .'.' . $image->getClientOriginalExtension();
+              $location   = public_path('images/product-images/'. $filename);
+              Image::make($image)->resize(600, 500)->save($location);
+              $productimage = new Productimage;
+              $productimage->image = $filename;
+              $productimage->product_id = $product->id;
+              $productimage->save();
+          }
+      }
+      // update image(s) 
+      // update image(s)
 
       Session::flash('success', 'Product is updated successfully!');
       return redirect()->route('warehouse.addproduct');
