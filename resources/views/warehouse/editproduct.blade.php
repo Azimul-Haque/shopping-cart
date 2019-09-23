@@ -56,7 +56,7 @@
   		        <select class="form-control" name="subcategory_id" required="">
   		          <option value="" selected="" disabled="">Select Sub Category</option>
   		          @foreach($categories as $category)
-  		            @foreach($category->subcategories->sortBy('image') as $subcategory)
+  		            @foreach($category->subcategories as $subcategory)
   		              <option value="{{ $subcategory->id }}" @if($product->subcategory_id == $subcategory->id) selected="" @endif>{{ $subcategory->name }}</option>
   		            @endforeach
   		          @endforeach
