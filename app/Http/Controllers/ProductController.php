@@ -37,6 +37,18 @@ class ProductController extends Controller
       return view('shop.categorywise')->withProducts($products);
     }
 
+    public function getSingleProduct($id, $random_string) 
+    {
+      $product = Product::findOrFail($id);
+      $relatedproducts = Product::where('isAvailable', '!=', '0')
+                         ->where('category_id', $product->category_id)
+                         ->inRandomOrder()
+                         ->get()->take(10);
+      return view('shop.singleproduct')
+                        ->withProduct($product)
+                        ->withRelatedproducts($relatedproducts);
+    }
+
     public function getSubcategoryWise($id, $random_string) {
       $products = Product::where('isAvailable', '!=', '0')
                          ->where('subcategory_id', $id)
@@ -55,6 +67,25 @@ class ProductController extends Controller
 
       $request->session()->put('cart', $cart);
       //return redirect()->route('product.index');
+      return 'success';
+    }
+
+    public function getAddToCartSingle(Request $request, $id, $qty) {
+      // this method returns an API response
+      $product = Product::find($id);
+      $oldCart = Session::has('cart') ? Session::get('cart') : null;
+      $cart = new Cart($oldCart);
+      $cart->add($product, $product->id);
+
+      $request->session()->put('cart', $cart);
+      
+      // if qty > 1 then...
+      if($qty > 1) {
+        for ($i=1; $i < $qty; $i++) { 
+          $this->getAddByOne($id);
+        }
+      }
+
       return 'success';
     }
 

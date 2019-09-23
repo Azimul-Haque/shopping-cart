@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('imagetrackcode');
             $table->string('title');
             $table->string('shorttext');
-            $table->string('description');
+            $table->text('description');
             $table->float('oldprice')->default(0);
             $table->float('price');
             $table->integer('stock')->default(0);

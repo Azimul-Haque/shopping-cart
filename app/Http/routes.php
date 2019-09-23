@@ -5,16 +5,6 @@ Route::get('/', [
     'as' => 'product.index'
 ]);
 
-Route::get('/about', [
-    'uses' => 'ProductController@getIndex',
-    'as' => 'index.about'
-]);
-
-Route::get('/contact', [
-    'uses' => 'ProductController@getIndex',
-    'as' => 'index.contact'
-]);
-
 Route::get('/category/{id}/{random_string}', [
     'uses' => 'ProductController@getCategoryWise',
     'as' => 'product.categorywise'
@@ -23,6 +13,21 @@ Route::get('/category/{id}/{random_string}', [
 Route::get('/subcategory/{id}/{random_string}', [
     'uses' => 'ProductController@getSubcategoryWise',
     'as' => 'product.subcategorywise'
+]);
+
+Route::get('/product/{id}/{random_string}', [
+    'uses' => 'ProductController@getSingleProduct',
+    'as' => 'product.getsingleproduct'
+]);
+
+Route::get('/about', [
+    'uses' => 'ProductController@getIndex',
+    'as' => 'index.about'
+]);
+
+Route::get('/contact', [
+    'uses' => 'ProductController@getIndex',
+    'as' => 'index.contact'
 ]);
 
 Route::get('/search', [
@@ -162,6 +167,11 @@ Route::get('/warehouse/customers', [
 Route::get('/addtocart/{id}', [
     'uses' => 'ProductController@getAddToCart',
     'as' => 'product.addtocart'
+]);
+
+Route::get('/addtocartsingle/{id}/{qty}', [
+    'uses' => 'ProductController@getAddToCartSingle',
+    'as' => 'product.addtocartsingle'
 ]);
 
 Route::get('/add/{id}', [

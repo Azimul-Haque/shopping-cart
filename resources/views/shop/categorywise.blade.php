@@ -52,8 +52,8 @@
                       <!-- shop item -->
                       <div class="col-md-6 col-sm-6">
                           <div class="home-product text-center position-relative overflow-hidden margin-ten no-margin-top">
-                              <a href="#!"><img src="{{ asset('images/product-images/'.$product->productimages->first()->image) }}" alt="{{ $product->title }}"></a>
-                              <span class="product-name text-uppercase"><a href="#!" class="bg-white">{{ $product->title }}</a></span>
+                              <a href="{{ route('product.getsingleproduct', [$product->id, generate_token(100)]) }}"><img src="{{ asset('images/product-images/'.$product->productimages->first()->image) }}" alt="{{ $product->title }}"></a>
+                              <span class="product-name text-uppercase"><a href="{{ route('product.getsingleproduct', [$product->id, generate_token(100)]) }}" class="bg-white">{{ $product->title }}</a></span>
                               <span class="price black-text">
                                 @if($product->oldprice > 0)
                                   <del>৳ {{ $product->oldprice }}</del>
@@ -160,18 +160,6 @@
 @endsection
 
 @section('js')
-<script>
-    $("#owl-demo").owlCarousel ({
-
-        slideSpeed : 800,
-        autoPlay: 4000,
-        items : 1,
-        stopOnHover : false,
-        itemsDesktop : [1199,1],
-        itemsDesktopSmall : [979,1],
-        itemsTablet :   [768,1],
-      });
-</script>
 <script type="text/javascript">
   $('#search-content').on('keyup', function () {
       //history.pushState(null, null, '/search');
