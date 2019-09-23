@@ -206,6 +206,7 @@ class WarehouseController extends Controller
       if($request->code) {
         $product->code = $request->code;
       }
+      $product->imagetrackcode = random_string(6);
       $product->title = $request->title;
       $product->shorttext = $request->shorttext;
       $product->description = $request->description;
