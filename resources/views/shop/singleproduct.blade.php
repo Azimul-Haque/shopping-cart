@@ -18,6 +18,22 @@
       border: 1px solid gray;
     }
   </style>
+  <meta property="og:image" content="{{ asset('images/product-images/'.$product->productimages->first()->image) }}" />
+  <meta property="og:title" content="{{ $product->title }} | Ecoomerce Name"/>
+  <meta name="description" property="og:description" content="{{ substr(strip_tags($product->description), 0, 200) }}" />
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="{{ Request::url() }}" />
+  <meta property="og:site_name" content="Ecomm Name">
+  <meta property="og:locale" content="en_US">
+  <meta property="fb:admins" content="100001596964477">
+  <meta property="fb:app_id" content="163879201229487">
+  <meta property="og:type" content="article">
+  <!-- Open Graph - Article -->
+  <meta name="article:section" content="Ecoomerce Name">
+  <meta name="article:published_time" content="{{ $product->created_at}}">
+  <meta name="article:author" content="Ecom">
+  <meta name="article:tag" content="Product">
+  <meta name="article:modified_time" content="{{ $product->updated_at}}">
 @endsection
 
 @section('content')
@@ -117,9 +133,9 @@
                         <div class="col-md-6 product-details-social no-padding">
                             <!-- social media sharing -->
                             <span class="black-text text-uppercase text-small vertical-align-middle margin-right-five">Share</span>
-                            <a href="#!"><i class="fa fa-facebook"></i></a>
-                            <a href="#!"><i class="fa fa-twitter"></i></a>
-                            <a href="#!"><i class="fa fa-linkedin"></i></a>
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ Request::url() }}" onclick="window.open(this.href,'newwindow', 'width=500,height=400'); return false;"><i class="fa fa-facebook"></i></a>
+                            <a href="https://twitter.com/intent/tweet?url={{ Request::url() }}" onclick="window.open(this.href,'newwindow', 'width=500,height=400'); return false;"><i class="fa fa-twitter"></i></a>
+                            <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ Request::url()}}&title=IIT%20Alumni%20Association&summary={{ $product->title }}&source=Killa%20Consultancy" onclick="window.open(this.href,'newwindow', 'width=500,height=400');  return false;"><i class="fa fa-linkedin"></i></a>
                             <!-- end social media sharing -->
                         </div>
                     </div>
