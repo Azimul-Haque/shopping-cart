@@ -9,7 +9,7 @@
       <meta property="og:image" content="{{ asset('images/abc.png') }}" />
   @endif
 
-  <meta property="og:title" content="{{ $article->title }} | page"/>
+  <meta property="og:title" content="{{ $article->title }} | Ecoomerce Name"/>
   <meta name="description" property="og:description" content="{{ substr(strip_tags($article->description), 0, 200) }}" />
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="{{ Request::url() }}" />
