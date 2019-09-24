@@ -90,7 +90,7 @@ class WarehouseController extends Controller
           'code'             => 'sometimes|max:255',
           'title'            => 'required|max:255',
           'shorttext'        => 'required|max:255',
-          'description'      => 'required|max:255',
+          'description'      => 'required',
           'oldprice'         => 'sometimes|numeric',
           'price'            => 'required|numeric',
           'stock'            => 'sometimes|numeric',
@@ -181,7 +181,7 @@ class WarehouseController extends Controller
           'code'             => 'sometimes|max:255',
           'title'            => 'required|max:255',
           'shorttext'        => 'required|max:255',
-          'description'      => 'required|max:255',
+          'description'      => 'required',
           'oldprice'         => 'sometimes|numeric',
           'price'            => 'required|numeric',
           'stock'            => 'sometimes|numeric',
@@ -340,7 +340,6 @@ class WarehouseController extends Controller
 
     public function getCustomers() {
       $customers = User::where('role', 'customer')->paginate(10);
-
       return view('warehouse.customers')
               ->withCustomers($customers);
     }

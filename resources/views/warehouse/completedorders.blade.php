@@ -46,6 +46,8 @@
                 <tr>
                   <th>অর্ডার আইডি</th>
                   <th>অর্ডারের সময়</th>
+                  <th>পেমেন্ট মেথড</th>
+                  <th>ডেলিভারি চার্জ</th>
                   <th>মোট পরিশোধনীয় মূল্য</th>
                   <th>কার্যক্রম</th>
                 </tr>
@@ -55,6 +57,8 @@
                 <tr>
                   <td>{{ $dueorder->payment_id }}</td>
                   <td>{{ $dueorder->created_at->format('M d, Y, h:i A') }}</td>
+                  <td>{{ payment_method($dueorder->payment_method) }}</td>
+                  <td>৳ {{ $dueorder->cart->deliveryCharge }}</td>
                   <td>৳ {{ $dueorder->cart->totalPrice }}</td>
                   <td>
                     <button class="btn btn-sm btn-warning" type="button" data-toggle="modal" data-target="#details{{ $dueorder->id }}" data-backdrop="static"><i class="fa fa-cogs" aria-hidden="true"></i> বিস্তারিত</button>
@@ -75,6 +79,7 @@
                                   <h4>ক্রেতার নামঃ {{ $dueorder->user->name }}</h4>
                                   <h4>ফোন নম্বরঃ <b>{{ $dueorder->user->phone }}</b></h4>
                                   <h4>পণ্য প্রেরণের ঠিকানাঃ <b>{{ $dueorder->address }}</b></h4><br/>
+                                  <h4>পেমেন্ট মেথডঃ <b>{{ payment_method($dueorder->payment_method) }}</b></h4><br/>
                                 </div>
                                 <div class="col-md-8">
                                   <h4>অর্ডারের বিবরণঃ</h4>
@@ -91,25 +96,14 @@
                                             <strong style="float: right;">
                                               মোট পরিশোধনীয় মূল্যঃ ৳ <big>{{ $dueorder->cart->totalPrice }}</big>
                                             </strong>
-                                            @if($dueorder->cart->totalPrice < 300)
                                             <br/><br/>
-                                            <strong style="float: right !important;">ডেলিভারি চার্জঃ ৳ 30</strong>
-                                            <br/>
-                                            <span style="float: right !important;">
-                                            ________________________</span><br/><br/>
-                                            <strong style="float: right !important;">
-                                              সর্বমোট পরিশোধনীয় মূল্যঃ ৳ <big>{{ $dueorder->cart->totalPrice + 30 }}</big>
-                                            </strong>
-                                            @else
-                                            <br/><br/>
-                                            <strong style="float: right !important;">ডেলিভারি চার্জঃ ৳ 0</strong>
+                                            <strong style="float: right !important;">ডেলিভারি চার্জঃ ৳ {{ $dueorder->cart->deliveryCharge }}</strong>
                                             <br/>
                                             <span style="float: right !important;">
                                             ________________________</span><br/><br/>
                                             <strong style="float: right !important;">
                                               সর্বমোট পরিশোধনীয় মূল্যঃ ৳ <big>{{ $dueorder->cart->totalPrice }}</big>
                                             </strong>
-                                            @endif
                                           </div>
                                         </div>
                                       </li>

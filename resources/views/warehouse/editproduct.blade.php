@@ -71,7 +71,7 @@
 
   		    <div class="row">
   		      <div class="col-md-12">
-  		        <big><b>If no image is selected, these will be used, Size: 400KB Max, height x width : 600px x 500px (Applied for all images)</b></big><br/>
+  		        <big><b>If no image is selected, these will be used, Size: 400KB Max, width x height : 600px x 500px (Applied for all images)</b></big><br/>
 		        @foreach($product->productimages as $image)
 		          <img style="max-height: 100px; border:1px solid #777; float: left; margin-right: 10px;" class="img-responsive" src="{{ asset('images/product-images/'.$image->image) }}">
 		        @endforeach

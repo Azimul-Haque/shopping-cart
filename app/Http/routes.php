@@ -1,5 +1,10 @@
 <?php
 
+Route::get('/clear', [
+    'uses' => 'ProductController@clearSession',
+    'as' => 'product.clearsession'
+]);
+
 Route::get('/', [
     'uses' => 'ProductController@getIndex',
     'as' => 'product.index'
@@ -75,9 +80,14 @@ Route::get('user/profile/{unique_key}', [
     'middleware' => 'auth'
 ]);
 
+Route::get('article/{slug}', [
+    'uses' => 'ProductController@getSinglePage',
+    'as' => 'index.article'
+]);
+
 /*warehouse routes*/
 /*warehouse routes*/
-Route::get('/warehouse/dashboard', [
+Route::get('/dashboard', [
     'uses' => 'WarehouseController@getDashboard',
     'as' => 'warehouse.dashboard',
     'middleware' => 'admin'
@@ -162,6 +172,72 @@ Route::get('/warehouse/customers', [
 ]);
 /*warehouse routes*/
 /*warehouse routes*/
+
+/*admin activity routes*/
+/*admin activity routes*/
+Route::get('/admin/settings', [
+    'uses' => 'AdminController@getSettings',
+    'as' => 'admin.settings',
+    'middleware' => 'admin'
+]);
+Route::get('/admin/settings/slider/create', [
+    'uses' => 'AdminController@getCreateSlider',
+    'as' => 'admin.createslider',
+    'middleware' => 'admin'
+]);
+Route::post('/admin/settings/slider/store', [
+    'uses' => 'AdminController@storeSlider',
+    'as' => 'admin.storeslider',
+    'middleware' => 'admin'
+]);
+Route::get('/admin/settings/slider/{id}/edit', [
+    'uses' => 'AdminController@getEditSlider',
+    'as' => 'admin.editslider',
+    'middleware' => 'admin'
+]);
+Route::put('/admin/settings/slider/{id}/update', [
+    'uses' => 'AdminController@updateSlider',
+    'as' => 'admin.updateslider',
+    'middleware' => 'admin'
+]);
+Route::delete('/admin/settings/slider/{id}/delete', [
+    'uses' => 'AdminController@deleteSlider',
+    'as' => 'admin.deleteslider',
+    'middleware' => 'admin'
+]);
+
+Route::get('/admin/pages', [
+    'uses' => 'AdminController@getPages',
+    'as' => 'admin.pages',
+    'middleware' => 'admin'
+]);
+Route::get('/admin/settings/page/create', [
+    'uses' => 'AdminController@getCreatePage',
+    'as' => 'admin.createpage',
+    'middleware' => 'admin'
+]);
+Route::post('/admin/settings/page/store', [
+    'uses' => 'AdminController@storePage',
+    'as' => 'admin.storepage',
+    'middleware' => 'admin'
+]);
+Route::get('/admin/settings/page/{id}/edit', [
+    'uses' => 'AdminController@getEditPage',
+    'as' => 'admin.editpage',
+    'middleware' => 'admin'
+]);
+Route::put('/admin/settings/page/{id}/update', [
+    'uses' => 'AdminController@updatePage',
+    'as' => 'admin.updatepage',
+    'middleware' => 'admin'
+]);
+Route::delete('/admin/settings/page/{id}/delete', [
+    'uses' => 'AdminController@deletePage',
+    'as' => 'admin.deletepage',
+    'middleware' => 'admin'
+]);
+/*admin activity routes*/
+/*admin activity routes*/
 
 
 Route::get('/addtocart/{id}', [

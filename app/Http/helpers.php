@@ -54,3 +54,11 @@
       else
           return $number. $ends[$number % 10];
   }
+
+  function payment_method($payment_method) 
+  {
+      if ($payment_method == 0)
+          return 'Cash On Delivery';
+      elseif($payment_method == 1)
+          return 'Bkash';
+  }

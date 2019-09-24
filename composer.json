@@ -10,7 +10,8 @@
         "laravelcollective/html": "^5.2.0",
         "anhskohbo/no-captcha": "^2.3",
         "intervention/image": "^2.4",
-        "jeroennoten/laravel-adminlte": "^1.19"
+        "jeroennoten/laravel-adminlte": "^1.19",
+        "mews/purifier": "^3.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

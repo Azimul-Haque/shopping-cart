@@ -10,6 +10,8 @@ use App\Cart;
 use App\Category;
 use App\Product;
 use App\Order;
+use App\Slider;
+use App\Page;
 use Session;
 use Auth;
 use Response;
@@ -26,8 +28,11 @@ class ProductController extends Controller
       $products = Product::where('isAvailable', '!=', '0')
                          ->orderBy('id', 'desc')
                          ->paginate(10);
+      $sliders = Slider::orderBy('id', 'asc')->get();
 
-      return view('shop.index')->withProducts($products);
+      return view('shop.index')
+                  ->withProducts($products)
+                  ->withSliders($sliders);
     }
 
     public function getCategoryWise($id, $random_string) {
@@ -150,18 +155,26 @@ class ProductController extends Controller
       }
 
       $this->validate($request, [
-        'address' => 'required',
-        'fcode'   => 'sometimes'
+        'address'          => 'required',
+        'fcode'            => 'sometimes',
+        'district'         => 'required',
+        'payment_method'   => 'required'
       ]);
 
       $oldCart = Session::get('cart');
       $cart = new Cart($oldCart);
+      if($request->district == 'DHAKA') {
+        $cart->addDeliveryCharges(60); // hardcoder deliverycharge
+      } else {
+        $cart->addDeliveryCharges(100); // hardcoder deliverycharge
+      }
 
       try{
         $order = new Order();
         $order->cart = serialize($cart);
         $order->address = $request->address;
         $order->paymentstatus = 'not-paid';
+        $order->payment_method = 0; // 0 means cash on delivery
         $nowdatetime = Carbon::now();
 
         $order->payment_id = $nowdatetime->format('YmdHis') . random_string(5);
@@ -175,7 +188,7 @@ class ProductController extends Controller
           }
         }
       } catch(\Exception $e) {
-        Session::flash('error', 'আপনার নিশ্চিতকরণে কোন সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।');
+        Session::flash('warning', 'আপনার নিশ্চিতকরণে কোন সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।');
         return redirect()->route('product.index');
       }
 
@@ -228,4 +241,24 @@ class ProductController extends Controller
       }
       return $searchResult;
     }
+
+    public function getSinglePage($slug)
+    {
+      $article = Page::where('slug', $slug)->first();
+      if(!$article) {
+        Session::flash('warning', 'এই পাতাটি এ মুহূর্তে অপ্রাপ্য!');
+        return abort(404);
+      } 
+      $recentproducts = Product::orderBy('id', 'desc')->get()->take(10);
+      return view('shop.article')
+                    ->withArticle($article)
+                    ->withRecentproducts($recentproducts);
+    }  
+
+    public function clearSession(Request $request)
+    {
+      $request->session()->flush();
+      Session::flash('success', 'Cart has been cleared!');
+      return redirect('/');
+    }    
 }

@@ -54,22 +54,28 @@
                   @elseif($orders->first()->paymentstatus == 'not-paid')
                     <i class="fa fa-hourglass-start" title="Yet to deliver"></i>
                   @endif
-                  আপনার সর্বশেষ অর্ডারঃ তারিখ ও সময়-{{ $orders->first()->created_at->format('M d, Y, h:i A') }}
+                  Last Order: {{ $orders->first()->created_at->format('M d, Y, h:i A') }}
                 </h4>
               </div>
               <div class="panel-body">
-                <h4>অর্ডার আইডিঃ {{ $orders->first()->payment_id }}</h4>
+                <h4>Order ID: {{ $orders->first()->payment_id }}<br/>Payment Method: {{ payment_method($orders->first()->payment_method) }}</h4>
                 <ul class="list-group">
                   @foreach($orders->first()->cart->items as $item)
                     <li class="list-group-item">
-                      {{ $item['item']['title'] }} | {{ $item['qty'] }}
+                      <div style="float: left;">{{ $item['item']['title'] }}</div> | {{ $item['qty'] }}
                       <span class="badge">৳ {{ $item['price'] }}</span>
                     </li>
                   @endforeach
                 </ul>
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    Delivery Charge
+                    <span class="badge">৳ {{ json_encode($orders->first()->cart->deliveryCharge) }}</span>
+                  </li>
+                </ul>
               </div>
               <div class="panel-footer panel-footer-custom">
-                <strong>মোট মূল্যঃ ৳ {{ $orders->first()->cart->totalPrice }}</strong>
+                <strong>Total Payable <span style="float: right;">৳ {{ $orders->first()->cart->totalPrice }}</span></strong>
               </div>
             </div>
             @else
@@ -92,7 +98,7 @@
                   <div class="panel panel-success">
                     <div class="panel-heading">
                       <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $order->id }}">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#receiptcollapse{{ $order->id }}">
                           @if($order->paymentstatus == 'paid')
                             <i class="fa fa-check" title="Delivered"></i>
                           @elseif($order->paymentstatus == 'not-paid')
@@ -102,21 +108,28 @@
                         </a>
                       </h4>
                     </div>
-                    <div id="collapse{{ $order->id }}" class="panel-collapse collapse">
+                    <div id="receiptcollapse{{ $order->id }}" class="panel-collapse collapse">
                       <div class="panel-body">
-                        <h4>অর্ডার আইডিঃ {{ $order->payment_id }}</h4>
+                        <h4>Order ID: {{ $order->payment_id }}<br/>Payment Method: {{ payment_method($order->payment_method) }}</h4>
                         <ul class="list-group">
                           @foreach($order->cart->items as $item)
                             <li class="list-group-item">
-                              {{ $item['item']['title'] }} | {{ $item['qty'] }}
+                              <div style="white-space: nowrap; max-width: 150px; overflow: hidden; text-overflow: ellipsis; float: left;" title="{{ $item['item']['title'] }}">
+                                {{ $item['item']['title'] }}
+                              </div> | {{ $item['qty'] }}
                               <span class="badge">৳ {{ $item['price'] }}</span>
                             </li>
                           @endforeach
-                        </ul>
-                      </div>
-                      <div class="panel-footer panel-footer-custom">
-                        <strong>মোট মূল্যঃ ৳ {{ $order->cart->totalPrice }}</strong>
-                      </div>
+                        </ul><ul class="list-group">
+                        <li class="list-group-item">
+                          Delivery Charge
+                          <span class="badge">৳ {{ json_encode($order->cart->deliveryCharge) }}</span>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="panel-footer panel-footer-custom">
+                      <strong>Total Payable <span style="float: right;">৳ {{ $order->cart->totalPrice }}</span></strong>
+                    </div>
                     </div>
                   </div><br/>
                 @endforeach

@@ -32,29 +32,29 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach($customers as $dueorder)
+                @foreach($customers as $customer)
                 <tr>
                   <td>
-                    <big>{{ $dueorder->name }}</big><br/>
-                    <span class="label label-success">ID: {{ $dueorder->code }}</span>
+                    <big>{{ $customer->name }}</big><br/>
+                    <span class="label label-success">ID: {{ $customer->code }}</span>
                   </td>
                   <td>
-                    <big><b>{{ $dueorder->phone }}</b></big><br/>
-                    {{ $dueorder->email }}
+                    <big><b>{{ $customer->phone }}</b></big><br/>
+                    {{ $customer->email }}
                   </td>
-                  <td>{{ $dueorder->address }}</td>
-                  <td>{{ $dueorder->orders->count() }} বার</td>
-                  <td>{{ $dueorder->points }}</td>
+                  <td>{{ $customer->address }}</td>
+                  <td>{{ $customer->orders->count() }} বার</td>
+                  <td>{{ $customer->points }}</td>
                   <td>
                     প্রথম অর্ডারঃ 
-                    @if($dueorder->orders->first())
-                      {{ $dueorder->orders->first()->created_at->format('M d, Y') }}
+                    @if($customer->orders->first())
+                      {{ $customer->orders->first()->created_at->format('M d, Y') }}
                     @else
                       N/A
                     @endif <br/>
                     সর্বশেষ অর্ডারঃ 
-                    @if($dueorder->orders->last())
-                      {{ $dueorder->orders->last()->created_at->format('M d, Y') }}
+                    @if($customer->orders->last())
+                      {{ $customer->orders->last()->created_at->format('M d, Y') }}
                     @else
                       N/A
                     @endif

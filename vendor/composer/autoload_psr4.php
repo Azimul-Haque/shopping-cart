@@ -33,6 +33,7 @@ return array(
     'Prophecy\\' => array($vendorDir . '/phpspec/prophecy/src/Prophecy'),
     'PhpParser\\' => array($vendorDir . '/nikic/php-parser/lib/PhpParser'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
+    'Mews\\Purifier\\' => array($vendorDir . '/mews/purifier/src'),
     'League\\Flysystem\\' => array($vendorDir . '/league/flysystem/src'),
     'JeroenNoten\\LaravelAdminLte\\' => array($vendorDir . '/jeroennoten/laravel-adminlte/src'),
     'JakubOnderka\\PhpConsoleColor\\' => array($vendorDir . '/jakub-onderka/php-console-color/src'),

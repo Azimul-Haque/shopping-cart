@@ -162,7 +162,8 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        JeroenNoten\LaravelAdminLte\ServiceProvider::class
+        JeroenNoten\LaravelAdminLte\ServiceProvider::class,
+        Mews\Purifier\PurifierServiceProvider::class,
 
     ],
 
@@ -214,7 +215,8 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
-        'Image' => Intervention\Image\Facades\Image::class
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Purifier' => Mews\Purifier\Facades\Purifier::class,
 
     ],
 

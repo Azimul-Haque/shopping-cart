@@ -216,13 +216,13 @@
                           </a>
                       </li>
                       <li class="">
-                          <a href="#!">
+                          <a href="{{ route('admin.settings') }}">
                               <i class="fa fa-fw fa-wrench"></i>
                               <span>Settings</span>
                           </a>
                       </li>
                       <li class="">
-                          <a href="#!">
+                          <a href="{{ route('admin.pages') }}">
                               <i class="fa fa-fw fa-files-o"></i>
                               <span>Pages</span>
                           </a>
