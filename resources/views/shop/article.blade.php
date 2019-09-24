@@ -19,7 +19,7 @@
   <meta property="fb:app_id" content="163879201229487">
   <meta property="og:type" content="article">
   <!-- Open Graph - Article -->
-  <meta name="article:section" content="page">
+  <meta name="article:section" content="Ecoomerce Name">
   <meta name="article:published_time" content="{{ $article->created_at}}">
   <meta name="article:author" content="Ecom">
   <meta name="article:tag" content="Article">
