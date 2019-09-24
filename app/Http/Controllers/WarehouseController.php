@@ -13,7 +13,7 @@ use App\Productimage;
 use App\Order;
 use Carbon\Carbon;
 use Image;
-use Validator, Input, Redirect, File;
+use DB, Validator, Input, Redirect, File;
 use Session;
 use Auth;
 use View;
@@ -34,11 +34,34 @@ class WarehouseController extends Controller
       }
       $totalcustomers = User::where('role', 'customer')->count();
       $totalproducts = Product::count();
+
+      // chart data
+      $lastsevendayscollection = DB::table('orders')
+                      ->select('created_at', DB::raw('SUM(totalprice) as total'))
+                      ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
+                      ->orderBy('created_at', 'DESC')
+                      ->take(7)
+                      ->get();
+      $datesforchartc = [];
+      foreach ($lastsevendayscollection as $key => $days) {
+          $datesforchartc[] = date_format(date_create($days->created_at), "M d");
+      }
+      $datesforchartc = json_encode(array_reverse($datesforchartc));
+
+      $totalsforchartc = [];
+      foreach ($lastsevendayscollection as $key => $days) {
+          $totalsforchartc[] = $days->total;
+      }
+      $totalsforchartc = json_encode(array_reverse($totalsforchartc));
+      // chart data
+
       return view('warehouse.dashboard')
                     ->withTotalorders($totalorders)
                     ->withTotalincome($totalincome)
                     ->withTotalcustomers($totalcustomers)
-                    ->withTotalproducts($totalproducts);
+                    ->withTotalproducts($totalproducts)
+                    ->withDatesforchartc($datesforchartc)
+                    ->withTotalsforchartc($totalsforchartc);
     }
 
     public function getCategories() {

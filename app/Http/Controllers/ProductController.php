@@ -172,6 +172,7 @@ class ProductController extends Controller
       try{
         $order = new Order();
         $order->cart = serialize($cart);
+        $order->totalprice = $cart->totalPrice;
         $order->address = $request->address;
         $order->paymentstatus = 'not-paid';
         $order->payment_method = 0; // 0 means cash on delivery
