@@ -61,7 +61,7 @@
                   <td>৳ {{ $dueorder->cart->deliveryCharge }}</td>
                   <td>৳ {{ $dueorder->cart->totalPrice }}</td>
                   <td>
-                    <button class="btn btn-sm btn-warning" type="button" data-toggle="modal" data-target="#details{{ $dueorder->id }}" data-backdrop="static"><i class="fa fa-cogs" aria-hidden="true"></i> বিস্তারিত</button>
+                    <button class="btn btn-sm btn-warning" type="button" title="Details" data-toggle="modal" data-target="#details{{ $dueorder->id }}" data-backdrop="static"><i class="fa fa-cogs" aria-hidden="true"></i></button>
                     <div class="modal fade modal{{ $dueorder->id }}" id="details{{ $dueorder->id }}" role="dialog">
                       <div class="modal-dialog modal-lg">
                         <!-- Modal content-->
@@ -138,7 +138,7 @@
                         });
                       </script>
                     </div>
-                    <button class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> মুছে দিন</button>
+                    {{-- <button class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> মুছে দিন</button> --}}
                   </td>
                 </tr>
                 @endforeach

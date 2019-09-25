@@ -161,8 +161,8 @@ class AdminController extends Controller
 
     public function getEditPage($id)
     {
-    	$page = Page::findOrFail($id);
-      	return view('admin.editpage')->withPage($page);
+      $page = Page::findOrFail($id);
+        return view('admin.editpage')->withPage($page);
     }
 
     public function updatePage(Request $request, $id)
@@ -212,5 +212,79 @@ class AdminController extends Controller
 
     	Session::flash('success', 'Deleted successfully!');
       	return redirect()->route('admin.pages');
+    }
+
+    public function getAdmins()
+    {  
+      $admins = User::where('role', 'admin')->get();
+      return view('admin.admins')->withAdmins($admins);
+    }
+
+    public function getCreateAdmin()
+    {  
+      return view('admin.createadmin');
+    }
+
+    public function storeAdmin(Request $request)
+    {
+      $this->validate($request, [
+        'name' => 'required',
+        'email' => 'email|required|unique:users',
+        'phone' => 'required|unique:users',
+        'password' => 'required|min:6'
+      ]);
+
+      $user = new User([
+        'name' => $request->input('name'),
+        'email' => $request->input('email'),
+        'phone' => $request->input('phone'),
+        'address' => 'N/A',
+        'role' => 'admin',
+        'code' => date('Y').date('m').random_string(5),
+        'unique_key' => generate_token(100),
+        'password' => bcrypt($request->input('password'))
+      ]);
+
+      $user->save();
+
+      Session::flash('success', 'Added successfully!');
+      return redirect()->route('admin.admins');
+    }
+
+    public function editAdmin($id)
+    {
+      $admin = User::findOrFail($id);
+        return view('admin.editadmin')->withAdmin($admin);
+    }
+
+    public function updateAdmin(Request $request, $id)
+    {
+      $this->validate($request, [
+          'name'       => 'required|max:255',
+          'password'   => 'required|min:6'
+      ]);
+
+      $user = User::findOrFail($id);
+      $user->name = $request->name;
+      $user->password = bcrypt($request->input('password'));
+      $user->save();
+
+      Session::flash('success', 'Updated successfully!');
+      return redirect()->route('admin.admins');
+    }
+
+    public function deleteAdmin($id)
+    {
+      $user = User::findOrFail($id);
+
+      if($user->orders->count() > 0) {
+        Session::flash('warning', 'This user has purchasing history in this system, the user cannot be deleted!');
+        return redirect()->route('admin.admins');
+      } else {
+        $user->delete();
+
+        Session::flash('success', 'Deleted successfully!');
+        return redirect()->route('admin.admins');
+      }
     }
 }

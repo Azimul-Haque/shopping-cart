@@ -236,6 +236,36 @@ Route::delete('/admin/settings/page/{id}/delete', [
     'as' => 'admin.deletepage',
     'middleware' => 'admin'
 ]);
+Route::get('/admin/admins', [
+    'uses' => 'AdminController@getAdmins',
+    'as' => 'admin.admins',
+    'middleware' => 'admin'
+]);
+Route::get('/admin/settings/admin/create', [
+    'uses' => 'AdminController@getCreateAdmin',
+    'as' => 'admin.createadmin',
+    'middleware' => 'admin'
+]);
+Route::post('/admin/settings/admin/store', [
+    'uses' => 'AdminController@storeAdmin',
+    'as' => 'admin.storeadmin',
+    'middleware' => 'admin'
+]);
+Route::get('/admin/settings/admin/{id}/edit', [
+    'uses' => 'AdminController@editAdmin',
+    'as' => 'admin.editadmin',
+    'middleware' => 'admin'
+]);
+Route::put('/admin/settings/admin/{id}/update', [
+    'uses' => 'AdminController@updateAdmin',
+    'as' => 'admin.updateadmin',
+    'middleware' => 'admin'
+]);
+Route::delete('/admin/settings/admin/{id}/delete', [
+    'uses' => 'AdminController@deleteAdmin',
+    'as' => 'admin.deleteadmin',
+    'middleware' => 'admin'
+]);
 /*admin activity routes*/
 /*admin activity routes*/
 

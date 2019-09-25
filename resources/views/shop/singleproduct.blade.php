@@ -37,6 +37,10 @@
 @endsection
 
 @section('content')
+  {{-- facebook comment plugin --}}
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v4.0&appId=517942969045216&autoLogAppEvents=1"></script>
+  {{-- facebook comment plugin --}}
   <!-- product section -->
   <section class="content-top-margin page-title page-title-small bg-gray">
       <div class="container">
@@ -163,6 +167,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <p>{{ $product->description }}</p>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -170,17 +175,8 @@
                                 <!-- tab content -->
                                 <div class="tab-pane fade in" id="info_tab">
                                     <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <ul class="instructions">
-                                                <li><strong>Weight:</strong> 7.25 Kg</li>
-                                                <li><strong>Dimensions:</strong> 90x60x90 Cm</li>
-                                                <li><strong>Size:</strong> One Size Fits All</li>
-                                                <li><strong>Color:</strong> White</li>
-                                                <li><strong>Guarantee:</strong> 5 Years</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-md-6 col-sm-12 sm-margin-top-seven">
-                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text. Lorem Ipsum has been the standard dummy text. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text. </p>
+                                        <div class="col-md-12">
+                                            <div class="fb-comments" data-href="{{ Request::url() }}" data-width="100%" data-numposts="5"></div>
                                         </div>
                                     </div>
                                 </div>

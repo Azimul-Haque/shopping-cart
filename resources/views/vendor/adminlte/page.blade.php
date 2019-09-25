@@ -209,8 +209,8 @@
                           </a>
                       </li>
                       <li class="header">ADMIN ACTIVITY</li>
-                      <li class="">
-                          <a href="#!">
+                      <li class="{{ Request::is('admin/admins') ? 'active' : '' }}">
+                          <a href="{{ route('admin.admins') }}">
                               <i class="fa fa-fw fa-cogs"></i>
                               <span>Admins</span>
                           </a>
