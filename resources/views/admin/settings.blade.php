@@ -75,6 +75,27 @@
         </div>
       </div>
     </div>
+    <div class="col-md-4">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h4>
+            Give away percentage
+            <div class="pull-right">
+
+            </div>
+          </h4>
+        </div>
+        {!! Form::open(['route' => 'admin.storepage', 'method' => 'POST', 'files' => 'true', 'enctype' => 'multipart/form-data']) !!}
+        <div class="panel-body table-responsive">
+            {!! Form::label('percentage', 'Percentage') !!}
+            {!! Form::text('percentage', 2, array('class' => 'form-control', 'required' => '')) !!}<br/>
+        </div>
+        <div class="panel-footer">
+          <button type="submit" class="btn btn-success">Update</button>
+        </div>
+        {{ Form::close() }}
+      </div>
+    </div>
   </div>
 @endsection
 

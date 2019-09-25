@@ -206,7 +206,7 @@ class ProductController extends Controller
         $data = array(
             'email' => Auth::user()->email,
             'from' => 'support@loyalovijatri.com',
-            'subject' => 'Loyal অভিযাত্রী Receipt',
+            'subject' => 'Your Loyal অভিযাত্রী Invoice',
             'order' => $order,
         );
         Mail::send('emails.receipt', $data, function($message) use ($data){

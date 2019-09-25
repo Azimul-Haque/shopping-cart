@@ -34,7 +34,7 @@
             {!! Form::password('password', array('class' => 'form-control', 'id' => 'password', 'required' => '', 'autocomplete' => 'off')) !!}<br/>
         </div>
         <div class="panel-footer">
-          <button type="submit" class="btn btn-info">Submit</button>
+          <button type="submit" class="btn btn-info">Update</button>
         </div>
         {{ Form::close() }}
       </div>

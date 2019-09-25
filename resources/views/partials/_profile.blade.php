@@ -29,7 +29,7 @@
 		<!-- SIDEBAR MENU -->
 		<div class="profile-usermenu">
 			<ul class="nav">
-				<li title="এটি আপনার ইউজার আইডি। আইডিটি আপনার বন্ধু কেনার সময় ব্যবহার করলে আপনি বোনাস এমাইন্ট পাবেন!">
+				<li title="এটি আপনার ইউজার আইডি। আইডিটি আপনার বন্ধু কেনার সময় ব্যবহার করলে আপনি বোনাস এমাউন্ট পাবেন!">
 					<i class="fa fa-id-card-o"></i> <b>{{ Auth::user()->code }}</b>
 				</li>
 				<li title="Earned Balance"><i class="fa fa-money"></i> ৳ {{ Auth::user()->points }}</li>
