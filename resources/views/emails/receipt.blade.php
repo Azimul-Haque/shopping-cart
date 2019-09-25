@@ -69,7 +69,7 @@
 	      <big><a href="{{ route('warehouse.receiptpdf', [$order->payment_id, generate_token(100)]) }}" target="_blank"><b>Print Invoice</b></a></big><br/>
 	      <br/><br/>
 	      <p style="font-size: 12px; color: #ACACAC;">
-	        This is a auto-generated email from Loyal অভিযাত্রী. This email arrived to you because you (or may be someone else!) have order the above commodities associated with this email address. If you are getting this email by mistake, please ignore it.
+	        This is a auto-generated email from Loyal অভিযাত্রী. This email arrived to you because you (or may be someone else!) have ordered the above commoditie(s) associated with this email address. If you are getting this email by mistake, please ignore it.
 	      </p>
 	      <p style="font-size: 12px; color: #ACACAC;">
 	        &copy; @php echo date('Y'); @endphp <a href="http://loyalovijatri.com/">Loyal অভিযাত্রী</a>, Dhaka, Bangladesh
