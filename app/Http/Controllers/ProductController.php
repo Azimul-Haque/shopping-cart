@@ -12,6 +12,7 @@ use App\Product;
 use App\Order;
 use App\Slider;
 use App\Page;
+use App\Setting;
 use Session;
 use Auth, Artisan;
 use Response;
@@ -191,7 +192,8 @@ class ProductController extends Controller
         if($request->fcode && $request->fcode != Auth::user()->code) {
           $friend = User::where('code', $request->fcode)->first();
           if($friend) {
-            $friend->points = $friend->points + ($order->totalprofit * 0.02); // ei 2% change hobe, dynamically
+            $setting = Setting::findOrFail(1);
+            $friend->points = $friend->points + ($order->totalprofit * ($setting->give_away_percentage / 100)); // ei 2% change hobe, dynamically
             $friend->save();
           }
         }

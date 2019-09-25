@@ -206,6 +206,11 @@ Route::put('/admin/settings/slider/{id}/update', [
     'as' => 'admin.updateslider',
     'middleware' => 'admin'
 ]);
+Route::put('/admin/settings/setting/{id}/update', [
+    'uses' => 'AdminController@updateSetting',
+    'as' => 'admin.updatesetting',
+    'middleware' => 'admin'
+]);
 Route::delete('/admin/settings/slider/{id}/delete', [
     'uses' => 'AdminController@deleteSlider',
     'as' => 'admin.deleteslider',

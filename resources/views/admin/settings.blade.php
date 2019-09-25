@@ -85,10 +85,17 @@
             </div>
           </h4>
         </div>
-        {!! Form::open(['route' => 'admin.storepage', 'method' => 'POST', 'files' => 'true', 'enctype' => 'multipart/form-data']) !!}
-        <div class="panel-body table-responsive">
-            {!! Form::label('percentage', 'Percentage') !!}
-            {!! Form::text('percentage', 2, array('class' => 'form-control', 'required' => '')) !!}<br/>
+        {!! Form::model($setting, ['route' => ['admin.updatesetting', $setting->id], 'method' => 'PUT']) !!}
+        <div class="panel-body">
+            {!! Form::label('give_away_percentage', 'Percentage') !!}
+            <div class="input-group">
+              {!! Form::text('give_away_percentage', null, array('class' => 'form-control', 'required' => '')) !!}
+              <span class="input-group-addon">%</span>
+            </div><br/>
+
+            <div class="checkbox">
+              <label><input type="checkbox" value="1" name="checkconfirm" required="">I Understand</label>
+            </div>
         </div>
         <div class="panel-footer">
           <button type="submit" class="btn btn-success">Update</button>

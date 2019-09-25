@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\User;
 use App\Slider;
 use App\Page;
+use App\Setting;
 
 use Carbon\Carbon;
 use Image;
@@ -26,7 +27,10 @@ class AdminController extends Controller
     public function getSettings()
     {  
       $sliders = Slider::all();
-      return view('admin.settings')->withSliders($sliders);
+      $setting = Setting::findOrFail(1);
+      return view('admin.settings')
+                  ->withSliders($sliders)
+                  ->withSetting($setting);
     }
 
     public function getCreateSlider()
@@ -74,32 +78,47 @@ class AdminController extends Controller
 
     public function updateSlider(Request $request, $id)
     {
+        $this->validate($request, [
+            'image'         => 'sometimes|image|max:500',
+            'title'         => 'required|max:255',
+            'button'        => 'sometimes|max:255',
+            'url'           => 'sometimes|max:255',
+        ]);
+
+        $slider = Slider::findOrFail($id);
+        if($request->hasFile('image')) {
+          // delete the previous ones
+          $image_path = public_path('images/slider/'. $slider->image);
+          if(File::exists($image_path)) {
+              File::delete($image_path);
+          }
+            $image      = $request->file('image');
+            $filename   = 'slider_' . time() .'.' . $image->getClientOriginalExtension();
+            $location   = public_path('images/slider/'. $filename);
+            Image::make($image)->resize(1360, 500)->save($location);
+            $slider->image = $filename;
+        }
+        $slider->title = $request->title;
+
+        $slider->button = $request->button;
+        $slider->url = $request->url;
+        $slider->save();
+
+
+        Session::flash('success', 'Updated successfully!');
+        return redirect()->route('admin.settings');
+    }
+
+    public function updateSetting(Request $request, $id)
+    {
       	$this->validate($request, [
-      	    'image'         => 'sometimes|image|max:500',
-      	    'title'         => 'required|max:255',
-      	    'button'        => 'sometimes|max:255',
-      	    'url'           => 'sometimes|max:255',
+            'give_away_percentage'       => 'required|numeric',
+      	    'checkconfirm'               => 'required'
       	]);
 
-      	$slider = Slider::findOrFail($id);
-      	if($request->hasFile('image')) {
-      		// delete the previous ones
-      		$image_path = public_path('images/slider/'. $slider->image);
-      		if(File::exists($image_path)) {
-      		    File::delete($image_path);
-      		}
-      	    $image      = $request->file('image');
-      	    $filename   = 'slider_' . time() .'.' . $image->getClientOriginalExtension();
-      	    $location   = public_path('images/slider/'. $filename);
-      	    Image::make($image)->resize(1360, 500)->save($location);
-      	    $slider->image = $filename;
-      	}
-      	$slider->title = $request->title;
-
-      	$slider->button = $request->button;
-      	$slider->url = $request->url;
-      	$slider->save();
-
+      	$setting = Setting::findOrFail($id);
+      	$setting->give_away_percentage = $request->give_away_percentage;
+      	$setting->save();
 
       	Session::flash('success', 'Updated successfully!');
       	return redirect()->route('admin.settings');
