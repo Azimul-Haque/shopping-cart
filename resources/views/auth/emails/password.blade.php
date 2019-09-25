@@ -1,4 +1,5 @@
 <body style="background: #F4F4F4;">
+	<br/>
 	<center>
 	  <div style="border-top: 4px solid #E08E0B; padding: 10px; margin: 20px; max-width: 500px; background: #FFF; ">
 	    <center>
@@ -21,5 +22,6 @@
 	      </p>
 	    </center>
 	  </div>
-	</center>	
+	</center>
+	<br/>	
 </body>
