@@ -103,7 +103,7 @@ class WarehouseController extends Controller
     public function getAddProduct() {
       $products = Product::orderBy('id', 'desc')->paginate(10);
       $categories = Category::all();
-      return view('warehouse.addproduct')
+      return view('warehouse.produtcs')
                   ->withProducts($products)
                   ->withCategories($categories);
     }
@@ -164,7 +164,10 @@ class WarehouseController extends Controller
       $product->wages = $request->wages;
       $product->utility = $request->utility;
       $product->others = $request->others;
+
+      $total_cost = $product->buying_price + (($product->buying_price*$product->carrying_cost)/100) + (($product->buying_price*$product->vat)/100) + (($product->buying_price*$product->salary)/100) + (($product->buying_price*$product->wages)/100) + (($product->buying_price*$product->utility)/100) + (($product->buying_price*$product->others)/100);
       
+      $product->profit = $product->price - $total_cost;
       $product->save();
 
       // upload image(s) 
@@ -186,7 +189,7 @@ class WarehouseController extends Controller
       // upload image(s) 
 
       Session::flash('success', 'Product is added successfully!');
-      return redirect()->route('warehouse.addproduct');
+      return redirect()->route('warehouse.products');
     }
 
     public function getEditProduct($id, $random_string) {
@@ -254,6 +257,9 @@ class WarehouseController extends Controller
       $product->wages = $request->wages;
       $product->utility = $request->utility;
       $product->others = $request->others;
+      $total_cost = $product->buying_price + (($product->buying_price*$product->carrying_cost)/100) + (($product->buying_price*$product->vat)/100) + (($product->buying_price*$product->salary)/100) + (($product->buying_price*$product->wages)/100) + (($product->buying_price*$product->utility)/100) + (($product->buying_price*$product->others)/100);
+      
+      $product->profit = $product->price - $total_cost;
       
       $product->save();
 
@@ -285,7 +291,7 @@ class WarehouseController extends Controller
       // update image(s)
 
       Session::flash('success', 'Product is updated successfully!');
-      return redirect()->route('warehouse.addproduct');
+      return redirect()->route('warehouse.products');
     }
 
     public function putUnavailableProduct(Request $request, $id) {
@@ -304,7 +310,7 @@ class WarehouseController extends Controller
         Session::flash('success', 'পণ্যটি সফলভাবে অপ্রাপ্য করা হয়েছে। এটি আর পণ্য তালিকায় দেখা যাবে ন।!');
       }
       
-      return redirect()->route('warehouse.addproduct');
+      return redirect()->route('warehouse.products');
     }
 
     public function getDueOrdersApi() {

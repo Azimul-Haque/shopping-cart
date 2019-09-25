@@ -66,7 +66,9 @@
                         <li class="dropdown notifications-menu">
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                             <i class="fa fa-bell-o"></i>
-                            <span class="label label-warning">{{ $due_orders }}</span> {{-- eta change hobe, aro notification add hobe --}}
+                            @if($due_orders > 0)
+                              <span class="label label-warning">{{ $due_orders }}</span> {{-- eta change hobe, aro notification add hobe --}}
+                            @endif
                             {{-- @if($notifcount > 0)
                             <span class="label label-warning">{{ $notifcount }}</span>
                             @endif --}}
@@ -81,11 +83,13 @@
                             <li>
                               <!-- inner menu: contains the actual data -->
                               <ul class="menu">
+                                @if($due_orders > 0)
                                 <li>
                                   <a href="{{ route('warehouse.dueorders') }}">
                                     <i class="fa fa-file-text-o text-aqua"></i> {{ $due_orders }} টি পেন্ডিং অর্ডার
                                   </a>
                                 </li>
+                                @endif
                                 
                                 {{-- @if($notifpendingapplications > 0)
                                   <li>
@@ -240,8 +244,8 @@
                               <span>Delivered Orders</span>
                           </a>
                       </li>
-                      <li class="{{ Request::is('warehouse/addproduct') ? 'active' : '' }}">
-                          <a href="{{ route('warehouse.addproduct') }}">
+                      <li class="{{ Request::is('warehouse/products') ? 'active' : '' }}">
+                          <a href="{{ route('warehouse.products') }}">
                               <i class="fa fa-fw fa-truck"></i>
                               <span>Products</span>
                           </a>

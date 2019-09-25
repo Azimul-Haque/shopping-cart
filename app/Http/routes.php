@@ -111,13 +111,13 @@ Route::post('/warehouse/subcategories', [
     'middleware' => 'admin'
 ]);
 
-Route::get('/warehouse/addproduct', [
+Route::get('/warehouse/products', [
     'uses' => 'WarehouseController@getAddProduct',
-    'as' => 'warehouse.addproduct',
+    'as' => 'warehouse.products',
     'middleware' => 'admin'
 ]);
 
-Route::post('/warehouse/addproduct', [
+Route::post('/warehouse/product/store', [
     'uses' => 'WarehouseController@postAddProduct',
     'as' => 'warehouse.addproduct',
     'middleware' => 'admin'

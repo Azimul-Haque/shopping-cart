@@ -8,15 +8,8 @@
 
 @section('content_header')
     <h1>Products
-      @if(Request::is('warehouse/edit/product/*'))
-        {{ $product->title }}
-      @endif
       <div class="pull-right">
-        @if(Request::is('warehouse/edit/product/*'))
-          <a href="{{ route('warehouse.addproduct') }}" class="btn btn-sm btn-primary" title="Back"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
-        @else
-          <button class="btn btn-sm btn-primary" type="button" data-toggle="modal" data-target="#addAndEditProduct" data-backdrop="static" title="Add New Product"><i class="fa fa-plus" aria-hidden="true"></i> Add Product</button>
-        @endif
+        <button class="btn btn-sm btn-primary" type="button" data-toggle="modal" data-target="#addAndEditProduct" data-backdrop="static" title="Add New Product"><i class="fa fa-plus" aria-hidden="true"></i> Add Product</button>
       </div>
     </h1>
 @stop
@@ -65,19 +58,14 @@
                     <td>{{ $product->wages }}%</td>
                     <td>{{ $product->utility }}%</td>
                     <td>{{ $product->others }}%</td>
-                    <td>
-                      @php
-                        $total_cost = $product->buying_price + (($product->buying_price*$product->carrying_cost)/100) + (($product->buying_price*$product->vat)/100) + (($product->buying_price*$product->salary)/100) + (($product->buying_price*$product->wages)/100) + (($product->buying_price*$product->utility)/100) + (($product->buying_price*$product->others)/100);
-                      @endphp
-                      ৳ {{ $total_cost }}
-                    </td>
+                    <td>৳ {{ $product->price - $product->profit }}</td>
                     <td>
                       ৳ {{ $product->price }}<br/>
                       @if($product->oldprice > 0)
                         ৳ <strike>{{ $product->oldprice }}</strike>
                       @endif
                     </td>
-                    <td>৳ {{ $product->price - $total_cost }}</td>
+                    <td>৳ {{ $product->profit }}</td>
                     <td>
                       <a href="{{ route('warehouse.geteditproduct', [$product->id, generate_token(100)]) }}" class="btn btn-sm btn-primary" title="Edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                       @if($product->isAvailable == 1)
@@ -141,12 +129,7 @@
   <div class="modal fade" id="addAndEditProduct" role="dialog">
     <div class="modal-dialog modal-lg">
       <!-- Modal content-->
-      @if(Request::is('warehouse/addproduct')) 
       {!! Form::open(['route' => 'warehouse.addproduct', 'method' => 'POST', 'files' => 'true', 'enctype' => 'multipart/form-data']) !!}
-      @elseif(Request::is('warehouse/edit/product/*'))
-      {!! Form::model($product, ['route' => ['warehouse.editproduct', $product->id], 'method' => 'PUT', 'files' => 'true', 'enctype' => 'multipart/form-data']) !!}
-      @endif
-      
       <div class="modal-content">
         <div class="modal-header modal-header-primary">
           <button type="button" class="close noPrint" data-dismiss="modal">×</button>

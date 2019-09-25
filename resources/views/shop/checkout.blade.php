@@ -47,6 +47,7 @@
             <ul class="list-group">
               @foreach($cart->items as $item)
               <li class="list-group-item">
+                {{-- {{ json_encode($item) }} --}}
                 {{ $item['item']['title'] }} | {{ $item['qty'] }}
                 <span class="right">৳ {{ $item['price'] }}</span>
               </li>

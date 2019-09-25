@@ -49,6 +49,7 @@
                   <th>পেমেন্ট মেথড</th>
                   <th>ডেলিভারি চার্জ</th>
                   <th>মোট পরিশোধনীয় মূল্য</th>
+                  <th>Total Profit</th>
                   <th>কার্যক্রম</th>
                 </tr>
               </thead>
@@ -60,6 +61,7 @@
                   <td>{{ payment_method($dueorder->payment_method) }}</td>
                   <td>৳ {{ $dueorder->cart->deliveryCharge }}</td>
                   <td>৳ {{ $dueorder->cart->totalPrice }}</td>
+                  <td>৳ {{ $dueorder->cart->totalProfit }}</td>
                   <td>
                     <button class="btn btn-sm btn-warning" type="button" title="Details" data-toggle="modal" data-target="#details{{ $dueorder->id }}" data-backdrop="static"><i class="fa fa-cogs" aria-hidden="true"></i></button>
                     <div class="modal fade modal{{ $dueorder->id }}" id="details{{ $dueorder->id }}" role="dialog">

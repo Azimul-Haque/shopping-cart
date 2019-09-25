@@ -32,6 +32,7 @@ class CreateProductsTable extends Migration
             $table->float('wages')->default(0);
             $table->float('utility')->default(0);
             $table->float('others')->default(0);
+            $table->float('profit')->default(0);
 
             $table->integer('category_id')->unsigned();
             $table->integer('subcategory_id')->unsigned();
