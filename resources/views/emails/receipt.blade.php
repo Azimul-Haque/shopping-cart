@@ -1,19 +1,18 @@
-
+<style type="text/css">
+	table {
+	    border-collapse: collapse;
+	    width: 100% !important;
+	}
+	th, td{
+	  padding: 7px;
+	  font-family: 'kalpurush', sans-serif;
+	  font-size: 15px;
+	}
+	.bordertable td, th {
+	    border: 1px solid #A8A8A8;
+	}
+</style>
 <body style="background: #F4F4F4;">
-	<style type="text/css">
-		table {
-		    border-collapse: collapse;
-		    width: 100% !important;
-		}
-		th, td{
-		  padding: 7px;
-		  font-family: 'kalpurush', sans-serif;
-		  font-size: 15px;
-		}
-		.bordertable td, th {
-		    border: 1px solid #A8A8A8;
-		}
-	</style>
 	<br/>
 	<center>
 	  <div style="border-top: 4px solid #E08E0B; padding: 10px; margin: 20px; max-width: 600px; background: #FFF; ">
@@ -36,7 +35,7 @@
 	        </tr>
 	      </table><br/>
 
-	      <table class="bordertable"  style="width: 100%;">
+	      <table class="bordertable" border="1" style="width: 100%;">
 	      	<thead>
 	      		<tr>
 	  		        <th width="40%">Product</th>
