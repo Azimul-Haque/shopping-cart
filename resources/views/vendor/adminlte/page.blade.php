@@ -202,10 +202,10 @@
                     {{-- @each('adminlte::partials.menu-item', $adminlte->menu(), 'item') --}}
                     @if(Auth::user()->role == 'admin')
                       <li class="header">DASHBOARD</li>
-                      <li class="{{ Request::is('warehouse/dashboard') ? 'active' : '' }}">
+                      <li class="{{ Request::is('dashboard') ? 'active' : '' }}">
                           <a href="{{ route('warehouse.dashboard') }}">
                               <i class="fa fa-fw fa-tachometer"></i>
-                              <span>ড্যাশবোর্ড</span>
+                              <span>Dashboard</span>
                           </a>
                       </li>
                       <li class="header">ADMIN ACTIVITY</li>
@@ -215,13 +215,13 @@
                               <span>Admins</span>
                           </a>
                       </li>
-                      <li class="">
+                      <li class="{{ Request::is('admin/settings') ? 'active' : '' }}">
                           <a href="{{ route('admin.settings') }}">
                               <i class="fa fa-fw fa-wrench"></i>
                               <span>Settings</span>
                           </a>
                       </li>
-                      <li class="">
+                      <li class="{{ Request::is('admin/pages') ? 'active' : '' }}">
                           <a href="{{ route('admin.pages') }}">
                               <i class="fa fa-fw fa-files-o"></i>
                               <span>Pages</span>
@@ -231,37 +231,37 @@
                       <li class="{{ Request::is('warehouse/dueorders') ? 'active' : '' }}">
                           <a href="{{ route('warehouse.dueorders') }}">
                               <i class="fa fa-fw fa-list-ol"></i>
-                              <span>পেন্ডিং অর্ডারগুলো</span>
+                              <span>Pending Orders</span>
                           </a>
                       </li>
                       <li class="{{ Request::is('warehouse/deliveredorders') ? 'active' : '' }}">
                           <a href="{{ route('warehouse.deliveredorders') }}">
                               <i class="fa fa-fw fa-list-ul"></i>
-                              <span>ডেলিভার্ড অর্ডারগুলো</span>
+                              <span>Delivered Orders</span>
                           </a>
                       </li>
                       <li class="{{ Request::is('warehouse/addproduct') ? 'active' : '' }}">
                           <a href="{{ route('warehouse.addproduct') }}">
                               <i class="fa fa-fw fa-truck"></i>
-                              <span>পণ্য যোগ করুণ</span>
+                              <span>Products</span>
                           </a>
                       </li>
                       <li class="{{ Request::is('warehouse/categories') ? 'active' : '' }}">
                           <a href="{{ route('warehouse.categories') }}">
                               <i class="fa fa-fw fa-folder-open-o"></i>
-                              <span>পণ্যের শ্রেণীবিভাগ</span>
+                              <span>Category & Sub-category</span>
                           </a>
                       </li>
                       <li class="{{ Request::is('warehouse/customers') ? 'active' : '' }}">
                           <a href="{{ route('warehouse.customers') }}">
                               <i class="fa fa-fw fa-users"></i>
-                              <span>কাস্টমার তালিকা</span>
+                              <span>Customer List</span>
                           </a>
                       </li>
                       <li class="">
                           <a href="#!">
                               <i class="fa fa-fw fa-line-chart"></i>
-                              <span>রিপোর্ট</span>
+                              <span>Report</span>
                           </a>
                       </li>
                     @endif
