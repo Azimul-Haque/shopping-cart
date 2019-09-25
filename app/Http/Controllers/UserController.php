@@ -26,7 +26,8 @@ class UserController extends Controller
         'email' => 'email|required|unique:users',
         'phone' => 'required|unique:users',
         'address' => 'required',
-        'password' => 'required|confirmed|min:6'
+        'password' => 'required|confirmed|min:6',
+        'g-recaptcha-response' => 'required'
       ]);
       
       $user = new User([
