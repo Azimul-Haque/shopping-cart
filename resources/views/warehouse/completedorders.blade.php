@@ -63,6 +63,7 @@
                   <td>৳ {{ $dueorder->cart->totalPrice }}</td>
                   <td>৳ {{ $dueorder->cart->totalProfit }}</td>
                   <td>
+                    <a href="{{ route('warehouse.receiptpdf', [$dueorder->payment_id, generate_token(100)]) }}" class="btn btn-sm btn-primary" title="Print Invoice" target="_blank"><i class="fa fa-print" aria-hidden="true"></i></a>
                     <button class="btn btn-sm btn-warning" type="button" title="Details" data-toggle="modal" data-target="#details{{ $dueorder->id }}" data-backdrop="static"><i class="fa fa-cogs" aria-hidden="true"></i></button>
                     <div class="modal fade modal{{ $dueorder->id }}" id="details{{ $dueorder->id }}" role="dialog">
                       <div class="modal-dialog modal-lg">
@@ -119,26 +120,11 @@
                             </p>
                           </div>
                           <div class="modal-footer noPrint">
-                            <button type="button" class="btn btn-primary" id="printModal{{ $dueorder->id }}"><i class="fa fa-print" aria-hidden="true"></i> প্রিন্ট করুন</button>
+                            <a href="{{ route('warehouse.receiptpdf', [$dueorder->payment_id, generate_token(100)]) }}" class="btn btn-primary" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> প্রিন্ট করুন</a>
                             <button type="button" class="btn btn-default" data-dismiss="modal">বন্ধ করুন</button>
                           </div>
                         </div>
                       </div>
-                      <script type="text/javascript">
-                        $('#printModal{{ $dueorder->id }}').on('click', function () {
-                            if($('.modal{{ $dueorder->id }}').is(':visible')) {
-                                var modalId = $(event.target).closest('.modal{{ $dueorder->id }}').attr('id');
-                                $('body').css('visibility', 'hidden');
-                                $("#" + modalId).css('visibility', 'visible');
-                                $('#' + modalId).removeClass('modal{{ $dueorder->id }}');
-                                window.print();
-                                $('body').css('visibility', 'visible');
-                                $('#' + modalId).addClass('modal{{ $dueorder->id }}');
-                            } else {
-                                window.print();
-                            }
-                        });
-                      </script>
                     </div>
                     {{-- <button class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> মুছে দিন</button> --}}
                   </td>

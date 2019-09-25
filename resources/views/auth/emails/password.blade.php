@@ -1,7 +1,7 @@
 <body style="background: #F4F4F4;">
 	<br/>
 	<center>
-	  <div style="border-top: 4px solid #E08E0B; padding: 10px; margin: 20px; max-width: 500px; background: #FFF; ">
+	  <div style="border-top: 4px solid #6F7246; padding: 10px; margin: 20px; max-width: 500px; background: #FFF; ">
 	    <center>
 	      <img src="{{ asset('images/logo.png') }}" width="100px; height: auto;">
 	      <p style="font-size: 30px; color: #1B237D;"><b>Loyal</b>অভিযাত্রী</p>

@@ -163,6 +163,7 @@ Route::get('/warehouse/deliveredorders', [
     'as' => 'warehouse.deliveredorders',
     'middleware' => 'admin'
 ]);
+Route::get('/receipt/pdf/{payment_id}/{random_string}', [ 'uses' => 'WarehouseController@getReceitPDF', 'as' => 'warehouse.receiptpdf']);
 
 Route::put('/warehouse/confirmorder/{id}', [
     'uses' => 'WarehouseController@putConfirmOrder',
@@ -317,7 +318,14 @@ Route::post('/checkout', [
     'middleware' => 'auth'
 ]);
 
+Route::get('/testmail/{payment_id}', [
+    'uses' => 'ProductController@testMail',
+    'as' => 'product.testmail',
+    'middleware' => 'auth'
+]);
+
 // Password Reset Routes...
 Route::get('password/reset/{token?}', ['as' => 'auth.password.reset', 'uses' => 'Auth\PasswordController@showResetForm']);
 Route::post('password/email', ['as' => 'auth.password.email', 'uses' => 'Auth\PasswordController@sendResetLinkEmail']);
 Route::post('password/reset', ['as' => 'auth.password.reset', 'uses' => 'Auth\PasswordController@reset']);
+Route::get('/home', ['as'=>'index.homeadhoc','uses'=>'ProductController@getIndexAdhoc']); // reset password redirect adhoc solve

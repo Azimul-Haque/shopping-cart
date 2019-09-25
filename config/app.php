@@ -164,6 +164,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         JeroenNoten\LaravelAdminLte\ServiceProvider::class,
         Mews\Purifier\PurifierServiceProvider::class,
+        niklasravnsborg\LaravelPdf\PdfServiceProvider::class
 
     ],
 
@@ -217,6 +218,7 @@ return [
         'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Purifier' => Mews\Purifier\Facades\Purifier::class,
+        'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class
 
     ],
 

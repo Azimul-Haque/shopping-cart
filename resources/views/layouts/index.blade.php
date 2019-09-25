@@ -26,7 +26,10 @@
     <link rel="manifest" href="{{ asset('images/favicons//manifest.json') }}">
     <meta name="msapplication-TileColor" content="#252525">
     <meta name="msapplication-TileImage" content="{{ asset('images/favicons/ms-icon-144x144.png') }}">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#252525">
     <meta name="theme-color" content="#252525">
+    <meta name="mobile-web-app-capable" content="yes">
+
     <!-- animation -->
     
     <!-- animation -->

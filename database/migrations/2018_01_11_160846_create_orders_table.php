@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
             $table->integer('user_id');
             $table->text('cart');
             $table->float('totalprice');
+            $table->float('totalprofit');
             $table->text('address');
             $table->string('paymentstatus');
             $table->string('payment_id');

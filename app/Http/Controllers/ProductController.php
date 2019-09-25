@@ -16,6 +16,7 @@ use Session;
 use Auth, Artisan;
 use Response;
 use Carbon\Carbon;
+use Mail;
 
 class ProductController extends Controller
 {
@@ -33,6 +34,11 @@ class ProductController extends Controller
       return view('shop.index')
                   ->withProducts($products)
                   ->withSliders($sliders);
+    }
+
+    public function getIndexAdhoc() {
+      
+      return redirect()->route('product.index');
     }
 
     public function getCategoryWise($id, $random_string) {
@@ -173,18 +179,19 @@ class ProductController extends Controller
         $order = new Order();
         $order->cart = serialize($cart);
         $order->totalprice = $cart->totalPrice;
+        $order->totalprofit = $cart->totalProfit;
         $order->address = $request->address;
         $order->paymentstatus = 'not-paid';
         $order->payment_method = 0; // 0 means cash on delivery
         $nowdatetime = Carbon::now();
 
         $order->payment_id = $nowdatetime->format('YmdHis') . random_string(5);
-
         Auth::user()->orders()->save($order);
+
         if($request->fcode && $request->fcode != Auth::user()->code) {
           $friend = User::where('code', $request->fcode)->first();
           if($friend) {
-            $friend->points = $friend->points + 10; // ei 10 change hoye settings theke asbe.
+            $friend->points = $friend->points + ($order->totalprofit * 0.02); // ei 2% change hobe, dynamically
             $friend->save();
           }
         }
@@ -193,11 +200,47 @@ class ProductController extends Controller
         return redirect()->route('product.index');
       }
 
+      try{
+        // EMAIL
+        $order->cart = unserialize($order->cart);
+        $data = array(
+            'email' => Auth::user()->email,
+            'from' => 'support@loyalovijatri.com',
+            'subject' => 'Loyal অভিযাত্রী Receipt',
+            'order' => $order,
+        );
+        Mail::send('emails.receipt', $data, function($message) use ($data){
+            $message->from($data['from']);
+            $message->to($data['email']); // for testing purpose
+            $message->subject($data['subject']);
+        });
+        // EMAIL
+        Session::flash('success', 'We sent the invoice to your email!');
+      } catch(\Exception $e) {
+        // nothing
+      }
+
       Session::forget('cart');
       Session::flash('success', 'আপনার অর্ডারটি নিশ্চিত করা হয়েছে। শীঘ্রই আমাদের একজন প্রতিনিধি আপনার সাথে যোগাযোগ করবেন। ধন্যবাদ।');
       return redirect()->route('user.profile', Auth::user()->unique_key);
     }
 
+    public function testMail($payment_id) 
+    {
+      $order = Order::where('payment_id', $payment_id)->first();
+      $order->cart = unserialize($order->cart);
+      $data = array(
+          'email' => Auth::user()->email,
+          'from' => 'support@loyalovijatri.com',
+          'subject' => 'Loyal অভিযাত্রী Receipt',
+          'order' => $order,
+      );
+      Mail::send('emails.receipt', $data, function($message) use ($data){
+          $message->from($data['from']);
+          $message->to($data['email']); // for testing purpose
+          $message->subject($data['subject']);
+      });
+    }
 
     public function search(Request $request) {
       if($request->ajax()) {

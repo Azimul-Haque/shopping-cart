@@ -17,6 +17,7 @@ use DB, Validator, Input, Redirect, File;
 use Session;
 use Auth;
 use View;
+use PDF;
 
 class WarehouseController extends Controller
 {
@@ -355,6 +356,15 @@ class WarehouseController extends Controller
       });
       return view('warehouse.completedorders')
               ->withCompletedorders($completedorders);
+    }
+
+    public function getReceitPDF($payment_id, $random_string) {
+      $order = Order::where('payment_id', $payment_id)->first();
+      $order->cart = unserialize($order->cart);
+      // dd($order->user);
+      $pdf = PDF::loadView('pdf.receipt', ['order' => $order]);
+      $fileName = 'Receipt_'. $payment_id .'.pdf';
+      return $pdf->stream($fileName);
     }
 
     public function putConfirmOrder(Request $request, $id) {
