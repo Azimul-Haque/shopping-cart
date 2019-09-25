@@ -35,7 +35,7 @@
 	        </tr>
 	      </table><br/>
 
-	      <table class="bordertable">
+	      <table class="bordertable" border="1">
 	      	<thead>
 	      		<tr>
 	  		        <th width="40%">Product</th>
