@@ -21,7 +21,7 @@
 	      {{-- <p style="font-size: 30px; color: #1B237D;"><b>Loyal</b>অভিযাত্রী</p> --}}
 	      <p style="font-size: 25px"><b>Invoice</b></p>
 	      
-	      <table>
+	      <table style="width: 100%;">
 	        <tr>
 	          <td>
 	            Customer Name: {{ $order->user->name }}<br/>
