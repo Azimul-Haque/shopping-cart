@@ -26,6 +26,7 @@ class Cart
                         'id' => $item->id,
                         'title' => $item->title,
                         'price' => $item->price,
+                        'profit' => $item->profit,
                         'productimages' => $item->productimages,
                         'code' => $item->code
                       ]
