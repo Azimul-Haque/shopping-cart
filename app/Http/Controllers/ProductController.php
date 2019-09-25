@@ -210,8 +210,8 @@ class ProductController extends Controller
             'order' => $order,
         );
         Mail::send('emails.receipt', $data, function($message) use ($data){
-            $message->from($data['from']);
-            $message->to($data['email']); // for testing purpose
+            $message->from($data['from'], 'Loyal অভিযাত্রী Invoice');
+            $message->to($data['email']);
             $message->subject($data['subject']);
         });
         // EMAIL
@@ -232,12 +232,12 @@ class ProductController extends Controller
       $data = array(
           'email' => Auth::user()->email,
           'from' => 'support@loyalovijatri.com',
-          'subject' => 'Loyal অভিযাত্রী Receipt',
+          'subject' => 'Your Loyal অভিযাত্রী Invoice',
           'order' => $order,
       );
       Mail::send('emails.receipt', $data, function($message) use ($data){
-          $message->from($data['from']);
-          $message->to($data['email']); // for testing purpose
+          $message->from($data['from'], 'Loyal অভিযাত্রী Invoice');
+          $message->to($data['email']);
           $message->subject($data['subject']);
       });
     }

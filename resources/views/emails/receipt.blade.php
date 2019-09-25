@@ -1,7 +1,7 @@
 <style type="text/css">
 	table {
 	    border-collapse: collapse;
-	    width: 100%;
+	    width: 100% !important;
 	}
 	th, td{
 	  padding: 7px;
