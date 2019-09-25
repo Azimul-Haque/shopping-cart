@@ -13,7 +13,7 @@ use App\Order;
 use App\Slider;
 use App\Page;
 use Session;
-use Auth;
+use Auth, Artisan;
 use Response;
 use Carbon\Carbon;
 
@@ -261,5 +261,18 @@ class ProductController extends Controller
       $request->session()->flush();
       Session::flash('success', 'Cart has been cleared!');
       return redirect('/');
-    }    
+    }
+
+    // clear configs, routes and serve
+    public function clear()
+    {
+        Artisan::call('optimize');
+        Artisan::call('cache:clear');
+        Artisan::call('view:clear');
+        Artisan::call('key:generate');
+        // Artisan::call('route:cache');
+        Artisan::call('config:cache');
+        Session::flush();
+        echo 'Config and Route Cached. All Cache Cleared';
+    }
 }

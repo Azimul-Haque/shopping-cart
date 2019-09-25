@@ -1,8 +1,13 @@
 <?php
 
-Route::get('/clear', [
+Route::get('/clearcart', [
     'uses' => 'ProductController@clearSession',
     'as' => 'product.clearsession'
+]);
+
+Route::get('/clear', [
+    'uses' => 'ProductController@clear',
+    'as' => 'product.clear'
 ]);
 
 Route::get('/', [
