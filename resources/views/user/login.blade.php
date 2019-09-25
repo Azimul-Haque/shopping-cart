@@ -48,7 +48,7 @@
                 </div>
                 <button type="submit" class="highlight-button btn btn-small no-margin pull-right checkout-btn xs-width-100 xs-text-center">লগইন</button>
               </form>
-              <p><a href="{{ route('user.register') }}">রেজিস্টার করুন</a> | <a href="{{ route('user.register') }}">পাসওয়ার্ড মনে নেই?</a></p>
+              <p><a href="{{ route('user.register') }}">রেজিস্টার করুন</a> | <a href="{{ url(config('adminlte.password_reset_url', 'password/reset')) }}">পাসওয়ার্ড মনে নেই?</a></p>
             </div>
           </div>
         </div>
