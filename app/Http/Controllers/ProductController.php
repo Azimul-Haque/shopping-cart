@@ -66,7 +66,7 @@ class ProductController extends Controller
          try{
            // EMAIL
            $data = array(
-               'email' => Auth::user()->email,
+               'email' => 'loyalovijatri@gmail.com',
                'name' => $request->name,
                'from' => $request->email,
                'phone' => $request->phone,

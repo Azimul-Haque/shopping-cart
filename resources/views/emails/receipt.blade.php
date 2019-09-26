@@ -15,13 +15,13 @@
 <body style="background: #F4F4F4;">
 	<br/>
 	<center>
-	  <div style="border-top: 4px solid #E08E0B; padding: 10px; margin: 20px; max-width: 600px; background: #FFF; ">
+	  <div style="border-top: 4px solid #E08E0B; padding: 10px; margin: 20px; max-width: 600px; background: #FFF; word-wrap: break-word; ">
 	    <center>
 	      <img src="{{ asset('images/logo.png') }}" width="100px; height: auto;">
 	      {{-- <p style="font-size: 30px; color: #1B237D;"><b>Loyal</b>অভিযাত্রী</p> --}}
 	      <p style="font-size: 25px"><b>Invoice</b></p>
 	      
-	      <table style="width: 100%;">
+	      <table style="width: 100%; word-wrap: break-word;">
 	        <tr>
 	          <td width="50%">
 	            Customer Name: {{ $order->user->name }}<br/>
