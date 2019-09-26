@@ -37,7 +37,8 @@
 	          </td>
 	          <td align="right">
 	            <big>Invoice No: <b>{{ $order->payment_id }}</b></big> <br/>
-	            Ordered at: {{ date('F d, Y h:i A', strtotime($order->created_at)) }}
+	            Ordered at: {{ date('F d, Y h:i A', strtotime($order->created_at)) }}<br/>
+	            Payment method: {{ payment_method($order->payment_method) }}
 	          </td>
 	        </tr>
 	      </table><br/>
