@@ -27,19 +27,77 @@ class ProductController extends Controller
 
     public function getIndex() {
       
-      $products = Product::where('isAvailable', '!=', '0')
-                         ->orderBy('id', 'desc')
-                         ->paginate(10);
+      // $products = Product::where('isAvailable', '!=', '0')
+      //                    ->orderBy('id', 'desc')
+      //                    ->paginate(10);
       $sliders = Slider::orderBy('id', 'asc')->get();
 
       return view('shop.index')
-                  ->withProducts($products)
                   ->withSliders($sliders);
     }
 
     public function getIndexAdhoc() {
       
       return redirect()->route('product.index');
+    }
+
+    public function getAbout() 
+    {
+      $recentproducts = Product::orderBy('id', 'desc')->get()->take(10);
+      return view('shop.about')->withRecentproducts($recentproducts);
+    }
+
+    public function getContact() 
+    {
+      return view('shop.contact');
+    }
+
+    public function postContactMessage(Request $request) 
+    {
+      $this->validate($request, [
+        'name'                 => 'required',
+        'phone'                => 'sometimes',
+        'email'                => 'required',
+        'message'                => 'required',
+        'contact_sum_result'   => 'required'
+      ]);
+
+      if($request->contact_sum_result_hidden == $request->contact_sum_result) {
+         try{
+           // EMAIL
+           $data = array(
+               'email' => Auth::user()->email,
+               'name' => $request->name,
+               'from' => $request->email,
+               'phone' => $request->phone,
+               'message_data' => $request->message,
+               'subject' => 'Message from Loyal অভিযাত্রী Contact Form',
+           );
+           Mail::send('emails.contact', $data, function($message) use ($data){
+             $message->from($data['from'], 'Loyal অভিযাত্রী Contact');
+             $message->to($data['email']);
+             $message->subject($data['subject']);
+           });
+           // EMAIL
+           Session::flash('success', 'We received your message, thank you!');
+           return redirect()->route('index.contact');
+         } catch(\Exception $e) {
+           Session::flash('warning', 'We cannot process your message right now, sorry!');
+           return redirect()->route('index.contact');
+         }
+      } else {
+          return redirect()->route('index.contact')->with('warning', 'Please write the sum result correctly!')->withInput();
+      }
+    }
+
+    public function getPrivacy() 
+    {
+      return view('shop.privacy');
+    }
+
+    public function getTerms() 
+    {
+      return view('shop.terms');
     }
 
     public function getCategoryWise($id, $random_string) {
@@ -164,14 +222,17 @@ class ProductController extends Controller
       $this->validate($request, [
         'address'          => 'required',
         'fcode'            => 'sometimes',
-        'district'         => 'required',
-        'payment_method'   => 'required'
+        'deliverylocation'         => 'required',
+        'payment_method'   => 'required',
+        'deliverylocation'   => 'required'
       ]);
 
       $oldCart = Session::get('cart');
       $cart = new Cart($oldCart);
-      if($request->district == 'DHAKA') {
+      if($request->deliverylocation == 0) {
         $cart->addDeliveryCharges(60); // hardcoder deliverycharge
+      } elseif($request->deliverylocation == 1020) {
+        // do nothing
       } else {
         $cart->addDeliveryCharges(100); // hardcoder deliverycharge
       }
@@ -184,6 +245,7 @@ class ProductController extends Controller
         $order->address = $request->address;
         $order->paymentstatus = 'not-paid';
         $order->payment_method = 0; // 0 means cash on delivery
+        $order->deliverylocation = $request->deliverylocation; // 0 == Dhaka, 1020 = free pickup, 2 = outside of Dhaka
         $nowdatetime = Carbon::now();
 
         $order->payment_id = $nowdatetime->format('YmdHis') . random_string(5);

@@ -96,7 +96,7 @@ class UserController extends Controller
     }
 
     public function getProfile($unique_key) {
-      $orders = Order::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->get();
+      $orders = Order::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->paginate(5);
       $orders->transform(function($order, $key) {
         $order->cart = unserialize($order->cart);
         return $order;

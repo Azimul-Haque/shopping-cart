@@ -23,10 +23,17 @@
 	      
 	      <table style="width: 100%;">
 	        <tr>
-	          <td>
+	          <td width="50%">
 	            Customer Name: {{ $order->user->name }}<br/>
+	            Customer ID: {{ $order->user->code }}<br/>
 	            Contact No: {{ $order->user->phone }}<br/>
-	            Customer ID: {{ $order->user->code }}
+	            Email Address: {{ $order->user->email }}<br/>
+	            Delivery Address:<br/>
+	            @if($order->deliverylocation == 1020)
+	              {{ deliverylocation($order->deliverylocation) }}
+	            @else
+	              {{ $order->user->address }}
+	            @endif
 	          </td>
 	          <td align="right">
 	            <big>Invoice No: <b>{{ $order->payment_id }}</b></big> <br/>

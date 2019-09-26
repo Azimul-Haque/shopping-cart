@@ -48,8 +48,16 @@
     <tr>
       <td class="calibri_normal">
         Customer Name: <span style="font-family: 'kalpurush', sans-serif;">{{ $order->user->name }}</span><br/>
+        Customer ID: {{ $order->user->code }}<br/>
         Contact No: {{ $order->user->phone }}<br/>
-        Customer ID: {{ $order->user->code }}
+        Email Address: {{ $order->user->email }}<br/>
+        Delivery Address:<br/>
+        @if($order->deliverylocation == 1020)
+          {{ deliverylocation($order->deliverylocation) }}
+        @else
+          {{ $order->user->address }}
+        @endif
+        
       </td>
       <td align="right" class="calibri_normal">
         <big>Invoice No: <b>{{ $order->payment_id }}</b></big> <br/>

@@ -1,6 +1,6 @@
 @extends('layouts.index')
 
-@section('title', 'ইকমার্স')
+@section('title', 'Checkout | LOYAL অভিযাত্রী')
 
 @section('css')
   <script type="text/javascript" src="{{ asset('vendor/hcode/js/jquery.min.js') }}"></script>
@@ -40,8 +40,10 @@
         <div class="row">
           <div class="col-md-4">
             <h2>ক্রেতার নামঃ {{ Auth::user()->name }}</h2>
+            আইডিঃ {{ Auth::user()->code }}<br/>
             যোগাযোগের নম্বরঃ {{ Auth::user()->phone }}<br/>
             ইমেইলঃ {{ Auth::user()->email }}
+            <br/><br/>
           </div>
           <div class="col-md-8">
             <ul class="list-group">
@@ -71,74 +73,14 @@
 
               <div class="row">
                 <div class="col-md-4">
-                  <label for="district">District</label>
-                  <select id="district" name="district" class="form-control" required="">
-                    <option value="" selected="" disabled="">Select District</option>
-                    <option value="DHAKA">DHAKA</option>
-                    <option value="THAKURGAON">THAKURGAON</option>
-                    <option value="RANGPUR">RANGPUR</option>
-                    <option value="DINAJPUR">DINAJPUR</option>
-                    <option value="GAIBANDHA">GAIBANDHA</option>
-                    <option value="KURIGRAM">KURIGRAM</option>
-                    <option value="NILPHAMARI">NILPHAMARI</option>
-                    <option value="PANCHAGARH">PANCHAGARH</option>
-                    <option value="LALMONIRHAT">LALMONIRHAT</option>
-                    <option value="KUSHTIA">KUSHTIA</option>
-                    <option value="KHULNA">KHULNA</option>
-                    <option value="CHUADANGA">CHUADANGA</option>
-                    <option value="JHENAIDAH">JHENAIDAH</option>
-                    <option value="NARAIL">NARAIL</option>
-                    <option value="BAGERHAT">BAGERHAT</option>
-                    <option value="MAGURA">MAGURA</option>
-                    <option value="MEHERPUR">MEHERPUR</option>
-                    <option value="JASHORE">JASHORE</option>
-                    <option value="SATKHIRA">SATKHIRA</option>
-                    <option value="CHATTOGRAM">CHATTOGRAM</option>
-                    <option value="COX'S BAZAR">COX'S BAZAR</option>
-                    <option value="BANDARBAN">BANDARBAN</option>
-                    <option value="KHAGRACHARI">KHAGRACHARI</option>
-                    <option value="RANGAMATI">RANGAMATI</option>
-                    <option value="NOAKHALI">NOAKHALI</option>
-                    <option value="LAKSHMIPUR">LAKSHMIPUR</option>
-                    <option value="FENI">FENI</option>
-                    <option value="CUMILLA">CUMILLA</option>
-                    <option value="CHANDPUR">CHANDPUR</option>
-                    <option value="BRAHMANBARIA">BRAHMANBARIA</option>
-                    <option value="NARSINGDI">NARSINGDI</option>
-                    <option value="NARAYANGANJ">NARAYANGANJ</option>
-                    <option value="GAZIPUR">GAZIPUR</option>
-                    <option value="MUNSHIGANJ">MUNSHIGANJ</option>
-                    <option value="MANIKGANJ">MANIKGANJ</option>
-                    <option value="TANGAIL">TANGAIL</option>
-                    <option value="RAJBARI">RAJBARI</option>
-                    <option value="GOPALGANJ">GOPALGANJ</option>
-                    <option value="SHARIATPUR">SHARIATPUR</option>
-                    <option value="MADARIPUR">MADARIPUR</option>
-                    <option value="FARIDPUR">FARIDPUR</option>
-                    <option value="KISHOREGANJ">KISHOREGANJ</option>
-                    <option value="BARISAL">BARISAL</option>
-                    <option value="BARGUNA">BARGUNA</option>
-                    <option value="BHOLA">BHOLA</option>
-                    <option value="JHALAKATHI">JHALAKATHI</option>
-                    <option value="PATUAKHALI">PATUAKHALI</option>
-                    <option value="PIROJPUR">PIROJPUR</option>
-                    <option value="MYMENSINGH">MYMENSINGH</option>
-                    <option value="SHERPUR">SHERPUR</option>
-                    <option value="JAMALPUR">JAMALPUR</option>
-                    <option value="NETROKONA">NETROKONA</option>
-                    <option value="RAJSHAHI">RAJSHAHI</option>
-                    <option value="NATORE">NATORE</option>
-                    <option value="CHAPAINAWABGANJ">CHAPAINAWABGANJ</option>
-                    <option value="JOYPURHAT">JOYPURHAT</option>
-                    <option value="NAOGAON">NAOGAON</option>
-                    <option value="BOGURA">BOGURA</option>
-                    <option value="PABNA">PABNA</option>
-                    <option value="SIRAJGANJ">SIRAJGANJ</option>
-                    <option value="MOULVIBAZAR">MOULVIBAZAR</option>
-                    <option value="SYLHET">SYLHET</option>
-                    <option value="SUNAMGANJ">SUNAMGANJ</option>
-                    <option value="HABIGANJ">HABIGANJ</option>
+                  <label for="deliverylocation">Delivery Location</label>
+                  <select id="deliverylocation" name="deliverylocation" class="form-control" required="">
+                    <option value="" selected="" disabled="">Select Location</option>
+                    <option value="0">Dhaka</option>
+                    <option value="1020">Free Pick-up Point</option> {{-- apatoto --}}
+                    <option value="2">Outside of Dhaka</option>
                   </select>
+                  <span id="freePickUpPoint"></span>
                 </div>
                 <div class="col-md-4">
                   <label for="payment_method">Payment Method</label>
@@ -164,11 +106,14 @@
 
 @section('js')
   <script type="text/javascript">
-    $('#district').change(function() {
+    $('#deliverylocation').change(function() {
       var deliveryCharge;
       var oldTotalPrice;
-      if($('#district').val() == 'DHAKA') {
+      if($('#deliverylocation').val() == 0) {
         deliveryCharge = 60;
+      } else if ($('#deliverylocation').val() == 1020) {
+        deliveryCharge = 0;
+        $('#freePickUpPoint').text('Peri Pasta or Pizza Burg, Mirpur- 02, Contact no - 01315852563');
       } else {
         deliveryCharge = 100;
       }

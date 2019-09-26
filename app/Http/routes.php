@@ -31,13 +31,28 @@ Route::get('/product/{id}/{random_string}', [
 ]);
 
 Route::get('/about', [
-    'uses' => 'ProductController@getIndex',
+    'uses' => 'ProductController@getAbout',
     'as' => 'index.about'
 ]);
 
 Route::get('/contact', [
-    'uses' => 'ProductController@getIndex',
+    'uses' => 'ProductController@getContact',
     'as' => 'index.contact'
+]);
+
+Route::post('/send/message', [
+    'uses' => 'ProductController@postContactMessage',
+    'as' => 'index.postcontactmessage'
+]);
+
+Route::get('/privacy', [
+    'uses' => 'ProductController@getPrivacy',
+    'as' => 'index.privacy'
+]);
+
+Route::get('/terms', [
+    'uses' => 'ProductController@getTerms',
+    'as' => 'index.terms'
 ]);
 
 Route::get('/search', [

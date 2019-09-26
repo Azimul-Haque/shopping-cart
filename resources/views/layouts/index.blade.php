@@ -3,8 +3,8 @@
 
 <head>
     <title>@yield('title')</title>
-    <meta name="description" content="Official website of Killa Consultancy. Developed by A. H. M. Azimul Haque and Md. Abdul Mannan.">
-    <meta name="keywords" content="Killa, Killa Consultancy, Killa BD, KillaBD">
+    <meta name="description" content="আপনার প্রয়োজন শুধু বলুন, আমরা পৌঁছে যাবো আপনার দরজায়। Developed by A. H. M. Azimul Haque.">
+    <meta name="keywords" content="LOYAL অভিযাত্রী, LOYAL, অভিযাত্রী">
     <meta charset="utf-8">
     <meta name="author" content="A. H. M. Azimul Haque">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1" />
@@ -83,20 +83,20 @@
                     <!-- phone -->
                     <div class="col-md-4 col-sm-4 text-center">
                         <i class="icon-phone small-icon black-text"></i>
-                        <h6 class="black-text margin-two no-margin-bottom"><a href="tel:+8801515297658">+88 01515297658</a></h6>
+                        <h6 class="black-text margin-two no-margin-bottom"><a href="tel:+8801515297658">+88 01315-852563</a></h6>
                     </div>
                     <!-- end phone -->
                     <!-- address -->
                     <div class="col-md-4 col-sm-4 text-center">
                         <i class="icon-map-pin small-icon black-text"></i>
-                        <h6 class="black-text margin-two no-margin-bottom">Killa Consultancy, Dhaka</h6>
+                        <h6 class="black-text margin-two no-margin-bottom">Dhaka, Bangladesh</h6>
                     </div>
                     <!-- end address -->
                     <!-- email -->
                     <div class="col-md-4 col-sm-4 text-center">
                         <i class="icon-envelope small-icon black-text"></i>
                         <h6 class="margin-two no-margin-bottom">
-                            <a href="mailto:info@killabd.com" class="black-text">info@killabd.com</a>
+                            <a href="mailto:loyalovijatri@gmail.com" class="black-text">loyalovijatri@gmail.com</a>
                         </h6>
                     </div>
                     <!-- end email -->
@@ -110,7 +110,7 @@
                     <h5>About Us</h5>
                     <!-- end headline -->
                     <!-- text -->
-                    <p class="footer-text">Ecommerce was established in the year 201* with a view to .... ... ...</p>
+                    <p class="footer-text">Start your journey with <b>LOYAL অভিযাত্রী</b> and we will keep providing you with the best products available, in shaa Allah!</p>
                     <!-- end text -->
                 </div>
                 <div class="col-md-2 col-sm-3 col-xs-4 footer-link2 col-md-offset-3">
@@ -121,17 +121,18 @@
                 </div>
                 <div class="col-md-2 col-sm-3 col-xs-4  footer-link4">
                     <!-- headline -->
-                    <h5>About</h5>
+                    <h5>LOYAL  অভিযাত্রী</h5>
                     <!-- end headline -->
                     <!-- link -->
                     <ul>
                         <li>
                             <a href="{{ route('index.about') }}">About Us</a>
                         </li>
-                        {{-- <li>
-                            <a href="{{ route('index.projects') }}">Projects</a>
-                        </li>
+                        
                         <li>
+                            <a href="{{ route('index.contact') }}">Contact</a>
+                        </li>
+                        {{-- <li>
                             <a href="{{ route('index.publications') }}">Publications</a>
                         </li>
                         <li>
@@ -147,11 +148,15 @@
                     <!-- link -->
                     <ul class="list-inline footer-link text-uppercase">
                         <li>
-                            <a href="{{ route('index.about') }}">About</a>
+                            <a href="{{ route('index.privacy') }}">Privacy Policy</a>
                         </li>
                         <li>
-                            <a href="#!">Categories</a>
-                        </li>{{-- 
+                            <a href="{{ route('index.terms') }}">Terms of Service</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('index.about') }}">About US</a>
+                        </li>
+                        {{-- 
                         <li>
                             <a href="{{ route('index.publications') }}">Publications</a>
                         </li>
@@ -166,20 +171,17 @@
                 </div>
                 <div class="col-md-6 col-sm-12 footer-social text-right sm-text-center">
                     <!-- social media link -->
-                    <a target="_blank" href="https://www.facebook.com/">
+                    <a target="_blank" href="https://www.facebook.com/loyalovijatri">
                         <i class="fa fa-facebook"></i>
                     </a>
                     <a target="_blank" href="https://twitter.com/">
                         <i class="fa fa-twitter"></i>
                     </a>
-                    {{-- <a target="_blank" href="https://plus.google.com/">
-                        <i class="fa fa-google-plus"></i>
-                    </a> --}}
+                    <a target="_blank" href="https://www.instagram.com/loyal_ovijatri">
+                        <i class="fa fa-instagram"></i>
+                    </a>
                     <a target="_blank" href="https://www.youtube.com/">
                         <i class="fa fa-youtube"></i>
-                    </a>
-                    <a target="_blank" href="https://www.linkedin.com/">
-                        <i class="fa fa-linkedin"></i>
                     </a>
                     <!-- end social media link -->
                 </div>

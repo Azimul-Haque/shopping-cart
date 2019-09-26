@@ -1,6 +1,6 @@
 @extends('layouts.index')
 
-@section('title', 'বাজারের ব্যাগ | ইকমার্স')
+@section('title', 'Shopping cart | LOYAL অভিযাত্রী')
 
 @section('css')
   <script type="text/javascript" src="{{ asset('vendor/hcode/js/jquery.min.js') }}"></script>

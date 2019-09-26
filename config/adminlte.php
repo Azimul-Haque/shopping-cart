@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'title' => 'ECommerce',
+    'title' => 'LOYAL অভিযাত্রী',
 
     'title_prefix' => '',
 
@@ -30,9 +30,9 @@ return [
     |
     */
 
-    'logo' => '<b>E</b>Comm',
+    'logo' => '<b>LOYAL</b>অভিযাত্রী',
 
-    'logo_mini' => '<b>E</b>C',
+    'logo_mini' => '<b>L</b>অ',
 
     /*
     |--------------------------------------------------------------------------
@@ -85,7 +85,7 @@ return [
     |
     */
 
-    'dashboard_url' => 'warehouse/dashboard',
+    'dashboard_url' => 'dashboard',
 
     'logout_url' => 'logout',
 

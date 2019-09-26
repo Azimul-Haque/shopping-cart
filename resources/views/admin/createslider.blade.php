@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Create Slider | ইকমার্স')
+@section('title', 'Create Slider | LOYAL অভিযাত্রী')
 
 @section('css')
 

@@ -1,6 +1,6 @@
 @extends('layouts.index')
 
-@section('title', 'ইকমার্স | রেজিস্টার')
+@section('title', 'Register | LOYAL অভিযাত্রী')
 
 @section('css')
 

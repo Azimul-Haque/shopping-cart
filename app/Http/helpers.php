@@ -63,6 +63,16 @@
           return 'Bkash';
   }
 
+  function deliverylocation($deliverylocation) 
+  {
+      if ($deliverylocation == 0)
+          return 'Dhaka';
+      elseif($deliverylocation == 1020)
+          return 'Peri Pasta or Pizza Burg, Mirpur- 02 (Free pick-up)';
+      elseif($deliverylocation == 2)
+          return 'Outside of Dhaka';
+  }
+
   function convertNumberToWord($num = false)
   {
       $num = str_replace(array(',', ' '), '' , trim($num));

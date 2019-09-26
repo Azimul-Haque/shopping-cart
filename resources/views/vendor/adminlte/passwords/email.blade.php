@@ -1,5 +1,7 @@
 @extends('adminlte::master')
 
+@section('title', 'Reset Password | LOYAL অভিযাত্রী')
+
 @section('adminlte_css')
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/css/auth.css') }}">
     @yield('css')

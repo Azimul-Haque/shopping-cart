@@ -1,29 +1,18 @@
 @extends('layouts.index')
 
-@section('title', $article->title . ' | LOYAL অভিযাত্রী')
+@section('title', 'About Us | LOYAL অভিযাত্রী')
 
 @section('css')
-  @if($article->image != null)
-      <meta property="og:image" content="{{ asset('images/pages/'.$article->image) }}" />
-  @else
-      <meta property="og:image" content="{{ asset('images/abc.png') }}" />
-  @endif
-
-  <meta property="og:title" content="{{ $article->title }} | Ecoomerce Name"/>
-  <meta name="description" property="og:description" content="{{ substr(strip_tags($article->description), 0, 200) }}" />
-  <meta property="og:type" content="article"/>
-  <meta property="og:url" content="{{ Request::url() }}" />
-  <meta property="og:site_name" content="Ecomm Name">
-  <meta property="og:locale" content="en_US">
-  <meta property="fb:admins" content="100001596964477">
-  <meta property="fb:app_id" content="163879201229487">
-  <meta property="og:type" content="article">
-  <!-- Open Graph - Article -->
-  <meta name="article:section" content="Ecoomerce Name">
-  <meta name="article:published_time" content="{{ $article->created_at}}">
-  <meta name="article:author" content="Ecom">
-  <meta name="article:tag" content="Article">
-  <meta name="article:modified_time" content="{{ $article->updated_at}}">
+  <style type="text/css">
+    .padding-bottom-ten {
+      padding-bottom: 10%;
+    }
+    .big-text {
+      font-size: 20px;
+      text-align: justify;
+      text-justify: inter-word;
+    }
+  </style>
 @endsection
 
 @section('content')
@@ -33,7 +22,7 @@
           <div class="row">
               <!-- section title -->
               <div class="col-md-6 col-sm-6">
-                  <span class="text-large letter-spacing-2 black-text font-weight-600 agency-title">{{ $article->title }}</span>
+                  <span class="text-large letter-spacing-2 black-text font-weight-600 agency-title">About Us</span>
               </div>
               <!-- end section title -->
               <!-- section highlight text -->
@@ -49,34 +38,26 @@
       <div class="container">
           <div class="row">
               <div class="col-sm-9 col-sm-push-3">
-                  <!-- post title  -->
-                  <h2 class="blog-details-headline text-black">{{ $article->title }}</h2>
-                  <!-- end post title  -->
-                  <!-- post date and categories  -->
-                  <div class="blog-date no-padding-top">{{ date('F d, Y', strtotime($article->created_at)) }}</div>
-                  <!-- end date and categories   -->
-                  <!-- post image -->
-                  <div class="blog-image margin-eight"><img src="{{ asset('images/pages/' . $article->image) }}" alt="" ></div>
-                  <!-- end post image -->
-                  <!-- post details text -->
-                  <div class="blog-details-text border-bottom">
-                      {!! $article->description !!}
-                  </div>
-                  <!-- end post details text -->
                   
-                  <!-- social icon -->
-                  <div class="text-center border-bottom margin-ten padding-four no-margin-top">
-                      <a href="https://www.facebook.com/sharer/sharer.php?u={{ Request::url() }}" class="btn social-icon social-icon-large button" onclick="window.open(this.href,'newwindow', 'width=500,height=400'); return false;"><i class="fa fa-facebook"></i></a>
-                      <a href="https://twitter.com/intent/tweet?url={{ Request::url() }}" class="btn social-icon social-icon-large button" onclick="window.open(this.href,'newwindow', 'width=500,height=400'); return false;"><i class="fa fa-twitter"></i></a>
-                      <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ Request::url()}}&title=IIT%20Alumni%20Association&summary={{ $article->title }}&source=Killa%20Consultancy" class="btn social-icon social-icon-large button" onclick="window.open(this.href,'newwindow', 'width=500,height=400');  return false;"><i class="fa fa-linkedin"></i></a>
-                  </div>
-                  <!-- end social icon -->
-
-                  {{-- related product --}}
-                  {{-- related product --}}
-                  <div class="row padding-top-ten">
+                  <div class="row border-bottom padding-bottom-ten">
                       <div class="col-md-12 text-center">
-                          <h3 class="section-title">New Arrivals</h3>
+                          <h3 class="section-title">Assalamu Alaikum</h3>
+                      </div>
+                      <div class="col-md-12">
+                          <p class="big-text">
+                            You shall find here the best care products for your hair and skin, smartest available gadgets and
+                            tasty treats to your sweet teeth. At a reasonable price, we assure you loyalty in our service and
+                            authenticity in our products.<br/><br/>
+                            So, start your journey with <b>LOYAL অভিযাত্রী</b> and we will keep providing you with the best
+                            products available, in shaa Allah!
+                          </p>
+                      </div>
+                  </div>
+                  {{-- related product --}}
+                  {{-- related product --}}
+                  <div class="row padding-ten">
+                      <div class="col-md-12 text-center">
+                          <h3 class="section-title">NEW ARRIVALS</h3>
                       </div>
                   </div>
                   <div class="row">

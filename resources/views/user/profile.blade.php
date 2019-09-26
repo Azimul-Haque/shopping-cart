@@ -1,6 +1,6 @@
 @extends('layouts.index')
 
-@section('title', 'প্রোফাইল | ইকমার্স')
+@section('title', 'Profile | LOYAL অভিযাত্রী')
 
 @section('css')
 
@@ -44,9 +44,9 @@
             
             @include('partials/_profile')
           </div>
-          <div class="col-md-5">
+          <div class="col-md-9">
             @if($orders->first())
-            <div class="panel panel-success">
+            <div class="panel panel-success shadow-light">
               <div class="panel-heading">
                 <h4 class="panel-title">
                   @if($orders->first()->paymentstatus == 'paid')
@@ -58,7 +58,20 @@
                 </h4>
               </div>
               <div class="panel-body">
-                <h4>Order ID: {{ $orders->first()->payment_id }}<br/>Payment Method: {{ payment_method($orders->first()->payment_method) }}</h4>
+                <h4>
+                  <a href="{{ route('warehouse.receiptpdf', [$orders->first()->payment_id, generate_token(100)]) }}" class="highlight-button-dark btn btn-small no-margin-right quick-buy-btn pull-right" title="Print Invoice" target="_blank"><i class="fa fa-print" aria-hidden="true"></i></a>
+                  Order ID: {{ $orders->first()->payment_id }}
+                  <br/>
+                  Payment Method: {{ payment_method($orders->first()->payment_method) }}<br/>
+                </h4>
+                Delivery Location:<br/>
+                <span>
+                  @if($orders->first()->deliverylocation == 1020)
+                    {{ deliverylocation($orders->first()->deliverylocation) }}
+                  @else
+                    {{ $orders->first()->user->address }}
+                  @endif
+                </span>
                 <ul class="list-group">
                   @foreach($orders->first()->cart->items as $item)
                     <li class="list-group-item">
@@ -86,16 +99,15 @@
               </h2>
             </center>
             @endif
-          </div>
-          <div class="col-md-4">
-            <div class="panel panel-primary">
+            <br/>
+            <div class="panel panel-primary shadow-light">
               <div class="panel-heading">
-                <h4 class="panel-title">আপনার অর্ডারগুলো</h4>
+                <h4 class="panel-title">আপনার পূর্ববর্তী অর্ডারগুলো</h4>
               </div>
               <div class="panel-body">
                 <div class="panel-group" id="accordion">
                 @foreach($orders as $order)
-                  <div class="panel panel-success">
+                  <div class="panel panel-success shadow-light">
                     <div class="panel-heading">
                       <h4 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion" href="#receiptcollapse{{ $order->id }}">
@@ -110,7 +122,19 @@
                     </div>
                     <div id="receiptcollapse{{ $order->id }}" class="panel-collapse collapse">
                       <div class="panel-body">
-                        <h4>Order ID: {{ $order->payment_id }}<br/>Payment Method: {{ payment_method($order->payment_method) }}</h4>
+                        <h4>
+                          <a href="{{ route('warehouse.receiptpdf', [$order->payment_id, generate_token(100)]) }}" class="highlight-button-dark btn btn-small no-margin-right quick-buy-btn pull-right" title="Print Invoice" target="_blank"><i class="fa fa-print" aria-hidden="true"></i></a>
+                          Order ID: {{ $order->payment_id }}<br/>
+                          Payment Method: {{ payment_method($order->payment_method) }}<br/>
+                        </h4>
+                        Delivery Location:<br/>
+                        <span>
+                          @if($order->deliverylocation == 1020)
+                            {{ deliverylocation($order->deliverylocation) }}
+                          @else
+                            {{ $order->user->address }}
+                          @endif
+                        </span>
                         <ul class="list-group">
                           @foreach($order->cart->items as $item)
                             <li class="list-group-item">
@@ -131,11 +155,16 @@
                       <strong>Total Payable <span style="float: right;">৳ {{ $order->cart->totalPrice }}</span></strong>
                     </div>
                     </div>
-                  </div><br/>
+                  </div>
                 @endforeach
+                <br/>
+                @include('pagination.default', ['paginator' => $orders])
                 </div>
               </div>
             </div>
+          </div>
+          <div class="col-md-4">
+            
           </div>
         </div>
       </div>

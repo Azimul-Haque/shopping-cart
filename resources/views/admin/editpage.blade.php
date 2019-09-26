@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Edit Page | ইকমার্স')
+@section('title', 'Edit Page | LOYAL অভিযাত্রী')
 
 @section('css')
 <link rel="stylesheet" type="text/css" href="{{ asset('vendor/summernote/summernote.css') }}">

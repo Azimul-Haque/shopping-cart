@@ -1,6 +1,6 @@
 @extends('layouts.index')
 
-@section('title', 'ইকমার্স')
+@section('title', $product->title . ' | LOYAL অভিযাত্রী')
 
 @section('css')
   <script type="text/javascript" src="{{ asset('vendor/hcode/js/jquery.min.js') }}"></script>
@@ -30,10 +30,10 @@
   <meta property="og:type" content="article">
   <!-- Open Graph - Article -->
   <meta name="article:section" content="Ecoomerce Name">
-  <meta name="article:published_time" content="{{ $product->created_at}}">
+  <meta name="article:published_time" content="{{ $product->created_at }}">
   <meta name="article:author" content="Ecom">
   <meta name="article:tag" content="Product">
-  <meta name="article:modified_time" content="{{ $product->updated_at}}">
+  <meta name="article:modified_time" content="{{ $product->updated_at }}">
 @endsection
 
 @section('content')

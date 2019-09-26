@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'ডেলিভার্ড অর্ডারগুলো | ইকমার্স')
+@section('title', 'Completed Orders | LOYAL অভিযাত্রী')
 
 @section('css')
   <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.min.js') }}"></script>
@@ -81,8 +81,14 @@
                                   <h4>অর্ডার আইডিঃ <u>{{ $dueorder->payment_id }}</u></h4>
                                   <h4>ক্রেতার নামঃ {{ $dueorder->user->name }}</h4>
                                   <h4>ফোন নম্বরঃ <b>{{ $dueorder->user->phone }}</b></h4>
-                                  <h4>পণ্য প্রেরণের ঠিকানাঃ <b>{{ $dueorder->address }}</b></h4><br/>
-                                  <h4>পেমেন্ট মেথডঃ <b>{{ payment_method($dueorder->payment_method) }}</b></h4><br/>
+                                  <h4>পণ্য প্রেরণের ঠিকানাঃ
+                                    @if($dueorder->deliverylocation == 1020)
+                                      <b>{{ deliverylocation($dueorder->deliverylocation) }}</b>
+                                    @else
+                                      <b>{{ $dueorder->address }}</b>
+                                    @endif
+                                  </h4><br/>
+                                  <h4>পেমেন্ট মেথডঃ <b>{{ payment_method($dueorder->payment_method) }}</b><br/></h4><br/>
                                 </div>
                                 <div class="col-md-8">
                                   <h4>অর্ডারের বিবরণঃ</h4>

@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'ড্যাশবোর্ড | ইকমার্স')
+@section('title', 'Dashboard | LOYAL অভিযাত্রী')
 
 @section('css')
 
