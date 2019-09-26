@@ -18,7 +18,7 @@
 	  <div style="border-top: 4px solid #E08E0B; padding: 10px; margin: 20px; max-width: 600px; background: #FFF; word-wrap: break-word; ">
 	    <center>
 	      <img src="{{ asset('images/logo.png') }}" width="100px; height: auto;">
-	      {{-- <p style="font-size: 30px; color: #1B237D;"><b>Loyal</b>অভিযাত্রী</p> --}}
+	      {{-- <p style="font-size: 30px; color: #1B237D;"><b>LOYAL</b>অভিযাত্রী</p> --}}
 	      <p style="font-size: 25px"><b>Invoice</b></p>
 	      
 	      <table style="width: 100%; word-wrap: break-word;">
@@ -76,10 +76,10 @@
 	      <big><a href="{{ route('warehouse.receiptpdf', [$order->payment_id, generate_token(100)]) }}" target="_blank"><b>Print Invoice</b></a></big><br/>
 	      <br/><br/>
 	      <p style="font-size: 12px; color: #ACACAC;">
-	        This is a auto-generated email from Loyal অভিযাত্রী. This email arrived to you because you (or may be someone else!) have ordered the above commoditie(s) associated with this email address. If you are getting this email by mistake, please ignore it.
+	        This is a auto-generated email from LOYAL অভিযাত্রী. This email arrived to you because you (or may be someone else!) have ordered the above commoditie(s) associated with this email address. If you are getting this email by mistake, please ignore it.
 	      </p>
 	      <p style="font-size: 12px; color: #ACACAC;">
-	        &copy; @php echo date('Y'); @endphp <a href="http://loyalovijatri.com/">Loyal অভিযাত্রী</a>, Dhaka, Bangladesh
+	        &copy; @php echo date('Y'); @endphp <a href="http://loyalovijatri.com/">LOYAL অভিযাত্রী</a>, Dhaka, Bangladesh
 	      </p>
 	    </center>
 	  </div>

@@ -37,7 +37,7 @@
   <h2 align="center">
     <img src="{{ public_path('images/logo.png') }}" style="height: 80px; width: auto;">
     <br/>
-    <span class="calibri_normal">Loyal</span> অভিযাত্রী<br/>
+    <span class="calibri_normal">LOYAL</span> অভিযাত্রী<br/>
     <small class="calibri_normal" style="font-size: 14px;">Email: loyalovijatri@gmail.com, Phone: +88 01315 85 25 63</small>
   </h2>
   <h2 align="center" class="calibri_normal" style="color: #397736; border-bottom: 1px solid #397736;">
