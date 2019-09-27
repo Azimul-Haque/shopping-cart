@@ -29,6 +29,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="#252525">
     <meta name="theme-color" content="#252525">
     <meta name="mobile-web-app-capable" content="yes">
+    <meta name="google-site-verification" content="hG6zSbHNlZzqpReVDwBBhXUimK0gdvg4YHC185Nl1-A" />
 
     <!-- animation -->
     

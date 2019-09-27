@@ -30,6 +30,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="#3C8DBC">
     <meta name="theme-color" content="#3C8DBC">
     <meta name="mobile-web-app-capable" content="yes">
+    <meta name="google-site-verification" content="hG6zSbHNlZzqpReVDwBBhXUimK0gdvg4YHC185Nl1-A" />
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
