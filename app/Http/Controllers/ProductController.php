@@ -365,6 +365,11 @@ class ProductController extends Controller
                     ->withRecentproducts($recentproducts);
     }  
 
+    public function generateSiteMap()
+    {
+      
+    }
+
     public function clearSession(Request $request)
     {
       $request->session()->flush();

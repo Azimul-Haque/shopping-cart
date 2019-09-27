@@ -350,6 +350,12 @@ Route::get('/testmail/{payment_id}', [
     'middleware' => 'auth'
 ]);
 
+Route::get('/sitemap', [
+    'uses' => 'ProductController@generateSiteMap',
+    'as' => 'index.sitemap',
+    'middleware' => 'auth'
+]);
+
 // Password Reset Routes...
 Route::get('password/reset/{token?}', ['as' => 'auth.password.reset', 'uses' => 'Auth\PasswordController@showResetForm']);
 Route::post('password/email', ['as' => 'auth.password.email', 'uses' => 'Auth\PasswordController@sendResetLinkEmail']);
