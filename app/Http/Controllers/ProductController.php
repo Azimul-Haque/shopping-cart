@@ -100,13 +100,6 @@ class ProductController extends Controller
       return view('shop.terms');
     }
 
-    public function getCategoryWise($id, $random_string) {
-      $products = Product::where('isAvailable', '!=', '0')
-                         ->where('category_id', $id)
-                         ->paginate(10);
-      return view('shop.categorywise')->withProducts($products);
-    }
-
     public function getSingleProduct($id, $random_string) 
     {
       $product = Product::findOrFail($id);
@@ -119,13 +112,22 @@ class ProductController extends Controller
                         ->withRelatedproducts($relatedproducts);
     }
 
+    public function getCategoryWise($id, $random_string) {
+      $products = Product::where('isAvailable', '!=', '0')
+                         ->where('category_id', $id)
+                         ->paginate(10);
+      return view('shop.categorywise')
+                ->withProducts($products)
+                ->withCatorsubid($id);
+    }
+
     public function getSubcategoryWise($id, $random_string) {
       $products = Product::where('isAvailable', '!=', '0')
                          ->where('subcategory_id', $id)
                          ->paginate(10);
       return view('shop.categorywise')
                   ->withProducts($products)
-                  ->withSubcategoryid($id);
+                  ->withCatorsubid($id);
     }
 
     public function getAddToCart(Request $request, $id) {

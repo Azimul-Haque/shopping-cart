@@ -34,6 +34,8 @@
   <meta name="article:author" content="Ecom">
   <meta name="article:tag" content="Product">
   <meta name="article:modified_time" content="{{ $product->updated_at }}">
+
+  <link rel="canonical" href="{{ route('product.getsingleproduct', [$product->id, 'WBKGCVSjko3geyK8txZ1WpRaIgHhmBGmxeghPuNfgqk0iDljd6KzVLXX']) }}" />
 @endsection
 
 @section('content')

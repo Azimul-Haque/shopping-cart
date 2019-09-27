@@ -4,6 +4,11 @@
 
 @section('css')
   <script type="text/javascript" src="{{ asset('vendor/hcode/js/jquery.min.js') }}"></script>
+  @if(strpos(Request::url(), 'subcategory') !== false)
+    <link rel="canonical" href="{{ route('product.subcategorywise', [$catorsubid, 'WBKGCVSjko3geyK8txZ1WpRaIgHhmBGmxeghPuNfgqk0iDljd6KzVLXX']) }}" />
+  @else
+    <link rel="canonical" href="{{ route('product.categorywise', [$catorsubid, 'WBKGCVSjko3geyK8txZ1WpRaIgHhmBGmxeghPuNfgqk0iDljd6KzVLXX']) }}" />
+  @endif
 @endsection
 
 @section('content')
