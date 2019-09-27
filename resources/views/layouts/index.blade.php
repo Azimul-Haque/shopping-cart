@@ -4,7 +4,7 @@
 <head>
     <title>@yield('title')</title>
     <meta name="description" content="আপনার প্রয়োজন শুধু বলুন, আমরা পৌঁছে যাবো আপনার দরজায়। Developed by A. H. M. Azimul Haque.">
-    <meta name="keywords" content="LOYAL অভিযাত্রী, LOYAL, অভিযাত্রী">
+    <meta name="keywords" content="LOYAL অভিযাত্রী, LOYAL, অভিযাত্রী, Bangladesh, Ecommerce, Online Shop, All kind of Products">
     <meta charset="utf-8">
     <meta name="author" content="A. H. M. Azimul Haque">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1" />
