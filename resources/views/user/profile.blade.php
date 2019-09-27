@@ -3,7 +3,11 @@
 @section('title', 'Profile | LOYAL অভিযাত্রী')
 
 @section('css')
-
+  <style type="text/css">
+    .textarea100 {
+      max-height: 100px;
+    }
+  </style>
 @endsection
 
 @section('content_header')
@@ -168,10 +172,52 @@
           </div>
         </div>
       </div>
+      <div class="modal fade" id="editProfileModal" role="dialog">
+        <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header modal-header-warning">
+              <button type="button" class="close noPrint" data-dismiss="modal">×</button>
+              <h4 class="modal-title">Edit Profile</h4>
+            </div>
+            {!! Form::model(Auth::user(), ['route' => ['profile.update', Auth::user()->id], 'method' => 'PUT']) !!}
+            <div class="modal-body">
+              {!! Form::label('name', 'Name') !!}
+              {!! Form::text('name', null, array('class' => 'form-control', 'required' => '')) !!}
+
+              {!! Form::label('phone', 'Phone') !!}
+              {!! Form::text('phone', null, array('class' => 'form-control', 'required' => '', "onkeypress" => "if(this.value.length==11) return false;")) !!}{{-- onkeypress="if(this.value.length==11) return false;" --}}
+
+              {!! Form::label('email', 'Email') !!}
+              {!! Form::text('email', null, array('class' => 'form-control', 'required' => '')) !!}
+
+              {!! Form::label('address', 'Delivery Address') !!}
+              {!! Form::textarea('address', null, array('class' => 'form-control textarea100', 'required' => '')) !!}
+
+              {!! Form::label('password', 'Password (If you do not want to change password, leave it blank)') !!}
+              {!! Form::password('password', null, array('class' => 'form-control', 'id' => 'password')) !!}
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="highlight-button btn btn-small">Update</button>
+                <button type="button" class="highlight-button-dark btn btn-small" data-dismiss="modal">Close</button>
+            </div>
+            {!! Form::close() !!}
+          </div>
+        </div>
+      </div>
   </section>
   <!-- end content section -->
 @endsection
 
 @section('js')
-  
+  <script type="text/javascript">
+    @if (count($errors) > 0)
+        $('#editProfileModal').modal('show');
+        $('#editProfileModal').modal({backdrop: 'static', keyboard: false})  ;
+    @endif
+
+    setTimeout(function(){ 
+      $('#password').val('');
+    }, 500);
+  </script>
 @endsection

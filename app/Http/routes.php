@@ -100,6 +100,12 @@ Route::get('user/profile/{unique_key}', [
     'middleware' => 'auth'
 ]);
 
+Route::put('user/profile/update/{id}', [
+    'uses' => 'UserController@updateProfile',
+    'as' => 'profile.update',
+    'middleware' => 'auth'
+]);
+
 Route::get('article/{slug}', [
     'uses' => 'ProductController@getSinglePage',
     'as' => 'index.article'

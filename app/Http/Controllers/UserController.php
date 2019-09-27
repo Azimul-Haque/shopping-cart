@@ -104,6 +104,31 @@ class UserController extends Controller
       return view('user.profile', ['orders' => $orders]);
     }
 
+    public function updateProfile(Request $request, $id) 
+    {
+      $user = User::findOrFail($id);
+
+      $this->validate($request, [
+        'name' => 'required',
+        'email' => 'email|required|unique:users,email,'.$user->id,
+        'phone' => 'required|unique:users,phone,'.$user->id,
+        'address' => 'required',
+        'password' => 'sometimes'
+      ]);
+
+      $user->name = $request->name;
+      $user->email = $request->email;
+      $user->phone = $request->phone;
+      $user->address = $request->address;
+      if($request->password) {
+        $user->password = bcrypt($request->password);
+      }
+      $user->save();
+
+      Session::flash('success', 'Profile updated successfully!'); 
+      return redirect()->route('user.profile', $user->unique_key);
+    }
+
     public function getLogout() {
       Auth::logout();
       Session::flash('success', 'Logged out successfully!'); 

@@ -15,7 +15,7 @@
 					<big><b>{{ Auth::user()->name }}</b></big>
 				</div>
 				<div class="profile-usertitle-job">
-					<span class="label label-default">{{ Auth::user()->role }}</span><br/><hr/>
+					<span class="label label-default">{{ ucfirst(Auth::user()->role) }}</span><br/><hr/>
 				</div>
 			</center>
 		</div>
@@ -36,6 +36,9 @@
 				<li title="Contact No"><i class="fa fa-phone"></i> {{ Auth::user()->phone }}</li>
 				<li title="Email Address"><i class="fa fa-envelope-o"></i> {{ Auth::user()->email }}</li>
 				<li title="Delivery Address"><i class="fa fa-home"></i> {{ Auth::user()->address }}</li>
+				<li class="text-center">
+					<button class="highlight-button-dark btn btn-small" type="button" title="Edit Profile" data-toggle="modal" data-target="#editProfileModal" data-backdrop="static"><i class="fa fa-edit"></i> Edit Profile</button>
+				</li>
 			</ul>
 		</div>
 		<!-- END MENU -->
