@@ -127,7 +127,8 @@ class ProductController extends Controller
                          ->paginate(10);
       return view('shop.categorywise')
                   ->withProducts($products)
-                  ->withCatorsubid($id);
+                  ->withCatorsubid($id)
+                 ->withSubcategoryid($id); // for active class
     }
 
     public function getAddToCart(Request $request, $id) {
