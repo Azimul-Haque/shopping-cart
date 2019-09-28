@@ -95,12 +95,18 @@
   <!-- content section -->
   <section class="padding-three">
       <div class="container">
+          @php
+            $categorytitlecolors = ['#ff8a80', '#ea80fc', '#b9f6ca', '#f4ff81', '#ffd180', '#00e676', '#1de9b6', '#80d8ff', '#f8bbd0', '#76ff03', '#ff6f00', '#bcaaa4', '#90a4ae', '#c5e1a5', '#18ffff', '#82b1ff']
+          @endphp
           @foreach($categories as $category)
             @if($category->products->count() > 0)
+            @php
+              $colornow = $categorytitlecolors[array_rand($categorytitlecolors)];
+            @endphp
             <div class="row margin-three">
               <div class="col-md-3 hidden-sm hidden-xs">
-                <div class="subcategory_list_box shadow-light">
-                    <div class="pricing-title">
+                <div class="subcategory_list_box shadow-light" style="border-bottom: 4px solid {{ $colornow  }}">
+                    <div class="pricing-title" style="background: {{ $colornow  }};">
                         <h3>{{ $category->name }}</h3>
                     </div>
                     <ul class="subcategory_list_ul">
@@ -113,9 +119,9 @@
                 </div>
               </div>
               <div class="col-md-9 col-sm-12">
-                <div class="shadow-light products_card">
+                <div class="shadow-light products_card" style="border-bottom: 4px solid {{ $colornow  }}">
                   <div class="row">
-                    <div class="col-sm-12 sm_xs_products_header visible-sm visible-xs">
+                    <div class="col-sm-12 sm_xs_products_header visible-sm visible-xs" >
                       <h3>{{ $category->name }}</h3>
                     </div>
                     @foreach($category->products->take(6) as $product)

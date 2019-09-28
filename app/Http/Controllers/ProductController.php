@@ -116,8 +116,10 @@ class ProductController extends Controller
       $products = Product::where('isAvailable', '!=', '0')
                          ->where('category_id', $id)
                          ->paginate(10);
+      $newarrivals = Product::orderBy('id', 'desc')->get()->take(5);
       return view('shop.categorywise')
                 ->withProducts($products)
+                ->withNewarrivals($newarrivals)
                 ->withCatorsubid($id);
     }
 
@@ -125,10 +127,12 @@ class ProductController extends Controller
       $products = Product::where('isAvailable', '!=', '0')
                          ->where('subcategory_id', $id)
                          ->paginate(10);
+      $newarrivals = Product::orderBy('id', 'desc')->get()->take(5);
       return view('shop.categorywise')
                   ->withProducts($products)
+                  ->withNewarrivals($newarrivals)
                   ->withCatorsubid($id)
-                 ->withSubcategoryid($id); // for active class
+                  ->withSubcategoryid($id); // for active class
     }
 
     public function getAddToCart(Request $request, $id) {
