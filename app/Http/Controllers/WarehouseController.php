@@ -112,7 +112,7 @@ class WarehouseController extends Controller
     public function postAddProduct(Request $request) {
       $this->validate($request, [
           'code'             => 'sometimes|max:255',
-          'title'            => 'required|max:255',
+          'title'            => 'required|max:255|required|unique:products',
           'shorttext'        => 'required|max:255',
           'description'      => 'required',
           'oldprice'         => 'sometimes|numeric',
@@ -203,10 +203,12 @@ class WarehouseController extends Controller
                   ->withCategories($categories);
     }
 
-    public function putEditProduct(Request $request, $id) {
+    public function putEditProduct(Request $request, $id) 
+    {
+       $product = Product::find($id);
        $this->validate($request, [
           'code'             => 'sometimes|max:255',
-          'title'            => 'required|max:255',
+          'title'            => 'required|max:255|required|unique:products,title,' . $product->id,
           'shorttext'        => 'required|max:255',
           'description'      => 'required',
           'oldprice'         => 'sometimes|numeric',
@@ -229,7 +231,6 @@ class WarehouseController extends Controller
           'image5'           => 'sometimes|image|max:400'
       ]);
 
-      $product = Product::find($id);
       if($request->code) {
         $product->code = $request->code;
       }

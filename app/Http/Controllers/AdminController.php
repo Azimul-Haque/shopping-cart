@@ -42,7 +42,7 @@ class AdminController extends Controller
     {
       $this->validate($request, [
           'image'         => 'required|image|max:500',
-          'title'         => 'required|max:255',
+          'title'         => 'sometimes|max:255',
           'button'        => 'sometimes|max:255',
           'url'           => 'sometimes|max:255',
       ]);
@@ -55,8 +55,9 @@ class AdminController extends Controller
           Image::make($image)->resize(1360, 500)->save($location);
           $slider->image = $filename;
       }
-      $slider->title = $request->title;
-
+      if($request->title) {
+        $slider->title = $request->title;
+      }
       if($request->button) {
         $slider->button = $request->button;
       }
@@ -80,7 +81,7 @@ class AdminController extends Controller
     {
         $this->validate($request, [
             'image'         => 'sometimes|image|max:500',
-            'title'         => 'required|max:255',
+            'title'         => 'sometimes|max:255',
             'button'        => 'sometimes|max:255',
             'url'           => 'sometimes|max:255',
         ]);
@@ -99,7 +100,6 @@ class AdminController extends Controller
             $slider->image = $filename;
         }
         $slider->title = $request->title;
-
         $slider->button = $request->button;
         $slider->url = $request->url;
         $slider->save();

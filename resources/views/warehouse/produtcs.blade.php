@@ -9,7 +9,7 @@
 @section('content_header')
     <h1>Products
       <div class="pull-right">
-        <button class="btn btn-sm btn-primary" type="button" data-toggle="modal" data-target="#addAndEditProduct" data-backdrop="static" title="Add New Product"><i class="fa fa-plus" aria-hidden="true"></i> Add Product</button>
+        <button class="btn btn-sm btn-primary" type="button" data-toggle="modal" data-target="#addProduct" data-backdrop="static" title="Add New Product"><i class="fa fa-plus" aria-hidden="true"></i> Add Product</button>
       </div>
     </h1>
 @stop
@@ -52,12 +52,12 @@
                       <img style="max-height: 40px; border:1px solid #777" class="img-responsive" src="{{ asset('images/product-images/'.$product->productimages->first()->image) }}">
                     </td>
                     <td>৳ {{ $product->buying_price }}</td>
-                    <td>{{ $product->carrying_cost}}%</td>
-                    <td>{{ $product->vat }}%</td>
-                    <td>{{ $product->salary }}%</td>
-                    <td>{{ $product->wages }}%</td>
-                    <td>{{ $product->utility }}%</td>
-                    <td>{{ $product->others }}%</td>
+                    <td>৳ {{ $product->buying_price*$product->carrying_cost/100 }} ({{ $product->carrying_cost }}%)</td>
+                    <td>৳ {{ $product->buying_price*$product->vat/100 }} ({{ $product->vat }}%)</td>
+                    <td>৳ {{ $product->buying_price*$product->salary/100 }} ({{ $product->salary }}%)</td>
+                    <td>৳ {{ $product->buying_price*$product->wages/100 }} ({{ $product->wages }}%)</td>
+                    <td>৳ {{ $product->buying_price*$product->utility/100 }} ({{ $product->utility }}%)</td>
+                    <td>৳ {{ $product->buying_price*$product->others/100 }} ({{ $product->others }}%)</td>
                     <td>৳ {{ $product->price - $product->profit }}</td>
                     <td>
                       ৳ {{ $product->price }}<br/>
@@ -126,7 +126,7 @@
   </div>
 
   {{-- add product modal --}}
-  <div class="modal fade" id="addAndEditProduct" role="dialog">
+  <div class="modal fade" id="addProduct" role="dialog">
     <div class="modal-dialog modal-lg">
       <!-- Modal content-->
       {!! Form::open(['route' => 'warehouse.addproduct', 'method' => 'POST', 'files' => 'true', 'enctype' => 'multipart/form-data']) !!}
@@ -281,8 +281,8 @@
 
 @section('js')
 <script type="text/javascript">
-  @if(Request::is('warehouse/edit/product/*'))
-    $('#addAndEditProduct').modal('show');
+  @if (count($errors) > 0)
+    $('#addProduct').modal('show');
   @endif
 </script>
 @stop

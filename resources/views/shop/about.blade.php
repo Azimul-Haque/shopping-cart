@@ -8,7 +8,7 @@
       padding-bottom: 10%;
     }
     .big-text {
-      font-size: 20px;
+      font-size: 16px;
       text-align: justify;
       text-justify: inter-word;
     }
@@ -37,9 +37,9 @@
   <section class="padding-three">
       <div class="container">
           <div class="row">
-              <div class="col-sm-9 col-sm-push-3">
+              <div class="col-sm-12">
                   
-                  <div class="row border-bottom padding-bottom-ten">
+                  <div class="row padding-bottom-ten">
                       <div class="col-md-12 text-center">
                           <h3 class="section-title">Assalamu Alaikum</h3>
                       </div>
@@ -53,77 +53,8 @@
                           </p>
                       </div>
                   </div>
-                  {{-- related product --}}
-                  {{-- related product --}}
-                  <div class="row padding-ten">
-                      <div class="col-md-12 text-center">
-                          <h3 class="section-title">NEW ARRIVALS</h3>
-                      </div>
-                  </div>
-                  <div class="row">
-                      <!-- related products slider -->
-                      <div id="shop-products" class="owl-carousel owl-theme dark-pagination owl-no-pagination owl-prev-next-simple">
-                        @foreach($recentproducts as $recentproduct)
-                          <!-- shop item -->
-                          <div class="item">
-                              <div class="home-product text-center position-relative overflow-hidden">
-                                  <a href="{{ route('product.getsingleproduct', [$recentproduct->id, generate_token(100)]) }}"><img src="{{ asset('images/product-images/'.$recentproduct->productimages->first()->image) }}" alt=""/></a>
-                                  <span class="product-name text-uppercase"><a href="{{ route('product.getsingleproduct', [$recentproduct->id, generate_token(100)]) }}">{{ $recentproduct->title }}</a></span>
-                                  <span class="price black-text">
-                                    @if($recentproduct->oldprice)
-                                    <del>৳ {{ $recentproduct->oldprice }}</del>
-                                    @endif
-                                    ৳ {{ $recentproduct->price }}
-                                  </span>
-                                  {{-- <div class="quick-buy">
-                                      <div class="product-share">
-                                          <a href="#" class="highlight-button-dark btn btn-small no-margin-right quick-buy-btn" title="Add to Wishlist"><i class="fa fa-heart-o"></i></a>
-                                          <a href="#" class="highlight-button-dark btn btn-small no-margin-right quick-buy-btn" title="Add to Cart"><i class="fa fa-shopping-cart"></i></a>
-                                      </div>
-                                  </div> --}}
-                              </div>
-                          </div>
-                          <!-- end shop item -->
-                        @endforeach
-                      </div>
-                      <!-- end related products slider -->
-                  </div>
-                  {{-- related product --}}
-                  {{-- related product --}}
               </div>
 
-              <!-- sidebar  -->
-              <div class="col-sm-3 col-sm-pull-9 sidebar">
-                  
-                  <!-- category and subcategory widget  -->
-                  @include('partials/shop-sidebar')
-                  <!-- category and subcategory widget  -->
-
-                  <!-- new arrival widget  -->
-                  <div class="widget">
-                      <h5 class="widget-title font-alt">New Arrivals</h5>
-                      <div class="thin-separator-line bg-dark-gray no-margin-lr margin-ten"></div>
-                      <div class="widget-body">
-                          {{-- <ul class="colors clearfix">
-                              <li class="active"><a href="#" style="background:#f16b4e"></a></li>
-                              <li><a href="#" style="background:#f69679"></a></li>
-                              <li><a href="#" style="background:#fca95e"></a></li>
-                              <li><a href="#" style="background:#7bbc72"></a></li>
-                              <li><a href="#" style="background:#4fb2ac"></a></li>
-                              <li><a href="#" style="background:#5280c5"></a></li>
-                              <li><a href="#" style="background:#eb432d"></a></li>
-                              <li><a href="#" style="background:#f98a37"></a></li>
-                              <li><a href="#" style="background:#51a84c"></a></li>
-                              <li><a href="#" style="background:#008273"></a></li>
-                              <li><a href="#" style="background:#009fec"></a></li>
-                              <li><a href="#" style="background:#f3690f"></a></li>
-
-                          </ul> --}}
-                      </div>
-                  </div>                  
-                  <!-- end widget  -->
-              </div>
-              <!-- end sidebar  -->
           </div>
       </div>
   </section>

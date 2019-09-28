@@ -31,8 +31,8 @@
               </div>
             </div>
 
-            {!! Form::label('title', 'Slider Title *') !!}
-            {!! Form::text('title', null, array('class' => 'form-control', 'required' => '')) !!}<br/>
+            {!! Form::label('title', 'Slider Title') !!}
+            {!! Form::text('title', null, array('class' => 'form-control')) !!}<br/>
             
             {!! Form::label('button', 'Button Text (If any, otherwise leave empty)') !!}
             {!! Form::text('button', null, array('class' => 'form-control')) !!}<br/>

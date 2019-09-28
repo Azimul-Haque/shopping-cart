@@ -16,7 +16,7 @@ class CreateProductsTable extends Migration
             $table->increments('id');
             $table->string('code');
             $table->string('imagetrackcode');
-            $table->string('title');
+            $table->string('title')->unique();
             $table->string('shorttext');
             $table->text('description');
             $table->float('oldprice')->default(0);

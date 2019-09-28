@@ -7,12 +7,15 @@
                 <div class="slider-typography text-left">
                     <div class="slider-text-middle-main">
                         <div class="slider-text-middle padding-left-right-px animated fadeInUp">
-                            <span class="owl-title white-text" style="background: rgba(0,0,0,0.5); padding: 10px;">
-                                {{ $slider->title }}<br/>
-                                @if($slider->button != '')
-                                    <a href="{{ $slider->url }}" class="highlight-button-white-border btn btn-medium" target="_blank">{{ $slider->button }}</a>
-                                @endif
-                            </span>
+                            @if($slider->title != '')
+                                <span class="owl-title white-text" style="background: rgba(0,0,0,0.5); padding: 10px;">
+                                    {{ $slider->title }}<br/>
+                                    @if($slider->button != '')
+                                        <a href="{{ $slider->url }}" class="highlight-button-white-border btn btn-medium" target="_blank">{{ $slider->button }}</a>
+                                    @endif
+                                </span>
+                            @endif
+
                         </div>
                     </div>
                 </div>
