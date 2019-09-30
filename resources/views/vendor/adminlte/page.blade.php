@@ -314,7 +314,6 @@
           <strong>Copyright © {{ date('Y') }}</strong> 
           All rights reserved.
         </footer>
-
     </div>
     <!-- ./wrapper -->
 @stop

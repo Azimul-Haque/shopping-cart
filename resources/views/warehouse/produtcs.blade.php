@@ -134,11 +134,7 @@
         <div class="modal-header modal-header-primary">
           <button type="button" class="close noPrint" data-dismiss="modal">×</button>
           <h4 class="modal-title">
-            @if(Request::is('warehouse/edit/product/*'))
-              Edit Product {{ $product->title }}
-            @else
-              Add Product
-            @endif
+            Add Product
           </h4>
         </div>
         <div class="modal-body">
@@ -266,11 +262,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          @if(Request::is('warehouse/edit/product/*'))
-            <button type="submit" class="btn btn-primary">Update</button>
-          @else
-            <button type="submit" class="btn btn-primary">Submit</button>
-          @endif
+          <button type="submit" class="btn btn-primary">Submit</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
