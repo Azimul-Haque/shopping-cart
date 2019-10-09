@@ -19,7 +19,7 @@
     }
   </style>
   <meta property="og:image" content="{{ asset('images/product-images/'.$product->productimages->first()->image) }}" />
-  <meta property="og:title" content="{{ $product->title }} | Ecoomerce Name"/>
+  <meta property="og:title" content="{{ $product->title }} | LOYAL অভিযাত্রী"/>
   <meta name="description" property="og:description" content="৳ {{ $product->price }} | {{ substr(strip_tags($product->description), 0, 200) }}" />
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="{{ Request::url() }}" />
@@ -29,7 +29,7 @@
   <meta property="fb:app_id" content="163879201229487">
   <meta property="og:type" content="article">
   <!-- Open Graph - Article -->
-  <meta name="article:section" content="Ecoomerce Name">
+  <meta name="article:section" content="LOYAL অভিযাত্রী">
   <meta name="article:published_time" content="{{ $product->created_at }}">
   <meta name="article:author" content="Ecom">
   <meta name="article:tag" content="Product">
