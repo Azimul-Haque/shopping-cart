@@ -10,7 +10,7 @@
   @endif
 
   <meta property="og:title" content="{{ $article->title }} | LOYAL অভিযাত্রী"/>
-  <meta name="description" property="og:description" content="{{ substr(strip_tags($article->description), 0, 200) }}" />
+  <meta property="og:description" content="{{ substr(strip_tags($article->description), 0, 200) }}" />
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="{{ Request::url() }}" />
   <meta property="og:site_name" content="LOYAL অভিযাত্রী">

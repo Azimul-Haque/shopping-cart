@@ -20,7 +20,7 @@
   </style>
   <meta property="og:image" content="{{ asset('images/product-images/'.$product->productimages->first()->image) }}" />
   <meta property="og:title" content="{{ $product->title }} | LOYAL অভিযাত্রী"/>
-  <meta name="description" property="og:description" content="৳ {{ $product->price }} | {{ substr(strip_tags($product->description), 0, 200) }}" />
+  <meta property="og:description" content="৳ {{ $product->price }} | {{ substr(strip_tags($product->description), 0, 200) }}" />
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="{{ Request::url() }}" />
   <meta property="og:site_name" content="Ecomm Name">
