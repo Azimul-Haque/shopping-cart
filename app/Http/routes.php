@@ -30,6 +30,11 @@ Route::get('/product/{id}/{random_string}', [
     'as' => 'product.getsingleproduct'
 ]);
 
+Route::get('/product/add/to/wishlist/{product_id}/{user_id}', [
+    'uses' => 'ProductController@addProductToWishList',
+    'as' => 'product.addtowishlist'
+]);
+
 Route::get('/about', [
     'uses' => 'ProductController@getAbout',
     'as' => 'index.about'

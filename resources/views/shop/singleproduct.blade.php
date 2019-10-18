@@ -133,7 +133,7 @@
                         </div>
                         <div class="col-md-6 no-padding-left">
                             <!-- add to wishlist link -->
-                            <a title="Add to Wishlist" href="#!" class="text-uppercase text-small vertical-align-middle"><i class="fa fa-heart-o black-text"></i> Add to wishlist</a>
+                            <a title="Add to Wishlist" href="{{ route('product.addtowishlist', [$product->id, Auth::user()->id]) }}" class="text-uppercase text-small vertical-align-middle"><i class="fa fa-heart-o black-text"></i> Add to wishlist</a>
                             <!-- end add to wishlist link -->
                         </div>
                         <div class="col-md-6 product-details-social no-padding">

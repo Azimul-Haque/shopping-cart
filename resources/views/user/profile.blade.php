@@ -7,6 +7,10 @@
     .textarea100 {
       max-height: 100px;
     }
+    td a {
+      width: 100%;
+      display: block;
+    }
   </style>
 @endsection
 
@@ -46,7 +50,34 @@
               {{-- @include('partials/shop-sidebar')<br/> --}}
             @endif
             
-            @include('partials/_profile')
+            @include('partials/_profile') <br/>
+
+            {{-- wishlist --}}
+            <div class="panel panel-success shadow-light">
+              <div class="panel-heading"><h4 class="panel-title">My WishList</h4></div>
+              <div class="panel-body" style="padding: 0px;">
+                <table class="table table-hover table-condensed table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Product</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach(Auth::user()->wishlists as $wishlist)
+                    <tr>
+                      <td>
+                        <a href="{{ route('product.getsingleproduct', [$wishlist->product->id, generate_token(100)]) }}">
+                          {{ $wishlist->product->title }}<br/>
+                          <small>{{ $wishlist->created_at->format('M d, Y, h:i A') }}</small>
+                        </a>
+                      </td>
+                    </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            {{-- wishlist --}}
           </div>
           <div class="col-md-9">
             @if($orders->first())

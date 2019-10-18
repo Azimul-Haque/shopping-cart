@@ -76,7 +76,7 @@
                   <label for="deliverylocation">Delivery Location</label>
                   <select id="deliverylocation" name="deliverylocation" class="form-control" required="">
                     <option value="" selected="" disabled="">Select Location</option>
-                    <option value="0">Dhaka</option>
+                    <option value="0">Inside Dhaka</option>
                     <option value="1020">Free Pick-up Point</option> {{-- apatoto --}}
                     <option value="2">Outside of Dhaka</option>
                   </select>
@@ -85,8 +85,9 @@
                 <div class="col-md-4">
                   <label for="payment_method">Payment Method</label>
                   <select id="payment_method" name="payment_method" class="form-control" required="">
-                    <option value="" disabled="">Payment Method</option>
-                    <option value="0" selected="">Cash On Delivery</option> {{-- apatoto --}}
+                    <option value="" selected="" disabled="">Payment Method</option>
+                    <option value="0">Cash On Delivery</option> {{-- apatoto --}}
+                    <option value="1">bKash</option> {{-- apatoto --}}
                   </select>
                 </div>
                 <div class="col-md-4">
@@ -111,11 +112,13 @@
       var oldTotalPrice;
       if($('#deliverylocation').val() == 0) {
         deliveryCharge = 60;
+        $('#freePickUpPoint').text('');
       } else if ($('#deliverylocation').val() == 1020) {
         deliveryCharge = 0;
         $('#freePickUpPoint').text('Peri Pasta or Pizza Burg, Mirpur- 02, Contact no - 01315852563');
       } else {
         deliveryCharge = 100;
+        $('#freePickUpPoint').text('');
       }
       $('#deliveryCharge').text(deliveryCharge);
       $('#totalPrice').text({{ $cart->totalPrice }} + deliveryCharge);

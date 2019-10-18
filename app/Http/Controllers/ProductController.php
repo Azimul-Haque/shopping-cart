@@ -13,6 +13,8 @@ use App\Order;
 use App\Slider;
 use App\Page;
 use App\Setting;
+use App\Wishlist;
+
 use Session;
 use Auth, Artisan;
 use Response;
@@ -113,6 +115,26 @@ class ProductController extends Controller
                         ->withProduct($product)
                         ->withRelatedproducts($relatedproducts)
                         ->withNewarrivals($newarrivals);
+    }
+
+    public function addProductToWishList($product_id, $user_id) 
+    {
+      $checkwishlist = Wishlist::where('product_id', $product_id)
+                               ->where('user_id', $user_id)
+                               ->first();
+
+      if(!empty($checkwishlist)) {
+        Session::flash('info', 'This product is already in your WishList! Thanks you.');
+        return redirect()->route('product.getsingleproduct', [$product_id, generate_token(100)]);
+      } else {
+        $wishlist = new Wishlist;
+        $wishlist->product_id = $product_id;
+        $wishlist->user_id = $user_id;
+        $wishlist->save();
+
+        Session::flash('success', 'This product is added to your WishList! Thanks you.');
+        return redirect()->route('product.getsingleproduct', [$product_id, generate_token(100)]);
+      }
     }
 
     public function getCategoryWise($id, $random_string) {
@@ -233,8 +255,8 @@ class ProductController extends Controller
         'address'          => 'required',
         'fcode'            => 'sometimes',
         'deliverylocation'         => 'required',
-        'payment_method'   => 'required',
-        'deliverylocation'   => 'required'
+        'deliverylocation'   => 'required',
+        'payment_method'   => 'required'
       ]);
 
       $oldCart = Session::get('cart');

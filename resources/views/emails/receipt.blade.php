@@ -21,7 +21,7 @@
 	      {{-- <p style="font-size: 30px; color: #1B237D;"><b>LOYAL</b>অভিযাত্রী</p> --}}
 	      <p style="font-size: 25px"><b>Invoice</b></p>
 	      
-	      <table style="width: 100%; word-wrap: break-word;">
+	      {{-- <table style="width: 100%; word-wrap: break-word;">
 	        <tr>
 	          <td width="50%">
 	            Customer Name: {{ $order->user->name }}<br/>
@@ -41,7 +41,26 @@
 	            Payment method: {{ payment_method($order->payment_method) }}
 	          </td>
 	        </tr>
-	      </table><br/>
+	      </table> --}}
+	      <div style="width: 50%; float: left; text-align: left;">
+	      	Customer Name: {{ $order->user->name }}<br/>
+	      	Customer ID: {{ $order->user->code }}<br/>
+	      	Contact No: {{ $order->user->phone }}<br/>
+	      	Email Address: {{ $order->user->email }}<br/>
+	      	Delivery Address:<br/>
+	      	@if($order->deliverylocation == 1020)
+	      	  {{ deliverylocation($order->deliverylocation) }}
+	      	@else
+	      	  {{ $order->user->address }}
+	      	@endif
+	      </div>
+	      <div style="width: 50%; float: left; text-align: right;">
+	      	<big>Invoice No: <b>{{ $order->payment_id }}</b></big> <br/>
+            Ordered at: {{ date('F d, Y h:i A', strtotime($order->created_at)) }}<br/>
+            Payment method: {{ payment_method($order->payment_method) }}
+	      </div>
+
+	      <br/>
 
 	      <table class="bordertable" border="1" style="width: 100%;">
 	      	<thead>
