@@ -343,7 +343,7 @@ class WarehouseController extends Controller
     public function getDueOrdersApi() {
       $due_orders = '';
       if(Auth::check() && Auth::user()->role == 'admin') {
-        $due_orders = Order::where('paymentstatus', '=', 'not-paid')->count();
+        $due_orders = Order::where('status', '=', 'not-paid')->count();
       } 
       else {
         $due_orders = collect(new Order);

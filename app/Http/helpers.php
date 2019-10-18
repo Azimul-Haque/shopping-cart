@@ -63,6 +63,16 @@
           return 'bKash';
   }
 
+  function status($var) 
+  {
+      if ($var == 0)
+          return 'Pending';
+      elseif($var == 1)
+          return 'In Progress';
+      elseif($var == 2)
+          return 'Delivered';
+  }
+
   function deliverylocation($deliverylocation) 
   {
       if ($deliverylocation == 0)

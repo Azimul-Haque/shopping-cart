@@ -275,6 +275,7 @@ class ProductController extends Controller
         $order->totalprice = $cart->totalPrice;
         $order->totalprofit = $cart->totalProfit;
         $order->address = $request->address;
+        $order->status = 0; // new added...
         $order->paymentstatus = 'not-paid';
         $order->payment_method = $request->payment_method; // 0 means cash on delivery, 1 means bKash
         $order->deliverylocation = $request->deliverylocation; // 0 == Dhaka, 1020 = free pickup, 2 = outside of Dhaka

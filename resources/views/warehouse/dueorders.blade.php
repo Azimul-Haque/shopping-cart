@@ -87,8 +87,8 @@
                                     @else
                                       <b>{{ $dueorder->address }}</b>
                                     @endif
-                                  </h4><br/>
-                                  <h4>পেমেন্ট মেথডঃ <b>{{ payment_method($dueorder->payment_method) }}</b><br/></h4><br/>
+                                  </h4>
+                                  <h4>পেমেন্ট মেথডঃ <b>{{ payment_method($dueorder->payment_method) }}</b></h4><br/>
                                 </div>
                                 <div class="col-md-8">
                                   <h4>অর্ডারের বিবরণঃ</h4>
@@ -103,7 +103,7 @@
                                         <div class="row">
                                           <div class="col-md-12">
                                             <strong style="float: right;">
-                                              মোট পরিশোধনীয় মূল্যঃ ৳ <big>{{ $dueorder->cart->totalPrice }}</big>
+                                              মোট পরিশোধনীয় মূল্যঃ ৳ <big>{{ $dueorder->cart->totalPrice - $dueorder->cart->deliveryCharge }}</big>
                                             </strong>
                                             <br/><br/>
                                             <strong style="float: right !important;">ডেলিভারি চার্জঃ ৳ {{ $dueorder->cart->deliveryCharge }}</strong>
@@ -118,10 +118,6 @@
                                       </li>
                                   </ul>
                                 </div>
-                              </div>
-                              <div class="onlyPrint"><br/>
-                                ___________________<br/>
-                                ক্রেতার স্বাক্ষর<br/>
                               </div>
                             </p>
                           </div>
