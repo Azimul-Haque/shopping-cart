@@ -275,7 +275,7 @@ class ProductController extends Controller
         $order->totalprice = $cart->totalPrice;
         $order->totalprofit = $cart->totalProfit;
         $order->address = $request->address;
-        $order->status = 0; // new added...
+        $order->status = 0; // 0 means pending
         $order->paymentstatus = 'not-paid';
         $order->payment_method = $request->payment_method; // 0 means cash on delivery, 1 means bKash
         $order->deliverylocation = $request->deliverylocation; // 0 == Dhaka, 1020 = free pickup, 2 = outside of Dhaka
@@ -293,7 +293,9 @@ class ProductController extends Controller
 
             $friendspoint = $order->totalprofit * ($setting->give_away_percentage / 100);
             Session::flash('info', 'আপনার এ অর্ডারটি থেকে আপনার বন্ধু ' . $friend->name . '-এর একাউন্টে মোট ' . $friendspoint . ' পয়েন্ট যোগ হয়েছে!');
-          }
+          } else {
+            Session::flash('warning', 'আপনার বন্ধুর ইউজার আইডিটি সঠিক নয়! ধন্যবাদ।');
+          }  
         } elseif($request->fcode == Auth::user()->code){
           Session::flash('warning', 'আপনি নিজের আইডিকে রেফার করতে পারবেন না! ধন্যবাদ।');
         }
@@ -399,9 +401,11 @@ class ProductController extends Controller
         return abort(404);
       } 
       $recentproducts = Product::orderBy('id', 'desc')->get()->take(10);
+      $newarrivals = Product::orderBy('id', 'desc')->get()->take(5);
       return view('shop.article')
                     ->withArticle($article)
-                    ->withRecentproducts($recentproducts);
+                    ->withRecentproducts($recentproducts)
+                    ->withNewarrivals($newarrivals);
     }  
 
     public function generateSiteMap()

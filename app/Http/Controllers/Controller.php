@@ -22,8 +22,8 @@ class Controller extends BaseController
 
       $due_orders = '';
       if(Auth::check() && Auth::user()->role == 'admin') {
-        $due_orders = Order::where('paymentstatus', '=', 'not-paid')->count();
-        $completed_orders = Order::where('paymentstatus', '=', 'paid')->count();
+        $due_orders = Order::where('status', 0)->count();
+        $completed_orders = Order::where('status', 1)->count();
       } 
       else {
         $due_orders = collect(new Order);

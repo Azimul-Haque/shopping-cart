@@ -89,7 +89,7 @@ class WarehouseController extends Controller
 
     public function postSubcategories(Request $request) {
       $this->validate($request, [
-        'name'         => 'required|max:255|unique:categories,name',
+        'name'         => 'required|max:255|unique:subcategories,name',
         'category_id'  => 'required'
       ]);
 
@@ -343,7 +343,7 @@ class WarehouseController extends Controller
     public function getDueOrdersApi() {
       $due_orders = '';
       if(Auth::check() && Auth::user()->role == 'admin') {
-        $due_orders = Order::where('status', '=', 'not-paid')->count();
+        $due_orders = Order::where('status', 0)->count();
       } 
       else {
         $due_orders = collect(new Order);
@@ -353,7 +353,7 @@ class WarehouseController extends Controller
     }
 
     public function getDueOrders() {
-      $dueorders = Order::where('paymentstatus', '=', 'not-paid')
+      $dueorders = Order::where('status', 0) // 0 means pendings
                           ->orderBy('id', 'desc')
                           ->paginate(10);
       $dueorders->transform(function($order, $key) {
@@ -372,8 +372,28 @@ class WarehouseController extends Controller
               ->withOrderstoday($orderstoday);
     }
 
+    public function getInProgressOrders() {
+      $inprogressorders = Order::where('status', 1) // 1 means in progress
+                          ->orderBy('id', 'desc')
+                          ->paginate(10);
+      $inprogressorders->transform(function($order, $key) {
+        $order->cart = unserialize($order->cart);
+        return $order;
+      });
+      $orderstoday = Order::where('created_at', '>=', Carbon::today())
+                            ->orderBy('id', 'desc')
+                            ->get();
+      $orderstoday->transform(function($order, $key) {
+        $order->cart = unserialize($order->cart);
+        return $order;
+      });
+      return view('warehouse.inprogressorders')
+              ->withInprogressorders($inprogressorders)
+              ->withOrderstoday($orderstoday);
+    }
+
     public function getDeliveredOrders() {
-      $completedorders = Order::where('paymentstatus', '=', 'paid')
+      $completedorders = Order::where('status', 2) // 2 means pendings
                           ->orderBy('id', 'desc')
                           ->paginate(10);
       $completedorders->transform(function($order, $key) {
@@ -395,12 +415,18 @@ class WarehouseController extends Controller
 
     public function putConfirmOrder(Request $request, $id) {
       $order = Order::find($id);
-      $order->paymentstatus = 'paid';
+
+      $hiddenDeliveryChargeOld = 'hiddenDeliveryChargeOld' . $id;
+      $hiddenDeliveryChargeNew = 'hiddenDeliveryChargeNew' . $id;
+      dd((float) $request[$hiddenDeliveryChargeOld] + (float) $request[$hiddenDeliveryChargeNew]);
+      
+      $order->status = 1;
+      $order->deliverylocation = $request->deliverylocation;
       $order->save();
 
       Session::flash('success', 'অর্ডারটি কনফার্ম করা হয়েছে!');
       
-      return redirect()->route('warehouse.dueorders');
+      return redirect()->route('warehouse.inprogressorders');
     }
 
     public function getCustomers() {

@@ -258,7 +258,7 @@
                                 <a href="{{ route('product.getsingleproduct', [$relproduct->id, generate_token(100)]) }}"><img src="{{ asset('images/product-images/'.$relproduct->productimages->first()->image) }}" alt=""/></a>
                                 <span class="product-name text-uppercase"><a href="{{ route('product.getsingleproduct', [$relproduct->id, generate_token(100)]) }}">{{ $relproduct->title }}</a></span>
                                 <span class="price black-text">
-                                  @if($relproduct->oldprice)
+                                  @if($relproduct->oldprice > 0)
                                   <del>৳ {{ $relproduct->oldprice }}</del>
                                   @endif
                                   ৳ {{ $relproduct->price }}

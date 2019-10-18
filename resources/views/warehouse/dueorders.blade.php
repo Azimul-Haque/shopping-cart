@@ -74,6 +74,7 @@
                             <h2 class="onlyPrint">ইকমার্স</h2>
                             <h4 class="modal-title">অর্ডারের তারিখ ও সময়ঃ {{ $dueorder->created_at->format('F d, Y, h:i A') }}</h4>
                           </div>
+                          {!! Form::model($dueorder, ['route' => ['warehouse.confirmorder', $dueorder->id], 'method' => 'PUT']) !!}
                           <div class="modal-body">
                             <p>
                               <div class="row">
@@ -89,7 +90,16 @@
                                     @endif
                                   </h4>
                                   <h4>পেমেন্ট মেথডঃ <b>{{ payment_method($dueorder->payment_method) }}</b></h4><br/>
+                                  <label for="deliverylocation{{ $dueorder->id }}">Delivery Location</label>
+                                  <select id="deliverylocation{{ $dueorder->id }}" name="deliverylocation{{ $dueorder->id }}" class="form-control" required="">
+                                    <option value="" selected="" disabled="">Select Location</option>
+                                    <option value="0" @if($dueorder->deliverylocation == 0) selected="" @endif>Inside Dhaka</option>
+                                    <option value="1020" @if($dueorder->deliverylocation == 1020) selected="" @endif>Free Pick-up Point</option> {{-- apatoto --}}
+                                    <option value="2" @if($dueorder->deliverylocation == 2) selected="" @endif>Outside of Dhaka</option>
+                                  </select>
                                 </div>
+                                <input type="hidden" name="hiddenDeliveryChargeOld{{ $dueorder->id }}" value="{{ $dueorder->cart->deliveryCharge }}">
+                                <input type="hidden" name="hiddenDeliveryChargeNew{{ $dueorder->id }}" id="hiddenDeliveryChargeNew{{ $dueorder->id }}" value="{{ $dueorder->cart->deliveryCharge }}">
                                 <div class="col-md-8">
                                   <h4>অর্ডারের বিবরণঃ</h4>
                                   <ul class="list-group">
@@ -106,28 +116,46 @@
                                               মোট পরিশোধনীয় মূল্যঃ ৳ <big>{{ $dueorder->cart->totalPrice - $dueorder->cart->deliveryCharge }}</big>
                                             </strong>
                                             <br/><br/>
-                                            <strong style="float: right !important;">ডেলিভারি চার্জঃ ৳ {{ $dueorder->cart->deliveryCharge }}</strong>
+                                            <strong style="float: right !important;">ডেলিভারি চার্জঃ ৳ <span id="deliveryCharge{{ $dueorder->id }}">{{ $dueorder->cart->deliveryCharge }}</span></strong>
                                             <br/>
                                             <span style="float: right !important;">
                                             ________________________</span><br/><br/>
                                             <strong style="float: right !important;">
-                                              সর্বমোট পরিশোধনীয় মূল্যঃ ৳ <big>{{ $dueorder->cart->totalPrice }}</big>
+                                              সর্বমোট পরিশোধনীয় মূল্যঃ ৳ <big><span id="totalPrice{{ $dueorder->id }}">{{ $dueorder->cart->totalPrice }}</span></big>
                                             </strong>
                                           </div>
                                         </div>
                                       </li>
                                   </ul>
                                 </div>
+                                <script type="text/javascript">
+                                  $('#deliverylocation{{ $dueorder->id }}').change(function() {
+                                    var deliveryCharge;
+                                    var oldTotalPrice;
+                                    if($('#deliverylocation{{ $dueorder->id }}').val() == 0) {
+                                      deliveryCharge = 60;
+                                    } else if ($('#deliverylocation{{ $dueorder->id }}').val() == 1020) {
+                                      deliveryCharge = 0;
+                                    } else {
+                                      deliveryCharge = 100;
+                                    }
+
+                                    $('#hiddenDeliveryChargeNew{{ $dueorder->id }}').val(deliveryCharge);
+                                    $('#deliveryCharge{{ $dueorder->id }}').text(deliveryCharge);
+                                    var oldTotal = parseFloat({{ $dueorder->cart->totalPrice - $dueorder->cart->deliveryCharge }});
+                                    $('#totalPrice{{ $dueorder->id }}').text(oldTotal + deliveryCharge);
+                                  });
+                                </script>
                               </div>
                             </p>
                           </div>
                           <div class="modal-footer noPrint">
-                            {!! Form::model($dueorder, ['route' => ['warehouse.confirmorder', $dueorder->id], 'method' => 'PUT']) !!}
+                            
                               <button type="submit" class="btn btn-success">অর্ডারটি কনফার্ম করুন</button>
                               <a href="{{ route('warehouse.receiptpdf', [$dueorder->payment_id, generate_token(100)]) }}" class="btn btn-primary" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> প্রিন্ট করুন</a>
                               <button type="button" class="btn btn-default" data-dismiss="modal">বন্ধ করুন</button>
-                            {!! Form::close() !!}
                           </div>
+                          {!! Form::close() !!}
                         </div>
                       </div>
                     </div>
@@ -143,36 +171,35 @@
       </div>
     </div>
     <div class="col-md-4">
-        <div class="panel panel-warning">
-          <div class="panel-heading">
-            <i class="fa fa-calendar-check-o" aria-hidden="true"></i> আজকের অর্ডারগুলো
-          </div>
-          <div class="panel-body">
-            <table class="table table-condensed">
-              <thead>
-                <tr>
-                  <th>অর্ডার আইডি</th>
-                  <th>অর্ডারের সময়</th>
-                  <th>অর্ডার স্ট্যাটাস</th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach($orderstoday as $order)
-                <tr>
-                  <td>{{ $order->payment_id }}</td>
-                  <td>{{ $order->created_at->format('h:i A') }}</td>
-                  <td>
-                    @if($order->paymentstatus == 'paid')
-                      <span class="label label-success"><i class="fa fa-check" aria-hidden="true"></i></span>
-                    @elseif($order->paymentstatus == 'not-paid')
-                      <span class="label label-info"><i class="fa fa-hourglass-start" aria-hidden="true"></i></span>
-                    @endif
-                  </td>
-                </tr>
-                @endforeach
-              </tbody>
-            </table>
-          </div>
+      <div class="panel panel-warning">
+        <div class="panel-heading">
+          <i class="fa fa-calendar-check-o" aria-hidden="true"></i> আজকের অর্ডারগুলো
+        </div>
+        <div class="panel-body">
+          <table class="table table-condensed">
+            <thead>
+              <tr>
+                <th>অর্ডার আইডি</th>
+                <th>অর্ডারের সময়</th>
+                <th>অর্ডার স্ট্যাটাস</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach($orderstoday as $order)
+              <tr>
+                <td>{{ $order->payment_id }}</td>
+                <td>{{ $order->created_at->format('h:i A') }}</td>
+                <td>
+                  @if($order->paymentstatus == 'paid')
+                    <span class="label label-success"><i class="fa fa-check" aria-hidden="true"></i></span>
+                  @elseif($order->paymentstatus == 'not-paid')
+                    <span class="label label-info"><i class="fa fa-hourglass-start" aria-hidden="true"></i></span>
+                  @endif
+                </td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -180,5 +207,5 @@
 @endsection
 
 @section('js')
-    
+  
 @stop

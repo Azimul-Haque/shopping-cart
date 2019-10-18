@@ -89,7 +89,7 @@
                                   <a href="{{ route('product.getsingleproduct', [$recentproduct->id, generate_token(100)]) }}"><img src="{{ asset('images/product-images/'.$recentproduct->productimages->first()->image) }}" alt=""/></a>
                                   <span class="product-name text-uppercase"><a href="{{ route('product.getsingleproduct', [$recentproduct->id, generate_token(100)]) }}">{{ $recentproduct->title }}</a></span>
                                   <span class="price black-text">
-                                    @if($recentproduct->oldprice)
+                                    @if($recentproduct->oldprice > 0)
                                     <del>৳ {{ $recentproduct->oldprice }}</del>
                                     @endif
                                     ৳ {{ $recentproduct->price }}
@@ -118,29 +118,9 @@
                   @include('partials/shop-sidebar')
                   <!-- category and subcategory widget  -->
 
-                  <!-- new arrival widget  -->
-                  <div class="widget">
-                      <h5 class="widget-title font-alt">New Arrivals</h5>
-                      <div class="thin-separator-line bg-dark-gray no-margin-lr margin-ten"></div>
-                      <div class="widget-body">
-                          {{-- <ul class="colors clearfix">
-                              <li class="active"><a href="#" style="background:#f16b4e"></a></li>
-                              <li><a href="#" style="background:#f69679"></a></li>
-                              <li><a href="#" style="background:#fca95e"></a></li>
-                              <li><a href="#" style="background:#7bbc72"></a></li>
-                              <li><a href="#" style="background:#4fb2ac"></a></li>
-                              <li><a href="#" style="background:#5280c5"></a></li>
-                              <li><a href="#" style="background:#eb432d"></a></li>
-                              <li><a href="#" style="background:#f98a37"></a></li>
-                              <li><a href="#" style="background:#51a84c"></a></li>
-                              <li><a href="#" style="background:#008273"></a></li>
-                              <li><a href="#" style="background:#009fec"></a></li>
-                              <li><a href="#" style="background:#f3690f"></a></li>
-
-                          </ul> --}}
-                      </div>
-                  </div>                  
-                  <!-- end widget  -->
+                  <!-- newarrivals widget  -->
+                  @include('partials/shop-newarrivals')
+                  <!-- newarrivals widget  -->
               </div>
               <!-- end sidebar  -->
           </div>

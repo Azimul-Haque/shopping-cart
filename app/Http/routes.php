@@ -196,6 +196,12 @@ Route::get('/warehouse/dueorders', [
     'middleware' => 'admin'
 ]);
 
+Route::get('/warehouse/inprogressorders', [
+    'uses' => 'WarehouseController@getInProgressOrders',
+    'as' => 'warehouse.inprogressorders',
+    'middleware' => 'admin'
+]);
+
 Route::get('/warehouse/deliveredorders', [
     'uses' => 'WarehouseController@getDeliveredOrders',
     'as' => 'warehouse.deliveredorders',

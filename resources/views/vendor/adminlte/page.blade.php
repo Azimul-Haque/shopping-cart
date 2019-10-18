@@ -238,6 +238,12 @@
                               <span>Pending Orders</span>
                           </a>
                       </li>
+                      <li class="{{ Request::is('warehouse/inprogressorders') ? 'active' : '' }}">
+                          <a href="{{ route('warehouse.inprogressorders') }}">
+                              <i class="fa fa-fw fa-hourglass-half"></i>
+                              <span>In Progress Orders</span>
+                          </a>
+                      </li>
                       <li class="{{ Request::is('warehouse/deliveredorders') ? 'active' : '' }}">
                           <a href="{{ route('warehouse.deliveredorders') }}">
                               <i class="fa fa-fw fa-list-ul"></i>
