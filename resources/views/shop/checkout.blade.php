@@ -86,9 +86,10 @@
                   <label for="payment_method">Payment Method</label>
                   <select id="payment_method" name="payment_method" class="form-control" required="">
                     <option value="" selected="" disabled="">Payment Method</option>
-                    <option value="0">Cash On Delivery</option> {{-- apatoto --}}
-                    <option value="1">bKash</option> {{-- apatoto --}}
+                    <option value="0">Cash On Delivery</option>
+                    <option value="1">bKash</option>
                   </select>
+                  <span id="bKashText"></span>
                 </div>
                 <div class="col-md-4">
                   <label for="fcode">আপনার বন্ধুর ইউজার আইডি (যদি থাকে) <a href="#!" title="আপনার বন্ধুর ইউজার আইডি দিলে তার একাউন্টে পয়েন্ট যোগ হবে!"><i class="fa fa-question-circle"></i></a></label>
@@ -122,6 +123,14 @@
       }
       $('#deliveryCharge').text(deliveryCharge);
       $('#totalPrice').text({{ $cart->totalPrice }} + deliveryCharge);
+    });
+
+    $('#payment_method').change(function() {
+      if($('#payment_method').val() == 0) {
+        $('#bKashText').text('');
+      } else if ($('#payment_method').val() == 1) {
+        $('#bKashText').text('অর্ডার কোনফার্ম করার পর আমাদের একজন প্রতিনিধি আপনাকে ফোন করে বিকাশ নম্বর প্রদান করবেন।');
+      }
     })
   </script>
 @endsection

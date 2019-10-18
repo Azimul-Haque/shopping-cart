@@ -276,7 +276,7 @@ class ProductController extends Controller
         $order->totalprofit = $cart->totalProfit;
         $order->address = $request->address;
         $order->paymentstatus = 'not-paid';
-        $order->payment_method = 0; // 0 means cash on delivery
+        $order->payment_method = $request->payment_method; // 0 means cash on delivery, 1 means bKash
         $order->deliverylocation = $request->deliverylocation; // 0 == Dhaka, 1020 = free pickup, 2 = outside of Dhaka
         $nowdatetime = Carbon::now();
 
@@ -285,11 +285,16 @@ class ProductController extends Controller
 
         if($request->fcode && $request->fcode != Auth::user()->code) {
           $friend = User::where('code', $request->fcode)->first();
-          if($friend) {
+          if(!empty($friend)) {
             $setting = Setting::findOrFail(1);
             $friend->points = $friend->points + ($order->totalprofit * ($setting->give_away_percentage / 100)); // ei 2% change hobe, dynamically
             $friend->save();
+
+            $friendspoint = $order->totalprofit * ($setting->give_away_percentage / 100);
+            Session::flash('info', 'আপনার এ অর্ডারটি থেকে আপনার বন্ধু ' . $friend->name . '-এর একাউন্টে মোট ' . $friendspoint . ' পয়েন্ট যোগ হয়েছে!');
           }
+        } elseif($request->fcode == Auth::user()->code){
+          Session::flash('warning', 'আপনি নিজের আইডিকে রেফার করতে পারবেন না! ধন্যবাদ।');
         }
       } catch(\Exception $e) {
         Session::flash('warning', 'আপনার নিশ্চিতকরণে কোন সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।');
@@ -317,6 +322,9 @@ class ProductController extends Controller
       }
 
       Session::forget('cart');
+      if($request->payment_method == 1) {
+        Session::flash('success', 'আপনার পেমেন্ট মেথড বিকাশ, আমাদের একজন প্রতিনিধি আপনাকে ফোন করে বিকাশ নম্বর প্রদান করবেন।');
+      }
       Session::flash('success', 'আপনার অর্ডারটি নিশ্চিত করা হয়েছে। শীঘ্রই আমাদের একজন প্রতিনিধি আপনার সাথে যোগাযোগ করবেন। ধন্যবাদ।');
       return redirect()->route('user.profile', Auth::user()->unique_key);
     }

@@ -60,7 +60,7 @@
       if ($payment_method == 0)
           return 'Cash On Delivery';
       elseif($payment_method == 1)
-          return 'Bkash';
+          return 'bKash';
   }
 
   function deliverylocation($deliverylocation) 
