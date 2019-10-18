@@ -107,9 +107,12 @@ class ProductController extends Controller
                          ->where('category_id', $product->category_id)
                          ->inRandomOrder()
                          ->get()->take(10);
+      $newarrivals = Product::orderBy('id', 'desc')->get()->take(5);
+
       return view('shop.singleproduct')
                         ->withProduct($product)
-                        ->withRelatedproducts($relatedproducts);
+                        ->withRelatedproducts($relatedproducts)
+                        ->withNewarrivals($newarrivals);
     }
 
     public function getCategoryWise($id, $random_string) {

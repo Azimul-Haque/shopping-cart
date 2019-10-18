@@ -367,6 +367,7 @@ class ComposerStaticInit8fb89a273f638e7fa7aea54febd6db64
         'CreateSlidersTable' => __DIR__ . '/../..' . '/database/migrations/2019_09_25_020209_create_sliders_table.php',
         'CreateSubcategoriesTable' => __DIR__ . '/../..' . '/database/migrations/2019_09_23_023726_create_subcategories_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
+        'CreateWishlistsTable' => __DIR__ . '/../..' . '/database/migrations/2019_10_19_031411_create_wishlists_table.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'FPDF_TPL' => __DIR__ . '/..' . '/setasign/fpdi/fpdf_tpl.php',
         'FPDI' => __DIR__ . '/..' . '/setasign/fpdi/fpdi.php',

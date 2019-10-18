@@ -18,6 +18,7 @@ use Session;
 use Auth;
 use View;
 use PDF;
+use Purifier;
 
 class WarehouseController extends Controller
 {
@@ -103,10 +104,36 @@ class WarehouseController extends Controller
 
     public function getAddProduct() {
       $products = Product::orderBy('id', 'desc')->paginate(10);
-      $categories = Category::all();
+      return view('warehouse.produtcs')
+                  ->withProducts($products);
+    }
+
+    public function getProductSubCat($subcategory_id) {
+      if($subcategory_id == 0) {
+        return redirect()->route('warehouse.products');
+      } else {
+        $products = Product::orderBy('id', 'desc')
+                           ->where('subcategory_id', $subcategory_id)
+                           ->paginate(10);
+
+        return view('warehouse.produtcs')
+                    ->withProducts($products)
+                    ->withSubcatselected($subcategory_id);
+      }
+    }
+
+    public function searchProducts($search_param) 
+    {
+      $products = Product::where("title", 'LIKE', '%' . $search_param . '%')
+                         ->orWhere("code", 'LIKE', '%' . $search_param . '%')
+                         ->orWhere("shorttext", 'LIKE', '%' . $search_param . '%')
+                         // ->orWhere("price", 'LIKE', '%' . $search_param . '%')
+                         ->orderBy('id', 'desc')
+                         ->paginate(10);
+
       return view('warehouse.produtcs')
                   ->withProducts($products)
-                  ->withCategories($categories);
+                  ->withSearchparam($search_param);
     }
 
     public function postAddProduct(Request $request) {
@@ -143,7 +170,7 @@ class WarehouseController extends Controller
       $product->imagetrackcode = random_string(6);
       $product->title = $request->title;
       $product->shorttext = $request->shorttext;
-      $product->description = $request->description;
+      $product->description = Purifier::clean($request->description, 'youtube');
       if($request->oldprice) {
         $product->oldprice = $request->oldprice;
       }
@@ -237,10 +264,8 @@ class WarehouseController extends Controller
       $product->imagetrackcode = random_string(6);
       $product->title = $request->title;
       $product->shorttext = $request->shorttext;
-      $product->description = $request->description;
-      if($request->oldprice) {
-        $product->oldprice = $request->oldprice;
-      }
+      $product->description = Purifier::clean($request->description, 'youtube');
+      $product->oldprice = $request->oldprice;
       $product->price = $request->price;
       if($request->stock) {
         $product->stock = $request->stock;

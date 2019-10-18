@@ -143,6 +143,18 @@ Route::get('/warehouse/products', [
     'middleware' => 'admin'
 ]);
 
+Route::get('/warehouse/products/subcategory/{subcat}', [
+    'uses' => 'WarehouseController@getProductSubCat',
+    'as' => 'warehouse.getsubcategorywise',
+    'middleware' => 'admin'
+]);
+
+Route::get('/warehouse/products/search/{search_param}', [
+    'uses' => 'WarehouseController@searchProducts',
+    'as' => 'warehouse.searchproduct',
+    'middleware' => 'admin'
+]);
+
 Route::post('/warehouse/product/store', [
     'uses' => 'WarehouseController@postAddProduct',
     'as' => 'warehouse.addproduct',

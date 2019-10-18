@@ -244,7 +244,7 @@
                               <span>Delivered Orders</span>
                           </a>
                       </li>
-                      <li class="{{ Request::is('warehouse/products') ? 'active' : '' }}">
+                      <li class="{{ Request::is('warehouse/products') ? 'active' : '' }} {{ Request::is('warehouse/products/*') ? 'active' : '' }}">
                           <a href="{{ route('warehouse.products') }}">
                               <i class="fa fa-fw fa-truck"></i>
                               <span>Products</span>

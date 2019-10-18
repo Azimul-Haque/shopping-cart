@@ -16,6 +16,7 @@ return array(
     'CreateSlidersTable' => $baseDir . '/database/migrations/2019_09_25_020209_create_sliders_table.php',
     'CreateSubcategoriesTable' => $baseDir . '/database/migrations/2019_09_23_023726_create_subcategories_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
+    'CreateWishlistsTable' => $baseDir . '/database/migrations/2019_10_19_031411_create_wishlists_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'FPDF_TPL' => $vendorDir . '/setasign/fpdi/fpdf_tpl.php',
     'FPDI' => $vendorDir . '/setasign/fpdi/fpdi.php',

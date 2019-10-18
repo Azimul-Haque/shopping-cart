@@ -3,7 +3,7 @@
 @section('title', 'Edit Product | LOYAL অভিযাত্রী')
 
 @section('css')
-
+  <link rel="stylesheet" type="text/css" href="{{ asset('vendor/summernote/summernote.css') }}">
 @endsection
 
 @section('content_header')
@@ -47,7 +47,7 @@
   		    </div>
 
   		    {!! Form::label('description', 'Description *') !!}
-  		    {!! Form::text('description', null, array('class' => 'form-control', 'required' => '')) !!}
+  		    <textarea type="text" name="description" id="description" class="summernote" required="">{!! $product->description !!}</textarea><br/>
 
 
   		    <div class="row">
@@ -57,7 +57,7 @@
   		          <option value="" selected="" disabled="">Select Sub Category</option>
   		          @foreach($categories as $category)
   		            @foreach($category->subcategories as $subcategory)
-  		              <option value="{{ $subcategory->id }}" @if($product->subcategory_id == $subcategory->id) selected="" @endif>{{ $subcategory->name }}</option>
+  		              <option value="{{ $subcategory->id }}" @if($product->subcategory_id == $subcategory->id) selected="" @endif>{{ $subcategory->name }} (Category: {{ $category->name }})</option>
   		            @endforeach
   		          @endforeach
   		        </select>
@@ -145,5 +145,14 @@
 @endsection
 
 @section('js')
-    
+  <script type="text/javascript" src="{{ asset('vendor/summernote/summernote.min.js') }}"></script>
+  <script type="text/javascript">
+    $('.summernote').summernote({
+        placeholder: 'Write Body',
+        tabsize: 2,
+        height: 100,
+        dialogsInBody: true
+    });
+    $('div.note-group-select-from-files').remove();
+  </script>
 @stop

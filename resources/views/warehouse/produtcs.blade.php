@@ -3,7 +3,7 @@
 @section('title', 'Products | LOYAL অভিযাত্রী')
 
 @section('css')
-
+  <link rel="stylesheet" type="text/css" href="{{ asset('vendor/summernote/summernote.css') }}">
 @endsection
 
 @section('content_header')
@@ -16,6 +16,26 @@
 
 @section('content')
   <div class="row">
+    <div class="col-md-6">
+      <select class="form-control" id="subcategoryIdToChangeProducts">
+        <option value="" selected="" disabled="">Show Subcategory wise Product List</option>
+        <option value="0">All Products</option>
+        @foreach($categories as $category)
+          @foreach($category->subcategories as $subcategory)
+            <option value="{{ $subcategory->id }}" @if(!empty($subcatselected) && $subcatselected == $subcategory->id) selected="" @endif>{{ $subcategory->name }} (Category: {{ $category->name }})</option>
+          @endforeach
+        @endforeach
+      </select>
+      <br/>
+    </div>
+    <div class="col-md-6">
+      <div class="input-group">  
+          <input type="text" class="form-control" name="searchParam" id="searchParam" placeholder="Search Product..." @if(!empty($searchparam)) value="{{ $searchparam }}" @endif>       
+          <span class="input-group-btn">
+              <button class="btn btn-default" type="button" id="searchBtn"><span class="glyphicon glyphicon-search"></span></button>
+          </span>
+      </div>
+    </div>
     <div class="col-md-12">
       <div class="panel panel-primary">
         <div class="panel-heading">
@@ -23,11 +43,12 @@
         </div>
         <div class="panel-body">
           <div class="table-responsive">
-            <table class="table table-condenced">
+            <table class="table table-condenced table-hover">
               <thead>
                 <tr>
                   <th>Product</th>
                   <th>Image</th>
+                  <th>In Stock</th>
                   <th>Buying Price</th>
                   <th>Carrying Cost (%)</th>
                   <th>Vat (%)</th>
@@ -46,11 +67,12 @@
                   <tr>
                     <td>
                       {{ $product->title }}<br/>
-                      <small>{{ $product->category->name }} - {{ $product->subcategory->name }}</small>
+                      <small>{{ $product->category->name }} - {{ $product->subcategory->name }} <b>(Code: {{ $product->code }})</b></small>
                     </td>
                     <td>
                       <img style="max-height: 40px; border:1px solid #777" class="img-responsive" src="{{ asset('images/product-images/'.$product->productimages->first()->image) }}">
                     </td>
+                    <td>{{ $product->stock }}</td>
                     <td>৳ {{ $product->buying_price }}</td>
                     <td>৳ {{ $product->buying_price*$product->carrying_cost/100 }} ({{ $product->carrying_cost }}%)</td>
                     <td>৳ {{ $product->buying_price*$product->vat/100 }} ({{ $product->vat }}%)</td>
@@ -164,7 +186,7 @@
           </div>
 
           {!! Form::label('description', 'Description *') !!}
-          {!! Form::text('description', null, array('class' => 'form-control', 'required' => '')) !!}
+          <textarea type="text" name="description" id="description" class="summernote" required=""></textarea><br/>
 
 
           <div class="row">
@@ -174,7 +196,7 @@
                 <option value="" selected="" disabled="">Select Sub Category</option>
                 @foreach($categories as $category)
                   @foreach($category->subcategories as $subcategory)
-                    <option value="{{ $subcategory->id }}">{{ $subcategory->name }}</option>
+                    <option value="{{ $subcategory->id }}">{{ $subcategory->name }} (Category: {{ $category->name }})</option>
                   @endforeach
                 @endforeach
               </select>
@@ -272,9 +294,49 @@
 @endsection
 
 @section('js')
+<script type="text/javascript" src="{{ asset('vendor/summernote/summernote.min.js') }}"></script>
+<script type="text/javascript">
+  $('.summernote').summernote({
+      placeholder: 'Write Body',
+      tabsize: 2,
+      height: 100,
+      dialogsInBody: true
+  });
+  $('div.note-group-select-from-files').remove();
+</script>
 <script type="text/javascript">
   @if (count($errors) > 0)
     $('#addProduct').modal('show');
   @endif
+
+  $('#subcategoryIdToChangeProducts').change(function() {
+    console.log($(this).val());
+    window.location.href = '/warehouse/products/subcategory/' + $(this).val();
+  })
+
+  $('#searchBtn').click(function() {
+    var searchParam = $('#searchParam').val();
+    if(isEmptyOrSpaces(searchParam)) {
+      if($(window).width() > 768) {
+        toastr.warning('Write something on search box!', 'WARNING').css('width', '400px');
+      } else {
+        toastr.warning('Write something on search box!', 'WARNING').css('width', ($(window).width()-25)+'px');
+      }
+    } else {
+      window.location.href = '/warehouse/products/search/' + searchParam;
+    }
+  })
+  // on enter search
+  var input = document.getElementById("searchParam");
+  input.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+     event.preventDefault();
+     document.getElementById("searchBtn").click();
+    }
+  });
+  // on enter search
+  function isEmptyOrSpaces(str){
+      return str === null || str.match(/^ *$/) !== null;
+  }
 </script>
 @stop
