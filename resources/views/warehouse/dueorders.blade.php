@@ -35,7 +35,7 @@
 @section('content')
   <div class="row">
     <div class="col-md-8">
-      <div class="panel panel-primary">
+      <div class="panel panel-warning">
         <div class="panel-heading">
           <i class="fa fa-list-ol" aria-hidden="true"></i> অনিষ্পন্ন/ নতুন অর্ডারগুলো (Pending Orders)
         </div>
@@ -90,9 +90,9 @@
                                   <h4>ফোন নম্বরঃ <b>{{ $dueorder->user->phone }}</b></h4>
                                   <h4>পণ্য প্রেরণের ঠিকানাঃ
                                     @if($dueorder->deliverylocation == 1020)
-                                      <b>{{ deliverylocation($dueorder->deliverylocation) }}</b>
+                                      <textarea class="form-control" style="height: 100px; resize: none;" id="deliveryAddress{{ $dueorder->id }}" name="deliveryAddress{{ $dueorder->id }}">{{ deliverylocation($dueorder->deliverylocation) }}</textarea>
                                     @else
-                                      <b>{{ $dueorder->address }}</b>
+                                      <textarea class="form-control" style="height: 100px; resize: none;" id="deliveryAddress{{ $dueorder->id }}" name="deliveryAddress{{ $dueorder->id }}">{{ $dueorder->address }}</textarea>
                                     @endif
                                   </h4>
                                   <h4>পেমেন্ট মেথডঃ <b>{{ payment_method($dueorder->payment_method) }}</b></h4><br/>
@@ -140,14 +140,19 @@
                                     var oldTotalPrice;
                                     if($('#deliverylocation{{ $dueorder->id }}').val() == 0) {
                                       deliveryCharge = 60;
+                                      deliveryAddress = '{{ $dueorder->address }}';
                                     } else if ($('#deliverylocation{{ $dueorder->id }}').val() == 1020) {
                                       deliveryCharge = 0;
+                                      deliveryAddress = '{{ deliverylocation(1020) }}';
                                     } else {
                                       deliveryCharge = 100;
+                                      deliveryAddress = '{{ $dueorder->address }}';
                                     }
 
                                     $('#hiddenDeliveryChargeNew{{ $dueorder->id }}').val(deliveryCharge);
                                     $('#deliveryCharge{{ $dueorder->id }}').text(deliveryCharge);
+                                    $('#deliveryAddress{{ $dueorder->id }}').val(deliveryAddress);
+
                                     var oldTotal = parseFloat({{ $dueorder->cart->totalPrice - $dueorder->cart->deliveryCharge }});
                                     $('#totalPrice{{ $dueorder->id }}').text(oldTotal + deliveryCharge);
                                   });
@@ -177,7 +182,7 @@
       </div>
     </div>
     <div class="col-md-4">
-      <div class="panel panel-warning">
+      <div class="panel panel-primary">
         <div class="panel-heading">
           <i class="fa fa-calendar-check-o" aria-hidden="true"></i> আজকের অর্ডারগুলো
         </div>

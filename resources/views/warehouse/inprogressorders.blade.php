@@ -35,9 +35,9 @@
 @section('content')
   <div class="row">
     <div class="col-md-8">
-      <div class="panel panel-primary">
+      <div class="panel panel-info">
         <div class="panel-heading">
-          <i class="fa fa-list-ol" aria-hidden="true"></i> চলমান অর্ডারগুলো (In Progress Orders)
+          <i class="fa fa-hourglass-half" aria-hidden="true"></i> চলমান অর্ডারগুলো (In Progress Orders)
         </div>
         <div class="panel-body">
           <div class="table-responsive">
@@ -149,7 +149,7 @@
       </div>
     </div>
     <div class="col-md-4">
-      <div class="panel panel-warning">
+      <div class="panel panel-primary">
         <div class="panel-heading">
           <i class="fa fa-calendar-check-o" aria-hidden="true"></i> আজকের অর্ডারগুলো
         </div>

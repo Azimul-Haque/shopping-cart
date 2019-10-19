@@ -436,6 +436,7 @@ class WarehouseController extends Controller
 
       $hiddenDeliveryChargeOld = 'hiddenDeliveryChargeOld' . $id;
       $hiddenDeliveryChargeNew = 'hiddenDeliveryChargeNew' . $id;
+      $deliveryAddress = 'deliveryAddress' . $id;
       $deliverylocation = 'deliverylocation' . $id;
 
       $order->cart = unserialize($order->cart); // kaaj korar somoy unserialize kore nite hobe
@@ -445,6 +446,7 @@ class WarehouseController extends Controller
 
       $order->status = 1; // send to in progress
       $order->deliverylocation = $request[$deliverylocation];
+      $order->address = $request[$deliveryAddress];
       $order->cart = serialize($order->cart); // save korar somoy serialize kore save korte hobe
       $order->save();
 

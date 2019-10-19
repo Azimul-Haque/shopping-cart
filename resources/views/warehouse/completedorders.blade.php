@@ -35,9 +35,9 @@
 @section('content')
   <div class="row">
     <div class="col-md-8">
-      <div class="panel panel-primary">
+      <div class="panel panel-success">
         <div class="panel-heading"> 
-          <i class="fa fa-list-ol" aria-hidden="true"></i> নিষ্পন্ন অর্ডারগুলো (Delivered/ Completed Orders)
+          <i class="fa fa-check-square-o" aria-hidden="true"></i> নিষ্পন্ন অর্ডারগুলো (Delivered/ Completed Orders)
         </div>
         <div class="panel-body">
           <div class="table-responsive">
@@ -146,7 +146,7 @@
       </div>
     </div>
     <div class="col-md-4">
-      <div class="panel panel-warning">
+      <div class="panel panel-primary">
         <div class="panel-heading">
           <i class="fa fa-calendar-check-o" aria-hidden="true"></i> আজকের অর্ডারগুলো
         </div>
