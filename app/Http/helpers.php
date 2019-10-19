@@ -76,7 +76,7 @@
   function deliverylocation($deliverylocation) 
   {
       if ($deliverylocation == 0)
-          return 'Dhaka';
+          return 'Inside Dhaka';
       elseif($deliverylocation == 1020)
           return 'Peri Pasta or Pizza Burg, Mirpur- 02 (Free pick-up)';
       elseif($deliverylocation == 2)

@@ -418,10 +418,16 @@ class WarehouseController extends Controller
 
       $hiddenDeliveryChargeOld = 'hiddenDeliveryChargeOld' . $id;
       $hiddenDeliveryChargeNew = 'hiddenDeliveryChargeNew' . $id;
-      dd((float) $request[$hiddenDeliveryChargeOld] + (float) $request[$hiddenDeliveryChargeNew]);
-      
+      $deliverylocation = 'deliverylocation' . $id;
+
+      $order->cart = unserialize($order->cart); // kaaj korar somoy unserialize kore nite hobe
+      $order->cart->totalPrice = $order->cart->totalPrice - $request[$hiddenDeliveryChargeOld] + $request[$hiddenDeliveryChargeNew];
+      $order->cart->deliveryCharge = $request[$hiddenDeliveryChargeNew];
+
       $order->status = 1;
-      $order->deliverylocation = $request->deliverylocation;
+      $order->deliverylocation = $request[$deliverylocation];
+      dd($order->deliverylocation);
+      $order->cart = serialize($cart); // save korar somoy serialize kore save korte hobe
       $order->save();
 
       Session::flash('success', 'অর্ডারটি কনফার্ম করা হয়েছে!');

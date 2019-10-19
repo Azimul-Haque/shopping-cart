@@ -271,7 +271,7 @@ class ProductController extends Controller
 
       try{
         $order = new Order();
-        $order->cart = serialize($cart);
+        $order->cart = serialize($cart); // save korar somoy serialize kore save korte hobe
         $order->totalprice = $cart->totalPrice;
         $order->totalprofit = $cart->totalProfit;
         $order->address = $request->address;
