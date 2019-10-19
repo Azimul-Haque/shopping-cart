@@ -64,12 +64,12 @@
                   <td>৳ {{ $inprogressorder->cart->totalProfit }} {{-- {{ $inprogressorder->totalprofit }} --}}</td>
                   <td>
                     <a href="{{ route('warehouse.receiptpdf', [$inprogressorder->payment_id, generate_token(100)]) }}" class="btn btn-sm btn-primary" title="Print Invoice" target="_blank"><i class="fa fa-print" aria-hidden="true"></i></a>
-                    <button class="btn btn-sm btn-warning" type="button" title="Details" data-toggle="modal" data-target="#details{{ $inprogressorder->id }}" data-backdrop="static"><i class="fa fa-cogs" aria-hidden="true"></i></button>
+                    <button class="btn btn-sm btn-info" type="button" title="Details" data-toggle="modal" data-target="#details{{ $inprogressorder->id }}" data-backdrop="static"><i class="fa fa-cogs" aria-hidden="true"></i></button>
                     <div class="modal fade modal{{ $inprogressorder->id }}" id="details{{ $inprogressorder->id }}" role="dialog">
                       <div class="modal-dialog modal-lg">
                         <!-- Modal content-->
                         <div class="modal-content">
-                          <div class="modal-header modal-header-warning">
+                          <div class="modal-header modal-header-info">
                             <button type="button" class="close noPrint" data-dismiss="modal">×</button>
                             <h2 class="onlyPrint">ইকমার্স</h2>
                             <h4 class="modal-title">অর্ডারের তারিখ ও সময়ঃ {{ $inprogressorder->created_at->format('F d, Y, h:i A') }}</h4>
@@ -78,6 +78,12 @@
                             <p>
                               <div class="row">
                                 <div class="col-md-4">
+                                  <div class="progress">
+                                    <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar"
+                                    aria-valuenow="67" aria-valuemin="0" aria-valuemax="100" style="width:67%">
+                                      চলমান (In Progress)
+                                    </div>
+                                  </div>
                                   <h4>অর্ডার আইডিঃ <u>{{ $inprogressorder->payment_id }}</u></h4>
                                   <h4>ক্রেতার নামঃ {{ $inprogressorder->user->name }}</h4>
                                   <h4>ফোন নম্বরঃ <b>{{ $inprogressorder->user->phone }}</b></h4>
@@ -122,8 +128,8 @@
                             </p>
                           </div>
                           <div class="modal-footer noPrint">
-                            {!! Form::model($inprogressorder, ['route' => ['warehouse.confirmorder', $inprogressorder->id], 'method' => 'PUT']) !!}
-                              <button type="submit" class="btn btn-success">অর্ডারটি কনফার্ম করুন</button>
+                            {!! Form::model($inprogressorder, ['route' => ['warehouse.completeorder', $inprogressorder->id], 'method' => 'PUT']) !!}
+                              <button type="submit" class="btn btn-info">অর্ডারটি সম্পূর্ণ করুন</button>
                               <a href="{{ route('warehouse.receiptpdf', [$inprogressorder->payment_id, generate_token(100)]) }}" class="btn btn-primary" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> প্রিন্ট করুন</a>
                               <button type="button" class="btn btn-default" data-dismiss="modal">বন্ধ করুন</button>
                             {!! Form::close() !!}

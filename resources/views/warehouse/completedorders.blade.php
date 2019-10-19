@@ -64,12 +64,12 @@
                   <td>৳ {{ $dueorder->cart->totalProfit }}</td>
                   <td>
                     <a href="{{ route('warehouse.receiptpdf', [$dueorder->payment_id, generate_token(100)]) }}" class="btn btn-sm btn-primary" title="Print Invoice" target="_blank"><i class="fa fa-print" aria-hidden="true"></i></a>
-                    <button class="btn btn-sm btn-warning" type="button" title="Details" data-toggle="modal" data-target="#details{{ $dueorder->id }}" data-backdrop="static"><i class="fa fa-cogs" aria-hidden="true"></i></button>
+                    <button class="btn btn-sm btn-success" type="button" title="Details" data-toggle="modal" data-target="#details{{ $dueorder->id }}" data-backdrop="static"><i class="fa fa-cogs" aria-hidden="true"></i></button>
                     <div class="modal fade modal{{ $dueorder->id }}" id="details{{ $dueorder->id }}" role="dialog">
                       <div class="modal-dialog modal-lg">
                         <!-- Modal content-->
                         <div class="modal-content">
-                          <div class="modal-header modal-header-warning">
+                          <div class="modal-header modal-header-success">
                             <button type="button" class="close noPrint" data-dismiss="modal">×</button>
                             <h2 class="onlyPrint">ইকমার্স</h2>
                             <h4 class="modal-title">অর্ডারের তারিখ ও সময়ঃ {{ $dueorder->created_at->format('F d, Y, h:i A') }}</h4>
@@ -78,6 +78,12 @@
                             <p>
                               <div class="row">
                                 <div class="col-md-4">
+                                  <div class="progress">
+                                    <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"
+                                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                                      সম্পূর্ণ অর্ডার (Delivered)
+                                    </div>
+                                  </div>
                                   <h4>অর্ডার আইডিঃ <u>{{ $dueorder->payment_id }}</u></h4>
                                   <h4>ক্রেতার নামঃ {{ $dueorder->user->name }}</h4>
                                   <h4>ফোন নম্বরঃ <b>{{ $dueorder->user->phone }}</b></h4>
@@ -119,14 +125,10 @@
                                   </ul>
                                 </div>
                               </div>
-                              <div class="onlyPrint"><br/>
-                                ___________________<br/>
-                                ক্রেতার স্বাক্ষর<br/>
-                              </div>
                             </p>
                           </div>
                           <div class="modal-footer noPrint">
-                            <a href="{{ route('warehouse.receiptpdf', [$dueorder->payment_id, generate_token(100)]) }}" class="btn btn-primary" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> প্রিন্ট করুন</a>
+                            <a href="{{ route('warehouse.receiptpdf', [$dueorder->payment_id, generate_token(100)]) }}" class="btn btn-success" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> প্রিন্ট করুন</a>
                             <button type="button" class="btn btn-default" data-dismiss="modal">বন্ধ করুন</button>
                           </div>
                         </div>

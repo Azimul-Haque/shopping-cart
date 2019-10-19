@@ -421,18 +421,29 @@ class WarehouseController extends Controller
       $deliverylocation = 'deliverylocation' . $id;
 
       $order->cart = unserialize($order->cart); // kaaj korar somoy unserialize kore nite hobe
-      $order->cart->totalPrice = $order->cart->totalPrice - $request[$hiddenDeliveryChargeOld] + $request[$hiddenDeliveryChargeNew];
-      $order->cart->deliveryCharge = $request[$hiddenDeliveryChargeNew];
+      $order->cart->totalPrice = $order->cart->totalPrice - (float) $request[$hiddenDeliveryChargeOld] + (float) $request[$hiddenDeliveryChargeNew];
+      $order->totalPrice = $order->cart->totalPrice;
+      $order->cart->deliveryCharge = (float) $request[$hiddenDeliveryChargeNew];
 
-      $order->status = 1;
+      $order->status = 1; // send to in progress
       $order->deliverylocation = $request[$deliverylocation];
-      dd($order->deliverylocation);
-      $order->cart = serialize($cart); // save korar somoy serialize kore save korte hobe
+      $order->cart = serialize($order->cart); // save korar somoy serialize kore save korte hobe
       $order->save();
 
       Session::flash('success', 'অর্ডারটি কনফার্ম করা হয়েছে!');
       
       return redirect()->route('warehouse.inprogressorders');
+    }
+
+    public function putCompleteOrder(Request $request, $id) {
+      $order = Order::find($id);
+      $order->status = 2; // send to in complete orders
+      $order->paymentstatus = 'paid';
+      $order->save();
+
+      Session::flash('success', 'অর্ডারটি সম্পূর্ণ করা হয়েছে!');
+      
+      return redirect()->route('warehouse.deliveredorders');
     }
 
     public function getCustomers() {

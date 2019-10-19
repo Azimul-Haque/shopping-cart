@@ -79,6 +79,12 @@
                             <p>
                               <div class="row">
                                 <div class="col-md-4">
+                                  <div class="progress">
+                                    <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar"
+                                    aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" style="width:33%">
+                                      নতুন অর্ডার
+                                    </div>
+                                  </div>
                                   <h4>অর্ডার আইডিঃ <u>{{ $dueorder->payment_id }}</u></h4>
                                   <h4>ক্রেতার নামঃ {{ $dueorder->user->name }}</h4>
                                   <h4>ফোন নম্বরঃ <b>{{ $dueorder->user->phone }}</b></h4>
@@ -151,7 +157,7 @@
                           </div>
                           <div class="modal-footer noPrint">
                             
-                              <button type="submit" class="btn btn-success">অর্ডারটি কনফার্ম করুন</button>
+                              <button type="submit" class="btn btn-warning">অর্ডারটি কনফার্ম করুন</button>
                               <a href="{{ route('warehouse.receiptpdf', [$dueorder->payment_id, generate_token(100)]) }}" class="btn btn-primary" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> প্রিন্ট করুন</a>
                               <button type="button" class="btn btn-default" data-dismiss="modal">বন্ধ করুন</button>
                           </div>

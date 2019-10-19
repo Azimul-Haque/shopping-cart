@@ -215,6 +215,12 @@ Route::put('/warehouse/confirmorder/{id}', [
     'middleware' => 'admin'
 ]);
 
+Route::put('/warehouse/completeorder/{id}', [
+    'uses' => 'WarehouseController@putCompleteOrder',
+    'as' => 'warehouse.completeorder',
+    'middleware' => 'admin'
+]);
+
 Route::get('/warehouse/customers', [
     'uses' => 'WarehouseController@getCustomers',
     'as' => 'warehouse.customers',

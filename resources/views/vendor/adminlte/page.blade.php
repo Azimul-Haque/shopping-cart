@@ -246,7 +246,7 @@
                       </li>
                       <li class="{{ Request::is('warehouse/deliveredorders') ? 'active' : '' }}">
                           <a href="{{ route('warehouse.deliveredorders') }}">
-                              <i class="fa fa-fw fa-list-ul"></i>
+                              <i class="fa fa-fw fa-check-square-o"></i>
                               <span>Delivered Orders</span>
                           </a>
                       </li>
