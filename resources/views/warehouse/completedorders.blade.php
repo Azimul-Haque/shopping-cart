@@ -81,7 +81,7 @@
                                   <div class="progress">
                                     <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"
                                     aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
-                                      সম্পূর্ণ অর্ডার (Delivered)
+                                      নিষ্পন্ন অর্ডার (Delivered)
                                     </div>
                                   </div>
                                   <h4>অর্ডার আইডিঃ <u>{{ $dueorder->payment_id }}</u></h4>
