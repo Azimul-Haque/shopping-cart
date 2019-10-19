@@ -50,7 +50,7 @@
                   <th>ডেলিভারি চার্জ</th>
                   <th>মোট পরিশোধনীয় মূল্য</th>
                   <th>Total Profit</th>
-                  <th>কার্যক্রম</th>
+                  <th width="15%">কার্যক্রম</th>
                 </tr>
               </thead>
               <tbody>
@@ -62,7 +62,7 @@
                   <td>৳ {{ $dueorder->cart->deliveryCharge }}</td>
                   <td>৳ {{ $dueorder->cart->totalPrice }}</td>
                   <td>৳ {{ $dueorder->cart->totalProfit }} {{-- {{ $dueorder->totalprofit }} --}}</td>
-                  <td width="15%">
+                  <td>
                     <a href="{{ route('warehouse.receiptpdf', [$dueorder->payment_id, generate_token(100)]) }}" class="btn btn-sm btn-primary" title="Print Invoice" target="_blank"><i class="fa fa-print" aria-hidden="true"></i></a>
                     <button class="btn btn-sm btn-warning" type="button" title="Details" data-toggle="modal" data-target="#details{{ $dueorder->id }}" data-backdrop="static"><i class="fa fa-cogs" aria-hidden="true"></i></button>
                     <div class="modal fade modal{{ $dueorder->id }}" id="details{{ $dueorder->id }}" role="dialog">
@@ -195,7 +195,7 @@
               <tr>
                 <td>{{ $order->payment_id }}</td>
                 <td>{{ $order->created_at->format('h:i A') }}</td>
-                <td>
+                <td align="center">
                   @if($order->status == 0)
                     <span class="label label-warning"><i class="fa fa-file-text-o" aria-hidden="true" title="{{ status($order->status) }}"></i></span>
                   @elseif($order->status == 1)

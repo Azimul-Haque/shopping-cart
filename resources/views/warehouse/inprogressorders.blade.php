@@ -34,7 +34,7 @@
 
 @section('content')
   <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-8">
       <div class="panel panel-primary">
         <div class="panel-heading">
           <i class="fa fa-list-ol" aria-hidden="true"></i> চলমান অর্ডারগুলো (In Progress Orders)
@@ -50,7 +50,7 @@
                   <th>ডেলিভারি চার্জ</th>
                   <th>মোট পরিশোধনীয় মূল্য</th>
                   <th>Total Profit</th>
-                  <th>কার্যক্রম</th>
+                  <th width="15%">কার্যক্রম</th>
                 </tr>
               </thead>
               <tbody>
@@ -148,9 +148,40 @@
         </div>
       </div>
     </div>
-    <div class="col-md-2">
-      {{-- <h2><i class="fa fa-calendar-check-o" aria-hidden="true"></i> </h2> --}}
-      
+    <div class="col-md-4">
+      <div class="panel panel-warning">
+        <div class="panel-heading">
+          <i class="fa fa-calendar-check-o" aria-hidden="true"></i> আজকের অর্ডারগুলো
+        </div>
+        <div class="panel-body">
+          <table class="table table-condensed">
+            <thead>
+              <tr>
+                <th>অর্ডার আইডি</th>
+                <th>অর্ডারের সময়</th>
+                <th>অর্ডার স্ট্যাটাস</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach($orderstoday as $order)
+              <tr>
+                <td>{{ $order->payment_id }}</td>
+                <td>{{ $order->created_at->format('h:i A') }}</td>
+                <td align="center">
+                  @if($order->status == 0)
+                    <span class="label label-warning"><i class="fa fa-file-text-o" aria-hidden="true" title="{{ status($order->status) }}"></i></span>
+                  @elseif($order->status == 1)
+                    <span class="label label-info"><i class="fa fa-hourglass-half" aria-hidden="true" title="{{ status($order->status) }}"></i></span>
+                  @elseif($order->status == 2)
+                    <span class="label label-success"><i class="fa fa-check" aria-hidden="true" title="{{ status($order->status) }}"></i></span>
+                  @endif
+                </td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 @endsection

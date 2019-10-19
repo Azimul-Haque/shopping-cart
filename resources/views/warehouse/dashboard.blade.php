@@ -99,7 +99,7 @@
             </thead>
             <tbody>
               @foreach($orderstoday as $order)
-              <tr>
+              <td align="center">
                 <td>{{ $order->payment_id }}</td>
                 <td>{{ $order->created_at->format('h:i A') }}</td>
                 <td>

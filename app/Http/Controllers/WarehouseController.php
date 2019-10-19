@@ -409,8 +409,17 @@ class WarehouseController extends Controller
         $order->cart = unserialize($order->cart);
         return $order;
       });
+
+      $orderstoday = Order::where('created_at', '>=', Carbon::today())
+                            ->orderBy('id', 'desc')
+                            ->get();
+      $orderstoday->transform(function($order, $key) {
+        $order->cart = unserialize($order->cart);
+        return $order;
+      });
       return view('warehouse.completedorders')
-              ->withCompletedorders($completedorders);
+              ->withCompletedorders($completedorders)
+              ->withOrderstoday($orderstoday);
     }
 
     public function getReceitPDF($payment_id, $random_string) {
