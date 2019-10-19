@@ -99,10 +99,10 @@
             </thead>
             <tbody>
               @foreach($orderstoday as $order)
-              <td align="center">
+              <tr>
                 <td>{{ $order->payment_id }}</td>
                 <td>{{ $order->created_at->format('h:i A') }}</td>
-                <td>
+                <td align="center">
                   @if($order->status == 0)
                     <span class="label label-warning"><i class="fa fa-file-text-o" aria-hidden="true" title="{{ status($order->status) }}"></i></span>
                   @elseif($order->status == 1)
