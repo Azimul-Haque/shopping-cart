@@ -66,23 +66,58 @@
   	</div>
   </div>
   <div class="row">
-		<div class="col-md-6">
-		    <div class="box box-success" style="position: relative; left: 0px; top: 0px;">
-		        <div class="box-header ui-sortable-handle" style="">
-		          <i class="fa fa-calculator"></i>
+    <div class="col-md-6">
+      <div class="box box-success" style="position: relative; left: 0px; top: 0px;">
+          <div class="box-header ui-sortable-handle" style="">
+            <i class="fa fa-calculator"></i>
 
-		          <h3 class="box-title">Last 7 Days' Sales</h3>
-		          <div class="box-tools pull-right text-muted">
-		            {{ date('F Y') }}
-		          </div>
-		        </div>
-		        <!-- /.box-header -->
-		        <div class="box-body">
-		          <canvas id="myChartC"></canvas>
-		        </div>
-		        <!-- /.box-body -->
-		    </div>
+            <h3 class="box-title">Last 7 Days' Sales</h3>
+            <div class="box-tools pull-right text-muted">
+              {{ date('F Y') }}
+            </div>
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body">
+            <canvas id="myChartC"></canvas>
+          </div>
+          <!-- /.box-body -->
+      </div>
+    </div>
+		<div class="col-md-6">
+	    <div class="panel panel-warning">
+        <div class="panel-heading">
+          <i class="fa fa-calendar-check-o" aria-hidden="true"></i> আজকের অর্ডারগুলো ({{ date('F d, Y') }})
         </div>
+        <div class="panel-body">
+          <table class="table table-condensed">
+            <thead>
+              <tr>
+                <th>অর্ডার আইডি</th>
+                <th>অর্ডারের সময়</th>
+                <th>অর্ডার স্ট্যাটাস</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach($orderstoday as $order)
+              <tr>
+                <td>{{ $order->payment_id }}</td>
+                <td>{{ $order->created_at->format('h:i A') }}</td>
+                <td>
+                  @if($order->status == 0)
+                    <span class="label label-warning"><i class="fa fa-file-text-o" aria-hidden="true" title="{{ status($order->status) }}"></i></span>
+                  @elseif($order->status == 1)
+                    <span class="label label-info"><i class="fa fa-hourglass-half" aria-hidden="true" title="{{ status($order->status) }}"></i></span>
+                  @elseif($order->status == 2)
+                    <span class="label label-success"><i class="fa fa-check" aria-hidden="true" title="{{ status($order->status) }}"></i></span>
+                  @endif
+                </td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 @endsection
 

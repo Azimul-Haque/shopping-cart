@@ -29,15 +29,15 @@
 @endsection
 
 @section('content_header')
-    <h1>ডেলিভার্ড অর্ডারগুলো</h1>
+    <h1>নিষ্পন্ন অর্ডারগুলো (Delivered/ Completed Orders)</h1>
 @stop
 
 @section('content')
   <div class="row">
     <div class="col-md-10">
       <div class="panel panel-primary">
-        <div class="panel-heading">
-          <i class="fa fa-list-ol" aria-hidden="true"></i> ডেলিভার্ড অর্ডারগুলো
+        <div class="panel-heading"> 
+          <i class="fa fa-list-ol" aria-hidden="true"></i> নিষ্পন্ন অর্ডারগুলো (Delivered/ Completed Orders)
         </div>
         <div class="panel-body">
           <div class="table-responsive">

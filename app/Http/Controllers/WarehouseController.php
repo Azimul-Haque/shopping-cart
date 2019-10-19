@@ -57,13 +57,22 @@ class WarehouseController extends Controller
       $totalsforchartc = json_encode(array_reverse($totalsforchartc));
       // chart data
 
+      $orderstoday = Order::where('created_at', '>=', Carbon::today())
+                            ->orderBy('id', 'desc')
+                            ->get();
+      $orderstoday->transform(function($order, $key) {
+        $order->cart = unserialize($order->cart);
+        return $order;
+      });
+
       return view('warehouse.dashboard')
                     ->withTotalorders($totalorders)
                     ->withTotalincome($totalincome)
                     ->withTotalcustomers($totalcustomers)
                     ->withTotalproducts($totalproducts)
                     ->withDatesforchartc($datesforchartc)
-                    ->withTotalsforchartc($totalsforchartc);
+                    ->withTotalsforchartc($totalsforchartc)
+                    ->withOrderstoday($orderstoday);
     }
 
     public function getCategories() {

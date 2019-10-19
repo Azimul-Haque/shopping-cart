@@ -29,7 +29,7 @@
 @endsection
 
 @section('content_header')
-    <h1>চলমান অর্ডারগুলো</h1>
+    <h1>চলমান অর্ডারগুলো (In Progress Orders)</h1>
 @stop
 
 @section('content')
@@ -37,7 +37,7 @@
     <div class="col-md-10">
       <div class="panel panel-primary">
         <div class="panel-heading">
-          <i class="fa fa-list-ol" aria-hidden="true"></i> চলমান অর্ডারগুলো
+          <i class="fa fa-list-ol" aria-hidden="true"></i> চলমান অর্ডারগুলো (In Progress Orders)
         </div>
         <div class="panel-body">
           <div class="table-responsive">
@@ -129,7 +129,7 @@
                           </div>
                           <div class="modal-footer noPrint">
                             {!! Form::model($inprogressorder, ['route' => ['warehouse.completeorder', $inprogressorder->id], 'method' => 'PUT']) !!}
-                              <button type="submit" class="btn btn-info">অর্ডারটি সম্পূর্ণ করুন</button>
+                              <button type="submit" class="btn btn-info" title="নিষ্পন্ন তালিকায় পাঠান">অর্ডারটি নিষ্পন্ন করুন</button>
                               <a href="{{ route('warehouse.receiptpdf', [$inprogressorder->payment_id, generate_token(100)]) }}" class="btn btn-primary" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> প্রিন্ট করুন</a>
                               <button type="button" class="btn btn-default" data-dismiss="modal">বন্ধ করুন</button>
                             {!! Form::close() !!}

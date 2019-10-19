@@ -29,7 +29,7 @@
 @endsection
 
 @section('content_header')
-    <h1>পেন্ডিং অর্ডারগুলো</h1>
+    <h1>অনিষ্পন্ন/ নতুন অর্ডারগুলো (Pending Orders)</h1>
 @stop
 
 @section('content')
@@ -37,7 +37,7 @@
     <div class="col-md-8">
       <div class="panel panel-primary">
         <div class="panel-heading">
-          <i class="fa fa-list-ol" aria-hidden="true"></i> পেন্ডিং অর্ডারগুলো
+          <i class="fa fa-list-ol" aria-hidden="true"></i> অনিষ্পন্ন/ নতুন অর্ডারগুলো (Pending Orders)
         </div>
         <div class="panel-body">
           <div class="table-responsive">
@@ -62,7 +62,7 @@
                   <td>৳ {{ $dueorder->cart->deliveryCharge }}</td>
                   <td>৳ {{ $dueorder->cart->totalPrice }}</td>
                   <td>৳ {{ $dueorder->cart->totalProfit }} {{-- {{ $dueorder->totalprofit }} --}}</td>
-                  <td>
+                  <td width="15%">
                     <a href="{{ route('warehouse.receiptpdf', [$dueorder->payment_id, generate_token(100)]) }}" class="btn btn-sm btn-primary" title="Print Invoice" target="_blank"><i class="fa fa-print" aria-hidden="true"></i></a>
                     <button class="btn btn-sm btn-warning" type="button" title="Details" data-toggle="modal" data-target="#details{{ $dueorder->id }}" data-backdrop="static"><i class="fa fa-cogs" aria-hidden="true"></i></button>
                     <div class="modal fade modal{{ $dueorder->id }}" id="details{{ $dueorder->id }}" role="dialog">
@@ -196,10 +196,12 @@
                 <td>{{ $order->payment_id }}</td>
                 <td>{{ $order->created_at->format('h:i A') }}</td>
                 <td>
-                  @if($order->paymentstatus == 'paid')
-                    <span class="label label-success"><i class="fa fa-check" aria-hidden="true"></i></span>
-                  @elseif($order->paymentstatus == 'not-paid')
-                    <span class="label label-info"><i class="fa fa-hourglass-start" aria-hidden="true"></i></span>
+                  @if($order->status == 0)
+                    <span class="label label-warning"><i class="fa fa-file-text-o" aria-hidden="true" title="{{ status($order->status) }}"></i></span>
+                  @elseif($order->status == 1)
+                    <span class="label label-info"><i class="fa fa-hourglass-half" aria-hidden="true" title="{{ status($order->status) }}"></i></span>
+                  @elseif($order->status == 2)
+                    <span class="label label-success"><i class="fa fa-check" aria-hidden="true" title="{{ status($order->status) }}"></i></span>
                   @endif
                 </td>
               </tr>
