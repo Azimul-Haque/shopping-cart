@@ -133,7 +133,11 @@
                         </div>
                         <div class="col-md-6 no-padding-left">
                             <!-- add to wishlist link -->
+                            @if(Auth::check())
                             <a title="Add to Wishlist" href="{{ route('product.addtowishlist', [$product->id, Auth::user()->id]) }}" class="text-uppercase text-small vertical-align-middle"><i class="fa fa-heart-o black-text"></i> Add to wishlist</a>
+                            @else
+                            <a title="You need to Login to Add this product in your WishList" href="{{ url('login') }}" class="text-uppercase text-small vertical-align-middle"><i class="fa fa-heart-o black-text"></i> Add to wishlist</a>
+                            @endif
                             <!-- end add to wishlist link -->
                         </div>
                         <div class="col-md-6 product-details-social no-padding">
