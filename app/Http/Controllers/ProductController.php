@@ -14,6 +14,7 @@ use App\Slider;
 use App\Page;
 use App\Setting;
 use App\Wishlist;
+use App\Productreview;
 
 use Session;
 use Auth, Artisan;
@@ -105,6 +106,36 @@ class ProductController extends Controller
     public function getSingleProduct($id, $random_string) 
     {
       $product = Product::findOrFail($id);
+      $relatedproducts = Product::where('isAvailable', '!=', '0')
+                         ->where('category_id', $product->category_id)
+                         ->inRandomOrder()
+                         ->get()->take(10);
+      $newarrivals = Product::orderBy('id', 'desc')->where('isAvailable', 1)->get()->take(5);
+
+      return view('shop.singleproduct')
+                        ->withProduct($product)
+                        ->withRelatedproducts($relatedproducts)
+                        ->withNewarrivals($newarrivals);
+    }
+
+    public function storeProductReview(Request $request) 
+    {
+      // check if already reviewd
+      $reviewcheck = Productreview::where('product_id', $request->product_id)
+                                  ->where('user_id', Auth::user()->id)
+                                  ->first();
+      if(!empty($reviewcheck)) {
+        Session::flash('info', 'You have reviewed this product once. Thank you.');
+        return redirect()->route('product.getsingleproduct', [$request->product_id, generate_token(100)]);
+      }
+
+      $this->validate($request, [
+        'product_id'           => 'required',
+        'rating'               => 'sometimes',
+        'comment'              => 'required'
+      ]);
+
+      $review = new Productreview;
       $relatedproducts = Product::where('isAvailable', '!=', '0')
                          ->where('category_id', $product->category_id)
                          ->inRandomOrder()

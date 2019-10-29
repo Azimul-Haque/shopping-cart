@@ -11,6 +11,7 @@ return array(
     'CreatePagesTable' => $baseDir . '/database/migrations/2019_09_25_033802_create_pages_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreateProductimagesTable' => $baseDir . '/database/migrations/2019_09_23_043430_create_productimages_table.php',
+    'CreateProductreviewsTable' => $baseDir . '/database/migrations/2019_10_30_025019_create_productreviews_table.php',
     'CreateProductsTable' => $baseDir . '/database/migrations/2018_01_06_230722_create_products_table.php',
     'CreateSettingsTable' => $baseDir . '/database/migrations/2019_09_26_025740_create_settings_table.php',
     'CreateSlidersTable' => $baseDir . '/database/migrations/2019_09_25_020209_create_sliders_table.php',

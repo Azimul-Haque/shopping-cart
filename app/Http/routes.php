@@ -30,6 +30,11 @@ Route::get('/product/{id}/{random_string}', [
     'as' => 'product.getsingleproduct'
 ]);
 
+Route::post('/product/review/store', [
+    'uses' => 'ProductController@storeProductReview',
+    'as' => 'product.storeproductreview'
+]);
+
 Route::get('/product/add/to/wishlist/{product_id}/{user_id}', [
     'uses' => 'ProductController@addProductToWishList',
     'as' => 'product.addtowishlist'

@@ -21,4 +21,8 @@ class Product extends Model
     public function wishlists() {
       return $this->hasMany('App\Wishlist');
     } 
+
+    public function productreviews() {
+      return $this->hasMany('App\Productreview');
+    } 
 }

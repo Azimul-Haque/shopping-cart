@@ -17,6 +17,9 @@
       width: auto; 
       border: 1px solid gray;
     }
+    iframe {
+      width: 100% !important;
+    }
   </style>
   <meta property="og:image" content="{{ asset('images/product-images/'.$product->productimages->first()->image) }}" />
   <meta property="og:title" content="{{ $product->title }} | LOYAL অভিযাত্রী"/>
@@ -79,7 +82,7 @@
                     <div class="col-md-5 col-sm-12 col-md-offset-1">
                         <!-- product rating -->
                         <div class="rating margin-five no-margin-top">
-                            <i class="fa fa-star black-text"></i><i class="fa fa-star black-text"></i><i class="fa fa-star black-text"></i><i class="fa fa-star black-text"></i><i class="fa fa-star-o black-text"></i><span class="rating-text text-uppercase">0 Reviews</span>
+                            <i class="fa fa-star black-text"></i><i class="fa fa-star black-text"></i><i class="fa fa-star black-text"></i><i class="fa fa-star black-text"></i><i class="fa fa-star-o black-text"></i><span class="rating-text text-uppercase">{{ $product->productreviews->count() }} Reviews</span>
                             <span class="rating-text text-uppercase pull-right">
                               SKU: 
                               @if($product->code != '')
@@ -161,8 +164,8 @@
                                 <!-- tab navigation -->
                                 <ul class="nav nav-tabs nav-tabs-light text-left">
                                     <li class="active"><a href="#desc_tab" data-toggle="tab">Description</a></li>
-                                    <li><a href="#reviews_tab" data-toggle="tab">Reviews (10)</a></li>
-                                    <li><a href="#info_tab" data-toggle="tab">Information</a></li>
+                                    <li><a href="#reviews_tab" data-toggle="tab">Reviews ({{ $product->productreviews->count() }})</a></li>
+                                    <li><a href="#fb_tab" data-toggle="tab">Facebook Comments</a></li>
                                 </ul>
                                 <!-- tab end navigation -->
                             </div>
@@ -179,7 +182,7 @@
                                 </div>
                                 <!-- end tab content -->
                                 <!-- tab content -->
-                                <div class="tab-pane fade in" id="info_tab">
+                                <div class="tab-pane fade in" id="fb_tab">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="fb-comments" data-href="{{ Request::url() }}" data-width="100%" data-numposts="5"></div>
@@ -201,36 +204,38 @@
                                                 <p><i class="fa fa-star black-text"></i><i class="fa fa-star black-text"></i><i class="fa fa-star black-text"></i><i class="fa fa-star black-text"></i><i class="fa black-text fa-star-o"></i></p>
                                                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                                             </div>
-                                            <ul class="list-inline comment-pagination">
-                                                <li><a href="#" class="active">1</a></li>
-                                                <li><a href="#">2</a></li>
-                                                <li><a href="#">...</a></li>
-                                                <li><a href="#">8</a></li>
-                                                <li><a href="#">9</a></li>
-                                            </ul>
                                         </div>
                                         <div class="col-md-5 col-sm-12 col-md-offset-1 blog-single-full-width-form sm-margin-top-seven">
                                             <div class="blog-comment-form">
+                                                @if(Auth::check())
                                                 <!-- comment form -->
-                                                <form>
+                                                {!! Form::open(['route' => 'product.storeproductreview', 'method' => 'POST']) !!}
                                                     <!-- input -->
-                                                    <input type="text" name="name" placeholder="Name">
-                                                    <!-- end input -->
-                                                    <!-- input  -->
-                                                    <input type="text" name="email" placeholder="Email">
+                                                    <input type="text" name="name" value="{{ Auth::user()->name }}" placeholder="Name" readonly="">
+                                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
                                                     <!-- end input -->
                                                     <!-- input  -->
                                                     <label class="rating">Rating</label>
-                                                    <p class="add-rating"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></p>
+                                                    <select class="form-control" name="rating" required="">
+                                                      <option value="" selected="" disabled="">Select a Value</option>
+                                                      <option value="1">1</option>
+                                                      <option value="2">2</option>
+                                                      <option value="3">3</option>
+                                                      <option value="4">4</option>
+                                                      <option value="5">5</option>
+                                                    </select>
                                                     <!-- end input -->
                                                     <!-- textarea  -->
-                                                    <textarea name="comment" placeholder="Comment"></textarea>
+                                                    <textarea name="comment" placeholder="Write your comment" required=""></textarea>
                                                     <!-- end textarea  -->
                                                     <!-- button  -->
                                                     <input type="submit" name="send message" value="LEAVE RATING" class="highlight-button-black-border btn btn-small xs-no-margin-bottom">
                                                     <!-- end button  -->
-                                                </form>
+                                                {!! Form::close() !!}
                                                 <!-- end comment form -->
+                                                @else
+                                                <a href="{{ url('login') }}" class="highlight-button-black-border btn btn-small xs-no-margin-bottom" title="You need to login to Write a Review">Login to Write Review</a>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
