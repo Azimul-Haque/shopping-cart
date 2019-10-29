@@ -148,6 +148,18 @@ Route::post('/warehouse/subcategories', [
     'middleware' => 'admin'
 ]);
 
+Route::put('warehouse/subcategory/update/{id}', [
+    'uses' => 'WarehouseController@updateSubcategory',
+    'as' => 'warehouse.subcategories.update',
+    'middleware' => 'auth'
+]);
+
+Route::get('warehouse/subcategory/availibility/toggle/{id}', [
+    'uses' => 'WarehouseController@availibilityToggleSubcategory',
+    'as' => 'warehouse.subcategories.toggle',
+    'middleware' => 'auth'
+]);
+
 Route::get('/warehouse/products', [
     'uses' => 'WarehouseController@getAddProduct',
     'as' => 'warehouse.products',

@@ -39,7 +39,9 @@
                                         <ul>
                                             <li class="dropdown-header"><a href="{{ route('product.categorywise', [$category->id, generate_token(100)]) }}">{{ $category->name }}</a></li>
                                             @foreach($category->subcategories as $subcategory)
+                                                @if($subcategory->isAvailable == 1)
                                                 <li><a href="{{ route('product.subcategorywise', [$subcategory->id, generate_token(100)]) }}">{{ $subcategory->name }}</a></li>
+                                                @endif
                                             @endforeach
                                         </ul>
                                         <!-- end sub menu item  -->

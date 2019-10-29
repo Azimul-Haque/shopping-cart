@@ -106,7 +106,7 @@ class WarehouseController extends Controller
       $category->name = $request->name;
       $category->save();
 
-      Session::flash('success', 'Updated successfully!');
+      Session::flash('success', 'Category Updated successfully!');
       return redirect()->route('warehouse.categories');
     }
 
@@ -122,6 +122,52 @@ class WarehouseController extends Controller
       $subcategory->save();
 
       Session::flash('success', 'Subcategory is added successfully!');
+      return redirect()->route('warehouse.categories');
+    }
+
+    public function updateSubcategory(Request $request, $id) 
+    {
+      $subcategory = Subcategory::find($id);
+
+      $this->validate($request, [
+        'name'=>'required|max:255|unique:subcategories,name,' . $subcategory->id,
+      ]);
+      $subcategory->name = $request->name;
+      $subcategory->save();
+
+      Session::flash('success', 'Sub Category Updated successfully!');
+      return redirect()->route('warehouse.categories');
+    }
+
+    public function availibilityToggleSubcategory($id) 
+    {
+      $subcategory = Subcategory::find($id);
+
+      if($subcategory->isAvailable == 1) {
+        $subcategory->isAvailable = 0;
+        $products = Product::where('subcategory_id', $id)->get();
+        foreach ($products as $product) {
+          $product->isAvailable = 0;
+          $product->save();
+        }
+      } elseif($subcategory->isAvailable == 0) {
+        $subcategory->isAvailable = 1;
+        $products = Product::where('subcategory_id', $id)->get();
+        foreach ($products as $product) {
+          $product->isAvailable = 1;
+          $product->save();
+        }
+      }
+      
+      $subcategory->save();
+
+      if($subcategory->isAvailable == 1) {
+        Session::flash('success', 'Updated successfully!');
+      } elseif($subcategory->isAvailable == 0) {
+        Session::flash('success', 'Updated successfully!');
+      }
+
+      Session::flash('success', 'Sub Category Updated successfully!');
       return redirect()->route('warehouse.categories');
     }
 

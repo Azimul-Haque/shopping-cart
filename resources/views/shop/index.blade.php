@@ -111,9 +111,11 @@
                     </div>
                     <ul class="subcategory_list_ul">
                       @foreach($category->subcategories as $subcategory)
+                        @if($subcategory->isAvailable == 1)
                         <a href="{{ route('product.subcategorywise', [$subcategory->id, generate_token(100)]) }}">
                           <li>{{ $subcategory->name }} ({{ $subcategory->products->count() }})</li>
                         </a>
+                        @endif
                       @endforeach
                     </ul>
                 </div>
@@ -125,68 +127,70 @@
                       <h3>{{ $category->name }}</h3>
                     </div>
                     @foreach($category->products->take(6) as $product)
-                    <!-- shop item -->
-                    <div class="col-md-4 col-sm-4" style="min-height: 320px;">
-                        <div class="home-product text-center position-relative overflow-hidden margin-ten no-margin-top">
-                            <a href="{{ route('product.getsingleproduct', [$product->id, generate_token(100)]) }}"><img src="{{ asset('images/product-images/'.$product->productimages->first()->image) }}" alt="{{ $product->title }}"></a>
-                            <span class="product-name text-uppercase"><a href="{{ route('product.getsingleproduct', [$product->id, generate_token(100)]) }}" class="bg-white">{{ $product->title }}</a></span>
-                            <span class="price black-text">
-                              @if($product->oldprice > 0)
-                                <del>৳ {{ $product->oldprice }}</del>
-                              @endif
-                              ৳ {{ $product->price }}
-                            </span>
-                            {{-- <span class="onsale onsale-style-2">Sale</span> --}}
-                            <div class="quick-buy">
-                                <div class="product-share">
-                                    {{-- <a href="#" class="highlight-button-dark btn btn-small no-margin-right quick-buy-btn" title="Add to Wishlist"><i class="fa fa-heart-o"></i></a>
-                                    <a href="#" class="highlight-button-dark btn btn-small no-margin-right quick-buy-btn" title="Add to Compare"><i class="fa fa-refresh"></i></a> --}}
-                                    <button id="addToCart{{ $product->id }}" class="highlight-button-dark btn btn-small no-margin-right quick-buy-btn" title="Add to Cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end shop item -->
-                    <script type="text/javascript">
-                      $(document).ready(function(){
-                          $("#addToCart{{ $product->id }}").click(function(){
-                            console.log('Item ID: {{ $product->id }}');
-                            $.ajax({
-                                url: "/addtocart/{{ $product->id }}",
-                                type: "GET",
-                                data: {},
-                                success: function (data) {
-                                  var response = data;
-                                  console.log(response);
-                                  if(response == 'success') {
-                                    if($(window).width() > 768) {
-                                      toastr.success('{{ $product->title }} আপনার ব্যাগে যুক্ত করা হয়েছে।', 'সফল (SUCCESS)').css('width','400px');
-                                    } else {
-                                      toastr.success('{{ $product->title }} আপনার ব্যাগে যুক্ত করা হয়েছে।', 'সফল (SUCCESS)').css('width', ($(window).width()-25)+'px');
+                      @if($product->isAvailable == 1)
+                      <!-- shop item -->
+                      <div class="col-md-4 col-sm-4" style="min-height: 320px;">
+                          <div class="home-product text-center position-relative overflow-hidden margin-ten no-margin-top">
+                              <a href="{{ route('product.getsingleproduct', [$product->id, generate_token(100)]) }}"><img src="{{ asset('images/product-images/'.$product->productimages->first()->image) }}" alt="{{ $product->title }}"></a>
+                              <span class="product-name text-uppercase"><a href="{{ route('product.getsingleproduct', [$product->id, generate_token(100)]) }}" class="bg-white">{{ $product->title }}</a></span>
+                              <span class="price black-text">
+                                @if($product->oldprice > 0)
+                                  <del>৳ {{ $product->oldprice }}</del>
+                                @endif
+                                ৳ {{ $product->price }}
+                              </span>
+                              {{-- <span class="onsale onsale-style-2">Sale</span> --}}
+                              <div class="quick-buy">
+                                  <div class="product-share">
+                                      {{-- <a href="#" class="highlight-button-dark btn btn-small no-margin-right quick-buy-btn" title="Add to Wishlist"><i class="fa fa-heart-o"></i></a>
+                                      <a href="#" class="highlight-button-dark btn btn-small no-margin-right quick-buy-btn" title="Add to Compare"><i class="fa fa-refresh"></i></a> --}}
+                                      <button id="addToCart{{ $product->id }}" class="highlight-button-dark btn btn-small no-margin-right quick-buy-btn" title="Add to Cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <!-- end shop item -->
+                      <script type="text/javascript">
+                        $(document).ready(function(){
+                            $("#addToCart{{ $product->id }}").click(function(){
+                              console.log('Item ID: {{ $product->id }}');
+                              $.ajax({
+                                  url: "/addtocart/{{ $product->id }}",
+                                  type: "GET",
+                                  data: {},
+                                  success: function (data) {
+                                    var response = data;
+                                    console.log(response);
+                                    if(response == 'success') {
+                                      if($(window).width() > 768) {
+                                        toastr.success('{{ $product->title }} আপনার ব্যাগে যুক্ত করা হয়েছে।', 'সফল (SUCCESS)').css('width','400px');
+                                      } else {
+                                        toastr.success('{{ $product->title }} আপনার ব্যাগে যুক্ত করা হয়েছে।', 'সফল (SUCCESS)').css('width', ($(window).width()-25)+'px');
+                                      }
                                     }
+                                    var totalInBag = parseInt($("#totalInBag").text());
+                                    if(isNaN(totalInBag)) {
+                                      totalInBag = 0;
+                                    } else {
+                                      totalInBag = totalInBag;
+                                    }
+                                    totalInBag = totalInBag + 1;
+                                    $("#totalInBag").text(totalInBag);
+                                    
+                                    var totalInBagMobile = parseInt($("#totalInBagMobile").text());
+                                    if(isNaN(totalInBagMobile)) {
+                                      totalInBagMobile = 0;
+                                    } else {
+                                      totalInBagMobile = totalInBagMobile;
+                                    }
+                                    totalInBagMobile = totalInBagMobile + 1;
+                                    $("#totalInBagMobile").text(totalInBagMobile);
                                   }
-                                  var totalInBag = parseInt($("#totalInBag").text());
-                                  if(isNaN(totalInBag)) {
-                                    totalInBag = 0;
-                                  } else {
-                                    totalInBag = totalInBag;
-                                  }
-                                  totalInBag = totalInBag + 1;
-                                  $("#totalInBag").text(totalInBag);
-                                  
-                                  var totalInBagMobile = parseInt($("#totalInBagMobile").text());
-                                  if(isNaN(totalInBagMobile)) {
-                                    totalInBagMobile = 0;
-                                  } else {
-                                    totalInBagMobile = totalInBagMobile;
-                                  }
-                                  totalInBagMobile = totalInBagMobile + 1;
-                                  $("#totalInBagMobile").text(totalInBagMobile);
-                                }
+                              });
                             });
-                          });
-                      });
-                    </script>
+                        });
+                      </script>
+                      @endif
                     @endforeach
                   </div>
                 </div>
