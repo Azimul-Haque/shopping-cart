@@ -96,7 +96,7 @@
                               </p>
                             </div>
                             <div class="modal-footer">
-                              {!! Form::model($review, ['route' => ['warehouse.deletereview', $review->id], 'method' => 'PUT']) !!}
+                              {!! Form::model($review, ['route' => ['warehouse.deletereview', $review->id], 'method' => 'DELETE']) !!}
                                 <button type="submit" class="btn btn-danger">Delete</button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                               {!! Form::close() !!}
