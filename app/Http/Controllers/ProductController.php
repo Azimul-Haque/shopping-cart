@@ -109,7 +109,7 @@ class ProductController extends Controller
                          ->where('category_id', $product->category_id)
                          ->inRandomOrder()
                          ->get()->take(10);
-      $newarrivals = Product::orderBy('id', 'desc')->get()->take(5);
+      $newarrivals = Product::orderBy('id', 'desc')->where('isAvailable', 1)->get()->take(5);
 
       return view('shop.singleproduct')
                         ->withProduct($product)
@@ -141,7 +141,7 @@ class ProductController extends Controller
       $products = Product::where('isAvailable', '!=', '0')
                          ->where('category_id', $id)
                          ->paginate(10);
-      $newarrivals = Product::orderBy('id', 'desc')->get()->take(5);
+      $newarrivals = Product::orderBy('id', 'desc')->where('isAvailable', 1)->get()->take(5);
       return view('shop.categorywise')
                 ->withProducts($products)
                 ->withNewarrivals($newarrivals)
@@ -152,7 +152,7 @@ class ProductController extends Controller
       $products = Product::where('isAvailable', '!=', '0')
                          ->where('subcategory_id', $id)
                          ->paginate(10);
-      $newarrivals = Product::orderBy('id', 'desc')->get()->take(5);
+      $newarrivals = Product::orderBy('id', 'desc')->where('isAvailable', 1)->get()->take(5);
       return view('shop.categorywise')
                   ->withProducts($products)
                   ->withNewarrivals($newarrivals)
@@ -401,7 +401,7 @@ class ProductController extends Controller
         return abort(404);
       } 
       $recentproducts = Product::orderBy('id', 'desc')->get()->take(10);
-      $newarrivals = Product::orderBy('id', 'desc')->get()->take(5);
+      $newarrivals = Product::orderBy('id', 'desc')->where('isAvailable', 1)->get()->take(5);
       return view('shop.article')
                     ->withArticle($article)
                     ->withRecentproducts($recentproducts)

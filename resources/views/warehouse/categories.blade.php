@@ -21,7 +21,7 @@
           <table class="table">
             <thead>
               <tr>
-                <th>নাম</th>
+                <th width="30%">নাম</th>
                 <th>Subcategories</th>
                 <th>Action</th>
               </tr>

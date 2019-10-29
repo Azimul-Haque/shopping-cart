@@ -18,7 +18,7 @@ class Product extends Model
       return $this->hasMany('App\Productimage');
     } 
 
-    public function wishlist() {
-      return $this->hasOne('App\Wishlist');
+    public function wishlists() {
+      return $this->hasMany('App\Wishlist');
     } 
 }
