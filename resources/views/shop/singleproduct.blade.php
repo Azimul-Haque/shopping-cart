@@ -82,33 +82,35 @@
                     <div class="col-md-5 col-sm-12 col-md-offset-1">
                         <!-- product rating -->
                         <div class="rating margin-five no-margin-top">
-                            @php
-                              $avgrating = $product->productreviews->sum('rating') / $product->productreviews->count();
-                            @endphp
-                            @if($avgrating >= 1)
-                              <i class="fa fa-star black-text"></i>
-                            @else
-                              <i class="fa fa-star-o black-text"></i>
-                            @endif
-                            @if($avgrating >= 2)
-                              <i class="fa fa-star black-text"></i>
-                            @else
-                              <i class="fa fa-star-o black-text"></i>
-                            @endif
-                            @if($avgrating >= 3)
-                              <i class="fa fa-star black-text"></i>
-                            @else
-                              <i class="fa fa-star-o black-text"></i>
-                            @endif
-                            @if($avgrating >= 4)
-                              <i class="fa fa-star black-text"></i>
-                            @else
-                              <i class="fa fa-star-o black-text"></i>
-                            @endif
-                            @if($avgrating >= 5)
-                              <i class="fa fa-star black-text"></i>
-                            @else
-                              <i class="fa fa-star-o black-text"></i>
+                            @if($product->productreviews->count() > 0)
+                              @php
+                                $avgrating = $product->productreviews->sum('rating') / $product->productreviews->count();
+                              @endphp
+                              @if($avgrating >= 1)
+                                <i class="fa fa-star black-text"></i>
+                              @else
+                                <i class="fa fa-star-o black-text"></i>
+                              @endif
+                              @if($avgrating >= 2)
+                                <i class="fa fa-star black-text"></i>
+                              @else
+                                <i class="fa fa-star-o black-text"></i>
+                              @endif
+                              @if($avgrating >= 3)
+                                <i class="fa fa-star black-text"></i>
+                              @else
+                                <i class="fa fa-star-o black-text"></i>
+                              @endif
+                              @if($avgrating >= 4)
+                                <i class="fa fa-star black-text"></i>
+                              @else
+                                <i class="fa fa-star-o black-text"></i>
+                              @endif
+                              @if($avgrating >= 5)
+                                <i class="fa fa-star black-text"></i>
+                              @else
+                                <i class="fa fa-star-o black-text"></i>
+                              @endif
                             @endif
                             <span class="rating-text text-uppercase">{{ $product->productreviews->count() }} Reviews</span>
                             <span class="rating-text text-uppercase pull-right">

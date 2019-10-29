@@ -28,8 +28,8 @@
                 <tr>
                   <th>Customer</th>
                   <th>Product</th>
-                  <th>Rating</th>
-                  <th>Comment</th>
+                  <th width="10%">Rating</th>
+                  <th width="40%">Comment</th>
                   <th width="10%">Action</th>
                 </tr>
               </thead>
