@@ -23,23 +23,30 @@
               <tr>
                 <th width="30%">নাম</th>
                 <th>Subcategories</th>
-                <th>Action</th>
+                <th width="20%">Action</th>
               </tr>
             </thead>
 
             <tbody>
             @foreach ($categories as $category)
+              {!! Form::model($category, ['route' => ['warehouse.categories.update', $category->id], 'method' => 'PUT']) !!}   
               <tr>
-                <td>{{ $category->name }}</td>
+                <td>
+                  {{ $category->name }}
+                  <input type="text" name="name" value="{{ $category->name }}" class="form-control" id="name{{ $category->id }}">
+                </td>
                 <td>
                   @foreach ($category->subcategories as $subcategory)
                     <span class="label label-primary">{{ $subcategory->name }}</span>
                   @endforeach
                 </td>
                 <td>
-                  <button class="btn btn-sm btn-primary" title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                  <button type="button" class="btn btn-sm btn-primary" title="Edit" onclick="showUpdateCategory({{ $category->id }})"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                  <button class="btn btn-sm btn-success" title="Update" id="updateBtn{{ $category->id }}"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+                  <button class="btn btn-sm btn-danger" title="Cancel" id="cancelBtn{{ $category->id }}"><i class="fa fa-times" aria-hidden="true"></i></button>
                 </td>
               </tr>
+              {!! Form::close() !!}
             @endforeach
             </tbody>
 

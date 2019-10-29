@@ -136,6 +136,12 @@ Route::post('/warehouse/categories', [
     'middleware' => 'admin'
 ]);
 
+Route::put('warehouse/category/update/{id}', [
+    'uses' => 'WarehouseController@updateCategory',
+    'as' => 'warehouse.categories.update',
+    'middleware' => 'auth'
+]);
+
 Route::post('/warehouse/subcategories', [
     'uses' => 'WarehouseController@postSubcategories',
     'as' => 'warehouse.subcategories',

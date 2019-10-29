@@ -96,6 +96,20 @@ class WarehouseController extends Controller
       return redirect()->route('warehouse.categories');
     }
 
+    public function updateCategory(Request $request, $id) 
+    {
+      $category = Category::find($id);
+
+      $this->validate($request, [
+        'name'=>'required|max:255|unique:categories,name,' . $category->id,
+      ]);
+      $category->name = $request->name;
+      $category->save();
+
+      Session::flash('success', 'Updated successfully!');
+      return redirect()->route('warehouse.categories');
+    }
+
     public function postSubcategories(Request $request) {
       $this->validate($request, [
         'name'         => 'required|max:255|unique:subcategories,name',
