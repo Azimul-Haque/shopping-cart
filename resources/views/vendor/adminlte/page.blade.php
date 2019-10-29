@@ -268,6 +268,12 @@
                               <span>Customer List</span>
                           </a>
                       </li>
+                      <li class="{{ Request::is('warehouse/reviews') ? 'active' : '' }}">
+                          <a href="{{ route('warehouse.reviews') }}">
+                              <i class="fa fa-fw fa-star-half-o"></i>
+                              <span>Product Reviews</span>
+                          </a>
+                      </li>
                       <li class="">
                           <a href="#!">
                               <i class="fa fa-fw fa-line-chart"></i>

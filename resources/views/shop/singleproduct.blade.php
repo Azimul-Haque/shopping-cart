@@ -82,7 +82,35 @@
                     <div class="col-md-5 col-sm-12 col-md-offset-1">
                         <!-- product rating -->
                         <div class="rating margin-five no-margin-top">
-                            <i class="fa fa-star black-text"></i><i class="fa fa-star black-text"></i><i class="fa fa-star black-text"></i><i class="fa fa-star black-text"></i><i class="fa fa-star-o black-text"></i><span class="rating-text text-uppercase">{{ $product->productreviews->count() }} Reviews</span>
+                            @php
+                              $avgrating = $product->productreviews->sum('rating') / $product->productreviews->count();
+                            @endphp
+                            @if($avgrating >= 1)
+                              <i class="fa fa-star black-text"></i>
+                            @else
+                              <i class="fa fa-star-o black-text"></i>
+                            @endif
+                            @if($avgrating >= 2)
+                              <i class="fa fa-star black-text"></i>
+                            @else
+                              <i class="fa fa-star-o black-text"></i>
+                            @endif
+                            @if($avgrating >= 3)
+                              <i class="fa fa-star black-text"></i>
+                            @else
+                              <i class="fa fa-star-o black-text"></i>
+                            @endif
+                            @if($avgrating >= 4)
+                              <i class="fa fa-star black-text"></i>
+                            @else
+                              <i class="fa fa-star-o black-text"></i>
+                            @endif
+                            @if($avgrating >= 5)
+                              <i class="fa fa-star black-text"></i>
+                            @else
+                              <i class="fa fa-star-o black-text"></i>
+                            @endif
+                            <span class="rating-text text-uppercase">{{ $product->productreviews->count() }} Reviews</span>
                             <span class="rating-text text-uppercase pull-right">
                               SKU: 
                               @if($product->code != '')
@@ -194,16 +222,39 @@
                                 <div class="tab-pane fade in" id="reviews_tab">
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12 review-main">
+                                          @foreach($product->productreviews as $review)
                                             <div class="review">
-                                                <p class="letter-spacing-2 text-uppercase review-name"><strong>Nathan Ford,</strong> March 15, 2015</p>
-                                                <p><i class="fa fa-star black-text"></i><i class="fa fa-star black-text"></i><i class="fa fa-star black-text"></i><i class="fa fa-star-o black-text"></i><i class="fa black-text fa-star-o"></i></p>
-                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text.</p>
+                                                <p class="letter-spacing-2 text-uppercase review-name"><strong>{{ $review->user->name }},</strong> {{ date('F d, Y', strtotime($review->created_at)) }}</p>
+                                                <p>
+                                                  @if($review->rating >= 1)
+                                                    <i class="fa fa-star black-text"></i>
+                                                  @else
+                                                    <i class="fa fa-star-o black-text"></i>
+                                                  @endif
+                                                  @if($review->rating >= 2)
+                                                    <i class="fa fa-star black-text"></i>
+                                                  @else
+                                                    <i class="fa fa-star-o black-text"></i>
+                                                  @endif
+                                                  @if($review->rating >= 3)
+                                                    <i class="fa fa-star black-text"></i>
+                                                  @else
+                                                    <i class="fa fa-star-o black-text"></i>
+                                                  @endif
+                                                  @if($review->rating >= 4)
+                                                    <i class="fa fa-star black-text"></i>
+                                                  @else
+                                                    <i class="fa fa-star-o black-text"></i>
+                                                  @endif
+                                                  @if($review->rating >= 5)
+                                                    <i class="fa fa-star black-text"></i>
+                                                  @else
+                                                    <i class="fa fa-star-o black-text"></i>
+                                                  @endif
+                                                </p>
+                                                <p>{{ $review->comment }}</p>
                                             </div>
-                                            <div class="review">
-                                                <p class="letter-spacing-2 text-uppercase review-name"><strong>Paul Scrivens,</strong> March 09, 2015</p>
-                                                <p><i class="fa fa-star black-text"></i><i class="fa fa-star black-text"></i><i class="fa fa-star black-text"></i><i class="fa fa-star black-text"></i><i class="fa black-text fa-star-o"></i></p>
-                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                                            </div>
+                                          @endforeach
                                         </div>
                                         <div class="col-md-5 col-sm-12 col-md-offset-1 blog-single-full-width-form sm-margin-top-seven">
                                             <div class="blog-comment-form">

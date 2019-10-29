@@ -11,6 +11,8 @@ use App\Subcategory;
 use App\Product;
 use App\Productimage;
 use App\Order;
+use App\Productreview;
+
 use Carbon\Carbon;
 use Image;
 use DB, Validator, Input, Redirect, File;
@@ -530,5 +532,20 @@ class WarehouseController extends Controller
       $customers = User::where('role', 'customer')->paginate(10);
       return view('warehouse.customers')
               ->withCustomers($customers);
+    }
+
+    public function getReviews() {
+      $reviews = Productreview::orderBy('id', 'desc')->paginate(10);
+      return view('warehouse.reviews')
+              ->withReviews($reviews);
+    }
+
+    public function deleteReview($id) 
+    {
+      $review = Productreview::find($id);
+      $review->delete();
+
+      Session::flash('success', 'Deleted successfully!');
+      return redirect()->route('warehouse.reviews');
     }
 }

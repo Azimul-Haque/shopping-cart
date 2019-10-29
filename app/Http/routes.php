@@ -350,6 +350,16 @@ Route::delete('/admin/settings/admin/{id}/delete', [
     'as' => 'admin.deleteadmin',
     'middleware' => 'admin'
 ]);
+Route::get('/warehouse/reviews', [
+    'uses' => 'WarehouseController@getReviews',
+    'as' => 'warehouse.reviews',
+    'middleware' => 'admin'
+]);
+Route::delete('/warehouse/review/{id}/delete', [
+    'uses' => 'WarehouseController@deleteReview',
+    'as' => 'warehouse.deletereview',
+    'middleware' => 'admin'
+]);
 /*admin activity routes*/
 /*admin activity routes*/
 

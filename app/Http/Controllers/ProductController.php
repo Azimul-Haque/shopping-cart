@@ -136,16 +136,14 @@ class ProductController extends Controller
       ]);
 
       $review = new Productreview;
-      $relatedproducts = Product::where('isAvailable', '!=', '0')
-                         ->where('category_id', $product->category_id)
-                         ->inRandomOrder()
-                         ->get()->take(10);
-      $newarrivals = Product::orderBy('id', 'desc')->where('isAvailable', 1)->get()->take(5);
+      $review->rating = $request->rating;
+      $review->comment = $request->comment;
+      $review->product_id = $request->product_id;
+      $review->user_id = Auth::user()->id;
+      $review->save();
 
-      return view('shop.singleproduct')
-                        ->withProduct($product)
-                        ->withRelatedproducts($relatedproducts)
-                        ->withNewarrivals($newarrivals);
+      Session::flash('success', 'Thank you for your review!');
+      return redirect()->route('product.getsingleproduct', [$request->product_id, generate_token(100)]);
     }
 
     public function addProductToWishList($product_id, $user_id) 
