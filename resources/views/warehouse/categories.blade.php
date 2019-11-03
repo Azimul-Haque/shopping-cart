@@ -99,7 +99,7 @@
                           @if($subcategory->isAvailable == 1)
                           Archive
                           @elseif($subcategory->isAvailable == 0)
-                          Unrchive
+                          Unarchive
                           @endif
                         ?</h4>
                         </div>
@@ -110,11 +110,14 @@
                                 Confirm 
                                 @if($subcategory->isAvailable == 1)
                                 Archive
-                                @elseif($subcategory->isAvailable == 0)
-                                Unrchive
-                                @endif
                                 <b>{{ $subcategory->name }}</b>?<br/>
                                 Associated Products will be unavailable too!
+                                @elseif($subcategory->isAvailable == 0)
+                                Unarchive
+                                <b>{{ $subcategory->name }}</b>?<br/>
+                                Associated Products will be available too!
+                                @endif
+                                
                               </center>
                             </big>
                           </p>
