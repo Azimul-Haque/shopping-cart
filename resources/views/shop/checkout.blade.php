@@ -154,7 +154,7 @@
         $('#checkout-btn[type="submit"]').attr('disabled','disabled');
         toastr.warning('আপনি অর্জিত ব্যালেন্স ৳ {{ bangla(Auth::user()->points) }} এর বেশি ব্যবহার করতে পারবেন না!').css('width', '400px');
         $('#actualtotalprice').val({{ $cart->totalPrice }});
-      } else if({{ Auth::user()->points }} > {{ $cart->totalPrice }} && ($('#useearnedbalance').val() > {{ $cart->totalPrice }})) {
+      } else if(({{ Auth::user()->points }} > {{ $cart->totalPrice }}) && ($('#useearnedbalance').val() > {{ $cart->totalPrice }})) {
         $('#checkout-btn[type="submit"]').attr('disabled','disabled');
         toastr.warning('মোট পণ্যমূল্য ৳ {{ bangla($cart->totalPrice) }} এর বেশি দিতে পারবেন না!').css('width', '400px');
         $('#actualtotalprice').val({{ $cart->totalPrice }});

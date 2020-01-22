@@ -285,12 +285,13 @@ class ProductController extends Controller
         'fcode'                => 'sometimes',
         'useearnedbalance'     => 'required',
         'deliverylocation'     => 'required',
-        'deliverylocation'     => 'required',
         'payment_method'       => 'required'
       ]);
 
       $oldCart = Session::get('cart');
       $cart = new Cart($oldCart);
+
+      // calculate deliverycharge
       if($request->deliverylocation == 0) {
         $cart->addDeliveryCharges(60); // hardcoder deliverycharge
       } elseif($request->deliverylocation == 1020) {
@@ -299,6 +300,15 @@ class ProductController extends Controller
         $cart->addDeliveryCharges(100); // hardcoder deliverycharge
       }
 
+      // calculate with the earned balance
+      if((($cart->totalPrice > Auth::user()->points) && ($request->useearnedbalance <= Auth::user()->points)) || ((Auth::user()->points > $cart->totalPrice) && ($request->useearnedbalance <= $cart->totalPrice)))
+      {
+        $cart->calculateEarnedBalance($request->useearnedbalance);
+        Auth::user()->points = Auth::user()->points - $request->useearnedbalance;
+        Auth::user()->save();
+      }
+      
+      // dd($cart->totalPrice);
       try{
         $order = new Order();
         $order->cart = serialize($cart); // save korar somoy serialize kore save korte hobe

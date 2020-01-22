@@ -79,4 +79,8 @@ class Cart
       $this->deliveryCharge = $amount;
       $this->totalPrice = $this->totalPrice + $amount;
     }
+
+    public function calculateEarnedBalance($amount) {
+      $this->totalPrice = $this->totalPrice - $amount;
+    }
 }
