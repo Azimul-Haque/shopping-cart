@@ -84,9 +84,9 @@
 	      	  <tr>
 	      	    <td colspan="3"></td>
 	      	    <td align="right" style="line-height: 1.5em;">
-	      	      SUBTOTAL ৳ {{ $order->cart->totalPrice - $order->cart->deliveryCharge }}<br/>
+	      	      SUBTOTAL ৳ {{ $order->cart->totalPrice - $order->cart->deliveryCharge + $order->cart->discount }}<br/>
 	      	      Delivery Charge ৳ {{ $order->cart->deliveryCharge }}<br/>
-	      	      Discount ৳ 0<br/>
+	      	      Discount/ Earned Balance Usage ৳ {{ $order->cart->discount }}<br/>
 	      	      <big>TOTAL ৳ {{ $order->cart->totalPrice }}</big>
 	      	    </td>
 	      	  </tr>
