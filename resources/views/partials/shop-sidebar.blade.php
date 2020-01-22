@@ -11,29 +11,38 @@
         <ul class="category-list">
         	@foreach($categories as $category)
         	   @if($category->products->count() > 0)
-                    <li>
-                        <a href="{{ route('product.categorywise', [$category->id, generate_token(100)]) }}">
-                            {{ $category->name }}<span>{{ $category->products->count() }}</span>
-                        </a>
-                        <ul class="subcategory-list">
-                            @foreach($category->subcategories as $subcategory)
-                                @if($subcategory->isAvailable == 1 && $subcategory->products->count() > 0)
-                                    <li
-                                    @if(!empty($subcategoryid))
-                                        @if($subcategoryid == $subcategory->id)
-                                        class="active"
+                    @php
+                      $totalproductofthiscat = 0;
+                      foreach($category->subcategories as $subcategory) {
+                        if($subcategory->isAvailable == 1) {
+                          $totalproductofthiscat = $totalproductofthiscat + $subcategory->products->count();
+                        }
+                      }
+                    @endphp
+                    @if($category->products->count() > 0 && $totalproductofthiscat > 0)
+                        <li>
+                            <a href="{{ route('product.categorywise', [$category->id, generate_token(100)]) }}">
+                                {{ $category->name }}<span>{{ $category->products->count() }}</span>
+                            </a>
+                            <ul class="subcategory-list">
+                                @foreach($category->subcategories as $subcategory)
+                                    @if($subcategory->isAvailable == 1 && $subcategory->products->count() > 0)
+                                        <li
+                                        @if(!empty($subcategoryid))
+                                            @if($subcategoryid == $subcategory->id)
+                                            class="active"
+                                            @endif
                                         @endif
+                                        >
+                                            <a href="{{ route('product.subcategorywise', [$subcategory->id, generate_token(100)]) }}">
+                                                {{ $subcategory->name }}<span>{{ $subcategory->products->count() }}</span>
+                                            </a>
+                                        </li>
                                     @endif
-                                    >
-                                        <a href="{{ route('product.subcategorywise', [$subcategory->id, generate_token(100)]) }}">
-                                            {{ $subcategory->name }}<span>{{ $subcategory->products->count() }}</span>
-                                        </a>
-                                    </li>
-                                @endif
-                            @endforeach
-                        </ul>
-                        
-                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                    @endif
                @endif
         	@endforeach
             {{-- <li class="active"><a href="#">Dresses<span>48</span></a></li> --}}
