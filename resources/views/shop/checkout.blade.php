@@ -56,34 +56,31 @@
               </li>
               @endforeach
             </ul>
-            
-            <ul class="list-group">
-              <li class="list-group-item">
-                <h4 class="right">ডেলিভারি চার্জঃ ৳ <span id="deliveryCharge">{{ $cart->deliveryCharge }}</span></h4><br/>
-              </li>
-              <li class="list-group-item">
-                <h4 class="right">
-                  <table style="float: right;">
-                    <tr>
-                      <td><label for="useearnedbalance" style="margin-right: 10px;">অর্জিত ব্যালেন্স থেকে পরিশোধঃ ৳ </label></td>
-                      <td>
-                        @if($cart->totalPrice > Auth::user()->points)
-                          <input type="number" id="useearnedbalance" max="{{ Auth::user()->points }}" min="0" class="form-control" value="0">
-                        @else
-                          <input type="number" id="useearnedbalance" max="{{ $cart->totalPrice }}" min="0" class="form-control" value="0">
-                        @endif
-                      </td>
-                    </tr>
-                  </table>
-                </h4><br/><br/>
-              </li>
-              <li class="list-group-item">
-                <h4 class="right bold">মোট পরিশোধনীয় মূল্যঃ ৳ <span id="totalPrice">{{ $cart->totalPrice }}</span></h4><br/>
-              </li>
-            </ul>
-            
-            
             {!! Form::open(['route' => 'product.checkout', 'method' => 'POST']) !!}
+              <ul class="list-group">
+                <li class="list-group-item">
+                  <h4 class="right">ডেলিভারি চার্জঃ ৳ <span id="deliveryCharge">{{ $cart->deliveryCharge }}</span></h4><br/>
+                </li>
+                <li class="list-group-item">
+                  <h4 class="right">
+                    <table style="float: right;">
+                      <tr>
+                        <td><label for="useearnedbalance" style="margin-right: 10px;">অর্জিত ব্যালেন্স থেকে পরিশোধঃ ৳ </label></td>
+                        <td>
+                          @if($cart->totalPrice > Auth::user()->points)
+                            <input type="number" name="useearnedbalance" id="useearnedbalance" max="{{ Auth::user()->points }}" min="0" class="form-control" value="0" onchange="useEarnedBalance()">
+                          @else
+                            <input type="number" name="useearnedbalance" id="useearnedbalance" max="{{ $cart->totalPrice }}" min="0" class="form-control" value="0" onchange="useEarnedBalance()">
+                          @endif
+                        </td>
+                      </tr>
+                    </table>
+                  </h4><br/><br/>
+                </li>
+                <li class="list-group-item">
+                  <h4 class="right bold">মোট পরিশোধনীয় মূল্যঃ ৳ <span id="totalPrice">{{ $cart->totalPrice }}</span></h4><br/>
+                </li>
+              </ul>
 
               {!! Form::label('address', 'পণ্য প্রেরণের ঠিকানা') !!}
               {!! Form::text('address', Auth::user()->address, array('class' => 'form-control')) !!}<br/>
@@ -114,7 +111,7 @@
                 </div>
               </div>
 
-              {!! Form::submit('আপনার অর্ডারটি নিশ্চিত করুন', array('class' => 'highlight-button-black-background btn btn-medium  no-margin pull-right checkout-btn xs-width-100 xs-text-center', 'style' => 'margin-top:20px;')) !!}
+              {!! Form::submit('আপনার অর্ডারটি নিশ্চিত করুন', array('class' => 'highlight-button-black-background btn btn-medium no-margin pull-right checkout-btn xs-width-100 xs-text-center', 'style' => 'margin-top:20px;', 'id' => 'checkout-btn')) !!}
             {!! Form::close() !!}
           </div>
         </div>
@@ -149,5 +146,18 @@
         $('#bKashText').text('অর্ডার কনফার্ম করার পর আমাদের একজন প্রতিনিধি আপনাকে ফোন করে বিকাশ নম্বর প্রদান করবেন।');
       }
     })
+
+    function useEarnedBalance() {
+      // $('#checkout-btn[type="submit"]').attr('disabled','disabled');
+      if({{ $cart->totalPrice }} > {{ Auth::user()->points }}) {
+        toastr.warning('The amount you set cannot be more than {{ Auth::user()->points }}!').css('width', '400px');
+      } else if({{ Auth::user()->points }} > {{ $cart->totalPrice }}) {
+        toastr.warning('The amount you set cannot be more than {{ $cart->totalPrice }}!').css('width', '400px');
+      }
+      if($('#useearnedbalance').val() > {{ Auth::user()->points }}) {
+        
+      }
+      
+    }
   </script>
 @endsection
