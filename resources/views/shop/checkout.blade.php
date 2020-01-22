@@ -78,6 +78,7 @@
                   </h4><br/><br/>
                 </li>
                 <li class="list-group-item">
+                  <input type="text" name="actualtotalprice" id="actualtotalprice" value="{{ $cart->totalPrice }}">
                   <h4 class="right bold">মোট পরিশোধনীয় মূল্যঃ ৳ <span id="totalPrice">{{ $cart->totalPrice }}</span></h4><br/>
                 </li>
               </ul>
@@ -136,7 +137,7 @@
         $('#freePickUpPoint').text('');
       }
       $('#deliveryCharge').text(deliveryCharge);
-      $('#totalPrice').text({{ $cart->totalPrice }} + deliveryCharge);
+      $('#totalPrice').text(parseFloat($('#actualtotalprice').val()) + deliveryCharge);
     });
 
     $('#payment_method').change(function() {
@@ -152,11 +153,17 @@
       if(({{ $cart->totalPrice }} > {{ Auth::user()->points }}) && ($('#useearnedbalance').val() > {{ Auth::user()->points }})) {
         $('#checkout-btn[type="submit"]').attr('disabled','disabled');
         toastr.warning('The amount you set cannot be more than ৳ {{ Auth::user()->points }}!').css('width', '400px');
+        $('#actualtotalprice').val({{ $cart->totalPrice }});
       } else if({{ Auth::user()->points }} > {{ $cart->totalPrice }} && ($('#useearnedbalance').val() > {{ $cart->totalPrice }})) {
-        ('#checkout-btn[type="submit"]').attr('disabled','disabled');
+        $('#checkout-btn[type="submit"]').attr('disabled','disabled');
         toastr.warning('The amount you set cannot be more than ৳ {{ $cart->totalPrice }}!').css('width', '400px');
+        $('#actualtotalprice').val({{ $cart->totalPrice }});
       } else {
-        
+        $('#checkout-btn[type="submit"]').removeAttr('disabled');
+
+        var totalPriceNow = {{ $cart->totalPrice }} - parseFloat($('#useearnedbalance').val());
+        $('#actualtotalprice').val(totalPriceNow);
+        // $('#totalPrice').text(parseFloat($('#actualtotalprice').val()) + deliveryCharge);
       }
     }
   </script>
