@@ -99,7 +99,15 @@
             $categorytitlecolors = ['#ff8a80', '#ea80fc', '#b9f6ca', '#f4ff81', '#ffd180', '#00e676', '#1de9b6', '#80d8ff', '#f8bbd0', '#76ff03', '#ff6f00', '#bcaaa4', '#90a4ae', '#c5e1a5', '#18ffff', '#82b1ff']
           @endphp
           @foreach($categories as $category)
-            @if($category->products->count() > 0)
+            @php
+              $totalproductofthiscat = 0;
+              foreach($category->subcategories as $subcategory) {
+                if($subcategory->isAvailable == 1) {
+                  $totalproductofthiscat = $totalproductofthiscat + $subcategory->products->count();
+                }
+              }
+            @endphp
+            @if($category->products->count() > 0 && $totalproductofthiscat > 0)
               @php
                 $colornow = $categorytitlecolors[array_rand($categorytitlecolors)];
               @endphp
