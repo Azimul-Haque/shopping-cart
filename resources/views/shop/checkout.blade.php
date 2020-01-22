@@ -78,7 +78,7 @@
                   </h4><br/><br/>
                 </li>
                 <li class="list-group-item">
-                  <input type="text" name="actualtotalprice" id="actualtotalprice" value="{{ $cart->totalPrice }}">
+                  <input type="hidden" name="actualtotalprice" id="actualtotalprice" value="{{ $cart->totalPrice }}">
                   <h4 class="right bold">মোট পরিশোধনীয় মূল্যঃ ৳ <span id="totalPrice">{{ $cart->totalPrice }}</span></h4><br/>
                 </li>
               </ul>
@@ -89,7 +89,7 @@
               <div class="row">
                 <div class="col-md-4">
                   <label for="deliverylocation">Delivery Location</label>
-                  <select id="deliverylocation" name="deliverylocation" class="form-control" required="">
+                  <select id="deliverylocation" name="deliverylocation" class="form-control" required="" onchange="changeDeliveryLocation()">
                     <option value="" selected="" disabled="">Select Location</option>
                     <option value="0">Inside Dhaka</option>
                     <option value="1020">Free Pick-up Point</option> {{-- apatoto --}}
@@ -123,7 +123,7 @@
 
 @section('js')
   <script type="text/javascript">
-    $('#deliverylocation').change(function() {
+    function changeDeliveryLocation() {
       var deliveryCharge;
       var oldTotalPrice;
       if($('#deliverylocation').val() == 0) {
@@ -138,7 +138,7 @@
       }
       $('#deliveryCharge').text(deliveryCharge);
       $('#totalPrice').text(parseFloat($('#actualtotalprice').val()) + deliveryCharge);
-    });
+    };
 
     $('#payment_method').change(function() {
       if($('#payment_method').val() == 0) {
@@ -152,18 +152,17 @@
       // $('#checkout-btn[type="submit"]').attr('disabled','disabled');
       if(({{ $cart->totalPrice }} > {{ Auth::user()->points }}) && ($('#useearnedbalance').val() > {{ Auth::user()->points }})) {
         $('#checkout-btn[type="submit"]').attr('disabled','disabled');
-        toastr.warning('The amount you set cannot be more than ৳ {{ Auth::user()->points }}!').css('width', '400px');
+        toastr.warning('আপনি অর্জিত ব্যালেন্স ৳ {{ bangla(Auth::user()->points) }} এর বেশি ব্যবহার করতে পারবেন না!').css('width', '400px');
         $('#actualtotalprice').val({{ $cart->totalPrice }});
       } else if({{ Auth::user()->points }} > {{ $cart->totalPrice }} && ($('#useearnedbalance').val() > {{ $cart->totalPrice }})) {
         $('#checkout-btn[type="submit"]').attr('disabled','disabled');
-        toastr.warning('The amount you set cannot be more than ৳ {{ $cart->totalPrice }}!').css('width', '400px');
+        toastr.warning('মোট পণ্যমূল্য ৳ {{ bangla($cart->totalPrice) }} এর বেশি দিতে পারবেন না!').css('width', '400px');
         $('#actualtotalprice').val({{ $cart->totalPrice }});
       } else {
         $('#checkout-btn[type="submit"]').removeAttr('disabled');
-
         var totalPriceNow = {{ $cart->totalPrice }} - parseFloat($('#useearnedbalance').val());
         $('#actualtotalprice').val(totalPriceNow);
-        // $('#totalPrice').text(parseFloat($('#actualtotalprice').val()) + deliveryCharge);
+        changeDeliveryLocation();
       }
     }
   </script>

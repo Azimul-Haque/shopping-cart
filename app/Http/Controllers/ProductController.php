@@ -281,11 +281,12 @@ class ProductController extends Controller
       }
 
       $this->validate($request, [
-        'address'          => 'required',
-        'fcode'            => 'sometimes',
-        'deliverylocation'         => 'required',
-        'deliverylocation'   => 'required',
-        'payment_method'   => 'required'
+        'address'              => 'required',
+        'fcode'                => 'sometimes',
+        'useearnedbalance'     => 'required',
+        'deliverylocation'     => 'required',
+        'deliverylocation'     => 'required',
+        'payment_method'       => 'required'
       ]);
 
       $oldCart = Session::get('cart');
