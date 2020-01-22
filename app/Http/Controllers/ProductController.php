@@ -303,7 +303,7 @@ class ProductController extends Controller
       // calculate with the earned balance
       if((($cart->totalPrice > Auth::user()->points) && ($request->useearnedbalance <= Auth::user()->points)) || ((Auth::user()->points > $cart->totalPrice) && ($request->useearnedbalance <= $cart->totalPrice)))
       {
-        $cart->calculateEarnedBalance($request->useearnedbalance);
+        $cart->calculateEarnedBalance((float) $request->useearnedbalance);
         Auth::user()->points = Auth::user()->points - $request->useearnedbalance;
         Auth::user()->save();
       }

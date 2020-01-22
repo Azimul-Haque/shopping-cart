@@ -17,8 +17,8 @@ class Cart
         $this->totalQty = $oldCart->totalQty;
         $this->totalPrice = $oldCart->totalPrice;
         $this->totalProfit = $oldCart->totalProfit;
-        $this->discount = $oldCart->discount;
         $this->deliveryCharge = $oldCart->deliveryCharge;
+        $this->discount = $oldCart->discount;
       }
     }
 

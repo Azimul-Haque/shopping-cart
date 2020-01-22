@@ -120,6 +120,10 @@
                     Delivery Charge
                     <span class="badge">৳ {{ json_encode($orders->first()->cart->deliveryCharge) }}</span>
                   </li>
+                  <li class="list-group-item">
+                    Discount/ Earned Balance Usage
+                    <span class="badge">৳ {{ json_encode($orders->first()->cart->discount) }}</span>
+                  </li>
                 </ul>
               </div>
               <div class="panel-footer panel-footer-custom">
@@ -183,6 +187,10 @@
                         <li class="list-group-item">
                           Delivery Charge
                           <span class="badge">৳ {{ json_encode($order->cart->deliveryCharge) }}</span>
+                        </li>
+                        <li class="list-group-item">
+                          Discount/ Earned Balance Usage
+                          <span class="badge">৳ {{ json_encode($order->cart->discount) }}</span>
                         </li>
                       </ul>
                     </div>
