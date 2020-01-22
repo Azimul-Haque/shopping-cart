@@ -149,15 +149,15 @@
 
     function useEarnedBalance() {
       // $('#checkout-btn[type="submit"]').attr('disabled','disabled');
-      if({{ $cart->totalPrice }} > {{ Auth::user()->points }}) {
-        toastr.warning('The amount you set cannot be more than {{ Auth::user()->points }}!').css('width', '400px');
-      } else if({{ Auth::user()->points }} > {{ $cart->totalPrice }}) {
-        toastr.warning('The amount you set cannot be more than {{ $cart->totalPrice }}!').css('width', '400px');
-      }
-      if($('#useearnedbalance').val() > {{ Auth::user()->points }}) {
+      if(({{ $cart->totalPrice }} > {{ Auth::user()->points }}) && ($('#useearnedbalance').val() > {{ Auth::user()->points }})) {
+        $('#checkout-btn[type="submit"]').attr('disabled','disabled');
+        toastr.warning('The amount you set cannot be more than ৳ {{ Auth::user()->points }}!').css('width', '400px');
+      } else if({{ Auth::user()->points }} > {{ $cart->totalPrice }} && ($('#useearnedbalance').val() > {{ $cart->totalPrice }})) {
+        ('#checkout-btn[type="submit"]').attr('disabled','disabled');
+        toastr.warning('The amount you set cannot be more than ৳ {{ $cart->totalPrice }}!').css('width', '400px');
+      } else {
         
       }
-      
     }
   </script>
 @endsection
