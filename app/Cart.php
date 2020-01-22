@@ -9,6 +9,7 @@ class Cart
     public $totalPrice = 0;
     public $totalProfit = 0;
     public $deliveryCharge = 0;
+    public $discount = 0;
 
     public function __construct($oldCart) {
       if ($oldCart) {
@@ -16,6 +17,7 @@ class Cart
         $this->totalQty = $oldCart->totalQty;
         $this->totalPrice = $oldCart->totalPrice;
         $this->totalProfit = $oldCart->totalProfit;
+        $this->discount = $oldCart->discount;
         $this->deliveryCharge = $oldCart->deliveryCharge;
       }
     }
@@ -81,6 +83,7 @@ class Cart
     }
 
     public function calculateEarnedBalance($amount) {
+      $this->discount = $amount;
       $this->totalPrice = $this->totalPrice - $amount;
     }
 }
