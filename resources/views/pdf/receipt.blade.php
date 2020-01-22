@@ -88,9 +88,9 @@
       <tr>
         <td colspan="3"></td>
         <td align="right" class="calibri_normal" style="line-height: 1.5em;">
-          SUBTOTAL <span style="font-family: 'kalpurush', sans-serif;">৳</span> {{ $order->cart->totalPrice - $order->cart->deliveryCharge }}<br/>
+          SUBTOTAL <span style="font-family: 'kalpurush', sans-serif;">৳</span> {{ $order->cart->totalPrice - $order->cart->deliveryCharge + $order->cart->discount }}<br/>
           Delivery Charge <span style="font-family: 'kalpurush', sans-serif;">৳</span> {{ $order->cart->deliveryCharge }}<br/>
-          Discount <span style="font-family: 'kalpurush', sans-serif;">৳</span> 0<br/>
+          Discount <span style="font-family: 'kalpurush', sans-serif;">৳</span> {{ $order->cart->discount }}<br/>
           <big>TOTAL <span style="font-family: 'kalpurush', sans-serif;">৳</span> {{ $order->cart->totalPrice }}</big>
         </td>
       </tr>

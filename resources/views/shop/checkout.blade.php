@@ -61,22 +61,26 @@
                 <li class="list-group-item">
                   <h4 class="right">ডেলিভারি চার্জঃ ৳ <span id="deliveryCharge">{{ $cart->deliveryCharge }}</span></h4><br/>
                 </li>
-                <li class="list-group-item">
-                  <h4 class="right">
-                    <table style="float: right;">
-                      <tr>
-                        <td><label for="useearnedbalance" style="margin-right: 10px;">অর্জিত ব্যালেন্স থেকে পরিশোধঃ ৳ </label></td>
-                        <td>
-                          @if($cart->totalPrice > Auth::user()->points)
-                            <input type="number" name="useearnedbalance" id="useearnedbalance" max="{{ Auth::user()->points }}" min="0" class="form-control" value="0" onchange="useEarnedBalance()">
-                          @else
-                            <input type="number" name="useearnedbalance" id="useearnedbalance" max="{{ $cart->totalPrice }}" min="0" class="form-control" value="0" onchange="useEarnedBalance()">
-                          @endif
-                        </td>
-                      </tr>
-                    </table>
-                  </h4><br/><br/>
-                </li>
+                @if(Auth::user()->points > 0)
+                  <li class="list-group-item">
+                    <h4 class="right">
+                      <table style="float: right;">
+                        <tr>
+                          <td><label for="useearnedbalance" style="margin-right: 10px;">অর্জিত ব্যালেন্স থেকে পরিশোধঃ ৳ </label></td>
+                          <td>
+                            
+                              @if($cart->totalPrice > Auth::user()->points)
+                                <input type="number" name="useearnedbalance" id="useearnedbalance" max="{{ Auth::user()->points }}" min="0" class="form-control" value="0" onchange="useEarnedBalance()">
+                              @else
+                                <input type="number" name="useearnedbalance" id="useearnedbalance" max="{{ $cart->totalPrice }}" min="0" class="form-control" value="0" onchange="useEarnedBalance()">
+                              @endif
+                            
+                          </td>
+                        </tr>
+                      </table>
+                    </h4><br/><br/>
+                  </li>
+                @endif
                 <li class="list-group-item">
                   <input type="hidden" name="actualtotalprice" id="actualtotalprice" value="{{ $cart->totalPrice }}">
                   <h4 class="right bold">মোট পরিশোধনীয় মূল্যঃ ৳ <span id="totalPrice">{{ $cart->totalPrice }}</span></h4><br/>
