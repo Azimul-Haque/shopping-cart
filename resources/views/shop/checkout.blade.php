@@ -136,8 +136,11 @@
       } else if ($('#deliverylocation').val() == 1020) {
         deliveryCharge = 0;
         $('#freePickUpPoint').text('Peri Pasta or Pizza Burg, Mirpur- 02, Contact no - 01315852563');
-      } else {
+      } else if ($('#deliverylocation').val() == 2) {
         deliveryCharge = 100;
+        $('#freePickUpPoint').text('');
+      } else {
+        deliveryCharge = 0;
         $('#freePickUpPoint').text('');
       }
       $('#deliveryCharge').text(deliveryCharge);
