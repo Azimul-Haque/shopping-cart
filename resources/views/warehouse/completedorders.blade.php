@@ -109,10 +109,12 @@
                                         <div class="row">
                                           <div class="col-md-12">
                                             <strong style="float: right;">
-                                              মোট পরিশোধনীয় মূল্যঃ ৳ <big>{{ $dueorder->cart->totalPrice }}</big>
+                                              মোট পরিশোধনীয় মূল্যঃ ৳ <big>{{ $dueorder->cart->totalPrice - $dueorder->cart->deliveryCharge + $dueorder->cart->discount }}</big>
                                             </strong>
                                             <br/><br/>
                                             <strong style="float: right !important;">ডেলিভারি চার্জঃ ৳ {{ $dueorder->cart->deliveryCharge }}</strong>
+                                            <br/>
+                                            <strong style="float: right !important;">ডিসকাউন্ট/ অর্জিত ব্যালেন্স থেকে পরিশোধঃ ৳ {{ $dueorder->cart->discount }}</strong>
                                             <br/>
                                             <span style="float: right !important;">
                                             ________________________</span><br/><br/>
@@ -164,7 +166,7 @@
               <tr>
                 <td>{{ $order->payment_id }}</td>
                 <td>{{ $order->created_at->format('h:i A') }}</td>
-                <td>
+                <td align="center">
                   @if($order->status == 0)
                     <span class="label label-warning"><i class="fa fa-file-text-o" aria-hidden="true" title="{{ status($order->status) }}"></i></span>
                   @elseif($order->status == 1)

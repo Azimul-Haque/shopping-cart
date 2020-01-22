@@ -119,10 +119,12 @@
                                         <div class="row">
                                           <div class="col-md-12">
                                             <strong style="float: right;">
-                                              মোট পরিশোধনীয় মূল্যঃ ৳ <big>{{ $dueorder->cart->totalPrice - $dueorder->cart->deliveryCharge }}</big>
+                                              মোট পরিশোধনীয় মূল্যঃ ৳ <big>{{ $dueorder->cart->totalPrice - $dueorder->cart->deliveryCharge + $dueorder->cart->discount }}</big>
                                             </strong>
                                             <br/><br/>
                                             <strong style="float: right !important;">ডেলিভারি চার্জঃ ৳ <span id="deliveryCharge{{ $dueorder->id }}">{{ $dueorder->cart->deliveryCharge }}</span></strong>
+                                            <br/>
+                                            <strong style="float: right !important;">ডিসকাউন্ট/ অর্জিত ব্যালেন্স থেকে পরিশোধঃ ৳ {{ $dueorder->cart->discount }}</strong>
                                             <br/>
                                             <span style="float: right !important;">
                                             ________________________</span><br/><br/>
