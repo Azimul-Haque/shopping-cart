@@ -42,7 +42,8 @@
             <h2>ক্রেতার নামঃ {{ Auth::user()->name }}</h2>
             আইডিঃ {{ Auth::user()->code }}<br/>
             যোগাযোগের নম্বরঃ {{ Auth::user()->phone }}<br/>
-            ইমেইলঃ {{ Auth::user()->email }}
+            ইমেইলঃ {{ Auth::user()->email }}<br/>
+            <big>অর্জিত ব্যালেন্সঃ <b>৳ {{ Auth::user()->points }}</b></big>
             <br/><br/>
           </div>
           <div class="col-md-8">
@@ -59,6 +60,22 @@
             <ul class="list-group">
               <li class="list-group-item">
                 <h4 class="right">ডেলিভারি চার্জঃ ৳ <span id="deliveryCharge">{{ $cart->deliveryCharge }}</span></h4><br/>
+              </li>
+              <li class="list-group-item">
+                <h4 class="right">
+                  <table style="float: right;">
+                    <tr>
+                      <td><label for="useearnedbalance" style="margin-right: 10px;">অর্জিত ব্যালেন্স থেকে পরিশোধঃ ৳ </label></td>
+                      <td>
+                        @if($cart->totalPrice > Auth::user()->points)
+                          <input type="number" id="useearnedbalance" max="{{ Auth::user()->points }}" min="0" class="form-control" value="0">
+                        @else
+                          <input type="number" id="useearnedbalance" max="{{ $cart->totalPrice }}" min="0" class="form-control" value="0">
+                        @endif
+                      </td>
+                    </tr>
+                  </table>
+                </h4><br/><br/>
               </li>
               <li class="list-group-item">
                 <h4 class="right bold">মোট পরিশোধনীয় মূল্যঃ ৳ <span id="totalPrice">{{ $cart->totalPrice }}</span></h4><br/>
