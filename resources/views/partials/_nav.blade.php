@@ -34,18 +34,20 @@
                             <!-- sub menu -->
                             <ul id="collapse5" class="dropdown-menu mega-menu panel-collapse collapse mega-menu-full">
                                 @foreach($categories as $category)
-                                    <li class="mega-menu-column col-sm-3" style="min-height: 200px;">
-                                        <!-- sub menu item  -->
-                                        <ul>
-                                            <li class="dropdown-header"><a href="{{ route('product.categorywise', [$category->id, generate_token(100)]) }}">{{ $category->name }}</a></li>
-                                            @foreach($category->subcategories as $subcategory)
-                                                @if($subcategory->isAvailable == 1)
-                                                <li><a href="{{ route('product.subcategorywise', [$subcategory->id, generate_token(100)]) }}">{{ $subcategory->name }}</a></li>
-                                                @endif
-                                            @endforeach
-                                        </ul>
-                                        <!-- end sub menu item  -->
-                                    </li>
+                                    @if($category->products->count() > 0)
+                                        <li class="mega-menu-column col-sm-3" style="min-height: 200px;">
+                                            <!-- sub menu item  -->
+                                            <ul>
+                                                <li class="dropdown-header"><a href="{{ route('product.categorywise', [$category->id, generate_token(100)]) }}">{{ $category->name }}</a></li>
+                                                @foreach($category->subcategories as $subcategory)
+                                                    @if($subcategory->isAvailable == 1)
+                                                    <li><a href="{{ route('product.subcategorywise', [$subcategory->id, generate_token(100)]) }}">{{ $subcategory->name }}</a></li>
+                                                    @endif
+                                                @endforeach
+                                            </ul>
+                                            <!-- end sub menu item  -->
+                                        </li>
+                                    @endif
                                 @endforeach
                             </ul>
                             <!-- end sub menu -->
