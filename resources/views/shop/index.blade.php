@@ -119,7 +119,7 @@
                       </div>
                       <ul class="subcategory_list_ul">
                         @foreach($category->subcategories as $subcategory)
-                          @if($subcategory->isAvailable == 1)
+                          @if($subcategory->isAvailable == 1 && $subcategory->products->count() > 0)
                           <a href="{{ route('product.subcategorywise', [$subcategory->id, generate_token(100)]) }}">
                             <li>{{ $subcategory->name }} ({{ $subcategory->products->count() }})</li>
                           </a>
