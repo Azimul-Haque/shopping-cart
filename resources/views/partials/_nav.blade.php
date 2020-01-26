@@ -38,7 +38,11 @@
                                       $totalproductofthiscat = 0;
                                       foreach($category->subcategories as $subcategory) {
                                         if($subcategory->isAvailable == 1) {
-                                          $totalproductofthiscat = $totalproductofthiscat + $subcategory->products->count();
+                                          foreach ($subcategory->products as $product) {
+                                            if($product->isAvailable == 1) {
+                                              $totalproductofthiscat = $totalproductofthiscat + 1;
+                                            }
+                                          }
                                         }
                                       }
                                     @endphp
@@ -48,7 +52,17 @@
                                             <ul>
                                                 <li class="dropdown-header"><a href="{{ route('product.categorywise', [$category->id, generate_token(100)]) }}">{{ $category->name }}</a></li>
                                                 @foreach($category->subcategories as $subcategory)
-                                                    @if($subcategory->isAvailable == 1 && $subcategory->products->count() > 0)
+                                                    @php
+                                                      $totalproductofthissubcat = 0;
+                                                      if($subcategory->isAvailable == 1) {
+                                                        foreach ($subcategory->products as $product) {
+                                                          if($product->isAvailable == 1) {
+                                                            $totalproductofthissubcat = $totalproductofthissubcat + 1;
+                                                          }
+                                                        }
+                                                      }
+                                                    @endphp
+                                                    @if($subcategory->isAvailable == 1 && $totalproductofthissubcat > 0)
                                                     <li><a href="{{ route('product.subcategorywise', [$subcategory->id, generate_token(100)]) }}">{{ $subcategory->name }}</a></li>
                                                     @endif
                                                 @endforeach
