@@ -70,9 +70,9 @@
                           <td>
                             
                               @if($cart->totalPrice > Auth::user()->points)
-                                <input type="number" name="useearnedbalance" id="useearnedbalance" max="{{ Auth::user()->points }}" min="0" class="form-control" value="0" onchange="useEarnedBalance()">
+                                <input type="number" name="useearnedbalance" id="useearnedbalance" max="{{ Auth::user()->points }}" min="0" step=".01" class="form-control" value="0" onchange="useEarnedBalance()">
                               @else
-                                <input type="number" name="useearnedbalance" id="useearnedbalance" max="{{ $cart->totalPrice }}" min="0" class="form-control" value="0" onchange="useEarnedBalance()">
+                                <input type="number" name="useearnedbalance" id="useearnedbalance" max="{{ $cart->totalPrice }}" min="0" step=".01" class="form-control" value="0" onchange="useEarnedBalance()">
                               @endif
                             
                           </td>
