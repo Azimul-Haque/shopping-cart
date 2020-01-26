@@ -122,13 +122,20 @@
                           <h3>{{ $category->name }}</h3>
                       </div>
                       <ul class="subcategory_list_ul">
-                        @php
-
-                        @endphp
                         @foreach($category->subcategories as $subcategory)
-                          @if($subcategory->isAvailable == 1 && $subcategory->products->count() > 0)
+                          @php
+                            $totalproductofthissubcat = 0;
+                            if($subcategory->isAvailable == 1) {
+                              foreach ($subcategory->products as $product) {
+                                if($product->isAvailable == 1) {
+                                  $totalproductofthissubcat = $totalproductofthissubcat + 1;
+                                }
+                              }
+                            }
+                          @endphp
+                          @if($subcategory->isAvailable == 1 && $totalproductofthissubcat > 0)
                           <a href="{{ route('product.subcategorywise', [$subcategory->id, generate_token(100)]) }}">
-                            <li>{{ $subcategory->name }} ({{ $subcategory->products->count() }})</li>
+                            <li>{{ $subcategory->name }} ({{ $totalproductofthissubcat }})</li>
                           </a>
                           @endif
                         @endforeach

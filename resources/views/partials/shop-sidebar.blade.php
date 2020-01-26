@@ -15,7 +15,11 @@
                       $totalproductofthiscat = 0;
                       foreach($category->subcategories as $subcategory) {
                         if($subcategory->isAvailable == 1) {
-                          $totalproductofthiscat = $totalproductofthiscat + $subcategory->products->count();
+                          foreach ($subcategory->products as $product) {
+                            if($product->isAvailable == 1) {
+                              $totalproductofthiscat = $totalproductofthiscat + 1;
+                            }
+                          }
                         }
                       }
                     @endphp
@@ -26,7 +30,17 @@
                             </a>
                             <ul class="subcategory-list">
                                 @foreach($category->subcategories as $subcategory)
-                                    @if($subcategory->isAvailable == 1 && $subcategory->products->count() > 0)
+                                    @php
+                                      $totalproductofthissubcat = 0;
+                                      if($subcategory->isAvailable == 1) {
+                                        foreach ($subcategory->products as $product) {
+                                          if($product->isAvailable == 1) {
+                                            $totalproductofthissubcat = $totalproductofthissubcat + 1;
+                                          }
+                                        }
+                                      }
+                                    @endphp
+                                    @if($subcategory->isAvailable == 1 && $totalproductofthissubcat > 0)
                                         <li
                                         @if(!empty($subcategoryid))
                                             @if($subcategoryid == $subcategory->id)
@@ -35,7 +49,7 @@
                                         @endif
                                         >
                                             <a href="{{ route('product.subcategorywise', [$subcategory->id, generate_token(100)]) }}">
-                                                {{ $subcategory->name }}<span>{{ $subcategory->products->count() }}</span>
+                                                {{ $subcategory->name }}<span>{{ $totalproductofthissubcat }}</span>
                                             </a>
                                         </li>
                                     @endif
