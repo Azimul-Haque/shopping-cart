@@ -3,7 +3,7 @@
 	<center>
 	  <div style="border-top: 4px solid #6F7246; padding: 10px; margin: 20px; max-width: 500px; background: #FFF; ">
 	    <center>
-	      <img src="{{ asset('images/logo.png') }}" width="100px; height: auto;">
+	      <img src="{{ asset('images/logo.png') }}" style="width:100px; height: auto;">
 	      <p style="font-size: 30px; color: #1B237D;"><b>Loyal</b>অভিযাত্রী</p>
 	      <p style="font-size: 25px"><b>Your Password Reset Link</b></p>
 	    
